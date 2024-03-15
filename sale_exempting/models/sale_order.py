@@ -8,11 +8,27 @@ class SaleOrder(models.Model):
         string='Is real',
         required=False)
 
+    partner_id = fields.Many2one(
+        comodel_name='res.partner',
+        domain="[('is_real', '=', True), ('company_id', 'in', (False, company_id))]")
+
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:
-            if record.partner_id and record.partner_id.is_real:
+            if record.partner_id and record.partner_id.is_real and (not record.partner_id.fictitious_id or record.partner_id.fictitious_id != record.partner_id):
                 record.is_real = True
+                record.journal_id = self.env.ref('sale_exempting.journal_sale_exempting').id
+            elif record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
+                record.is_real = False
+                record.journal_id = False
+            else:
+                record.is_real = False
+                record.journal_id = False
+
+    def _prepare_invoice(self):
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals['is_real'] = self.is_real
+        return invoice_vals
 
     @api.model_create_multi
     def create(self, vals_list):
