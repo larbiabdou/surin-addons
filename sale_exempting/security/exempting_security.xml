@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="can_view_declared_customer" model="res.groups">
+        <field name="name">Accès aux clients contrepartie</field>
+    </record>
+</odoo>
