@@ -4,7 +4,7 @@
         <record id="journal_sale_exempting" model="account.journal">
             <field name="name">Factures client réeles</field>
             <field name="type">sale</field>
-            <field name="code">EXFAC</field>
+            <field name="code">EFAC</field>
         </record>
     </data>
 </odoo>

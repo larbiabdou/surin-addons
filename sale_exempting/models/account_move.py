@@ -8,6 +8,10 @@ class AccountMove(models.Model):
         string='Is real',
         required=False)
 
+    is_fictitious = fields.Boolean(
+        string='Is fictitious',
+        required=False)
+
     real_invoice_id = fields.Many2one(
         comodel_name='account.move',
         string='Fictitious invoice',
@@ -84,6 +88,7 @@ class AccountMove(models.Model):
                             'invoice_date': self.invoice_date,
                             'journal_id': self.env.ref('account.1_sale', raise_if_not_found=False).id,
                             'real_invoice_id': self.id,
+                            'is_fictitious': True,
                             'invoice_line_ids': [(0, 0, line) for line in new_move_lines],
                         })
 
@@ -95,6 +100,12 @@ class AccountMoveLine(models.Model):
         string='Is real',
         related="move_id.is_real",
         store=True,
+        required=False)
+
+    is_fictitious = fields.Boolean(
+        string='Is fictitious',
+        store=True,
+        related="move_id.is_fictitious",
         required=False)
 
     remaining_qty_not_declared = fields.Float(
