@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_invoice_report_search_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.report.search.inherit</field>
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='current']" position="after">
+                <separator/>
+                <filter string="Real Invoice" name="real_invoice" domain="[('is_real','=', True)]"/>
+                <filter string="Declared Invoice" name="declared_invoice" domain="[('is_fictitious','=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

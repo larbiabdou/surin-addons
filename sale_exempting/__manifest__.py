@@ -14,6 +14,7 @@
         'views/account_move_views.xml',
         'views/sale_order_views.xml',
         'views/product_template_views.xml',
+        'views/account_invoice_report_views.xml',
     ],
     'installable': True,
     'auto_install': False
