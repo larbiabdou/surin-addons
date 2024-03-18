@@ -6,10 +6,16 @@
     <record id="can_view_fictitious_invoices" model="res.groups">
         <field name="name">Accès aux Factures contrepartie</field>
     </record>
-        <record id="account_rule_can_view_fictitious_invoices" model="ir.rule">
+    <record id="account_rule_can_view_fictitious_invoices" model="ir.rule">
         <field name="name">Facture contrepartie</field>
         <field ref="account.model_account_move" name="model_id"/>
-        <field name="domain_force">[('is_fictitious','=',True)]</field>
+        <field name="domain_force">[('is_fictitious', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
+    </record>
+    <record id="account_rule_can_view_fictitious_journal_item" model="ir.rule">
+        <field name="name">Ecriture comptable  contrepartie</field>
+        <field ref="account.model_account_move_line" name="model_id"/>
+        <field name="domain_force">[('is_fictitious', '=', True)]</field>
         <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
     </record>
     <function name="write" model="ir.model.data">
@@ -19,11 +25,26 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="account.account_move_see_all" model="ir.rule">
-        <field name="domain_force">[('is_fictitious', '=', False)]</field>
+        <field name="domain_force">[('is_real', '=', True)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_see_all')]"/>
+            </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_see_all')]"/>
+            </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="account.account_move_line_see_all" model="ir.rule">
+        <field name="domain_force">[('is_real', '=', True)]</field>
+    </record>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_see_all')]"/>
             </function>
         <value eval="{'noupdate': True}" />
     </function>
@@ -36,7 +57,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="account.account_move_rule_group_readonly" model="ir.rule">
-        <field name="domain_force">[('is_fictitious', '=', False)]</field>
+        <field name="domain_force">[('is_real', '=', True)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
@@ -44,6 +65,22 @@
             </function>
         <value eval="{'noupdate': True}" />
     </function>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_rule_group_readonly')]"/>
+            </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="account.account_move_line_rule_group_readonly" model="ir.rule">
+        <field name="domain_force">[('is_real', '=', True)]</field>
+    </record>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_rule_group_readonly')]"/>
+            </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
           <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_rule_group_invoice')]"/>
@@ -51,11 +88,27 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="account.account_move_rule_group_invoice" model="ir.rule">
-        <field name="domain_force">[('is_fictitious', '=', False)]</field>
+        <field name="domain_force">[('is_real', '=', True)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_rule_group_invoice')]"/>
+            </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_rule_group_invoice')]"/>
+            </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="account.account_move_line_rule_group_invoice" model="ir.rule">
+        <field name="domain_force">[('is_real', '=', True)]</field>
+    </record>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'account'), ('name', '=', 'account_move_line_rule_group_invoice')]"/>
             </function>
         <value eval="{'noupdate': True}" />
     </function>
@@ -69,7 +122,7 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="sale.account_invoice_rule_see_personal" model="ir.rule">
-        <field name="domain_force">[('is_fictitious', '=', False),('move_type', 'in', ('out_invoice', 'out_refund')), '|', ('invoice_user_id', '=', user.id), ('invoice_user_id', '=', False)]</field>
+        <field name="domain_force">[('move_type', 'in', ('out_invoice', 'out_refund')), '|', ('invoice_user_id', '=', user.id), ('invoice_user_id', '=', False), ('is_real', '=', True)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
@@ -77,6 +130,23 @@
             </function>
         <value eval="{'noupdate': True}" />
     </function>
+
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_line_rule_see_personal')]"/>
+            </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.account_invoice_line_rule_see_personal" model="ir.rule">
+        <field name="domain_force">[('move_id.move_type', 'in', ('out_invoice', 'out_refund')), '|', ('move_id.invoice_user_id', '=', user.id), ('move_id.invoice_user_id', '=', False), ('is_real', '=', True)]</field>
+    </record>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_line_rule_see_personal')]"/>
+            </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_rule_see_all')]"/>
@@ -84,11 +154,26 @@
         <value eval="{'noupdate': False}" />
     </function>
     <record id="sale.account_invoice_rule_see_all" model="ir.rule">
-        <field name="domain_force">[('is_fictitious', '=', False),('move_type', 'in', ('out_invoice', 'out_refund'))]</field>
+        <field name="domain_force">[('move_type', 'in', ('out_invoice', 'out_refund')), ('is_real', '=', True)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_rule_see_all')]"/>
+            </function>
+        <value eval="{'noupdate': True}" />
+    </function>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_line_rule_see_all')]"/>
+            </function>
+        <value eval="{'noupdate': False}" />
+    </function>
+    <record id="sale.account_invoice_line_rule_see_all" model="ir.rule">
+        <field name="domain_force">[('move_id.move_type', 'in', ('out_invoice', 'out_refund')), ('is_real', '=', True)]</field>
+    </record>
+    <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_line_rule_see_all')]"/>
             </function>
         <value eval="{'noupdate': True}" />
     </function>

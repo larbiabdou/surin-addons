@@ -27,9 +27,19 @@ class AccountMove(models.Model):
         compute="compute_remaining_qty",
         required=False)
 
-    @api.onchange('is_real')
-    def onchange_is_real(self):
-        self.field_name = ''
+    @api.onchange('partner_id')
+    def onchange_customer_id(self):
+        for record in self:
+            if record.partner_id and record.partner_id.is_real and (not record.partner_id.fictitious_id or record.partner_id.fictitious_id != record.partner_id):
+                record.is_real = True
+                record.is_fictitious = False
+            elif record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
+                record.is_real = True
+                record.is_fictitious = True
+
+    #@api.onchange('is_real')
+    #def onchange_is_real(self):
+       # self.field_name = ''
 
     def compute_remaining_qty(self):
         for record in self:
