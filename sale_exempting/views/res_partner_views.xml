@@ -7,8 +7,8 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="is_real" groups="sale_exempting.can_view_declared_customer"/>
-                <field name="fictitious_id" invisible="not is_real" groups="sale_exempting.can_view_declared_customer"/>
+                <field name="is_real"/>
+                <field name="fictitious_id" invisible="not is_real"/>
             </xpath>
         </field>
     </record>
