@@ -42,9 +42,9 @@
                         </button>
             </xpath>
             <xpath expr="//field[@name='ref']" position="after">
-                <field name="is_real" invisible="move_type != 'out_invoice'" groups="sale_exempting.can_view_fictitious_invoices"/>
-                <field name="is_fictitious" invisible="move_type != 'out_invoice'" groups="sale_exempting.can_view_fictitious_invoices"/>
-                <field name="real_invoice_id" invisible="not is_fictitious or is_real" groups="sale_exempting.can_view_fictitious_invoices"/>
+                <field name="is_real" invisible="move_type != 'out_invoice'" />
+                <field name="is_fictitious" invisible="move_type != 'out_invoice'" />
+                <field name="real_invoice_id" invisible="not is_fictitious or is_real" />
             </xpath>
         </field>
     </record>
