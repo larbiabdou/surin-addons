@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_fictitious_view_tree" model="ir.ui.view">
+        <field name="name">stock_picking_fictitious_view_tree</field>
+        <field name="model">stock.picking.fictitious</field>
+        <field name="arch" type="xml">
+            <tree string="_tree">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="operation_type_id"/>
+                <field name="origin"/>
+                <field name="scheduled_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="stock_picking_fictitious_view_form" model="ir.ui.view">
+        <field name="name">stock_picking_fictitious_view_form</field>
+        <field name="model">stock.picking.fictitious</field>
+        <field name="arch" type="xml">
+            <form string="Transfer">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_detailed_operations" class="oe_stat_button" icon="fa-bars" type="object" help="List view of detailed operations">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_text">Detailed Operations</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1 class="d-flex">
+                            <field name="name" invisible="name == '/'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="operation_type_id"/>
+                        </group>
+                        <group>
+                            <field name="scheduled_date"/>
+                            <field name="origin"/>
+                        </group>
+
+                    </group>
+                    <notebook>
+                        <page name="operations" string="Operations">
+                            <field name="operation_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="quantity"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="product_uom_qty"/>
+                                            <field name="detailed_operation_ids">
+                                                <tree>
+                                                    <field name="lot_id"/>
+                                                    <field name="quantity"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="stock_picking_fictitious_action" model="ir.actions.act_window">
+        <field name="name">Transferts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.picking.fictitious</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_stock_picking_fictitious" name="Transferts"
+              parent="account.menu_finance_receivables" action="stock_picking_fictitious_action"
+              groups="sale_exempting.can_view_fictitious_invoices"/>
+</odoo>

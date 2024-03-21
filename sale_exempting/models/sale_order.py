@@ -12,6 +12,11 @@ class SaleOrder(models.Model):
         comodel_name='res.partner',
         domain="[('is_real', '=', True), ('company_id', 'in', (False, company_id))]")
 
+    delivery_id = fields.Many2one(
+        comodel_name='stock.picking',
+        string='Delivery_id',
+        required=False)
+
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:
@@ -29,6 +34,7 @@ class SaleOrder(models.Model):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals['is_real'] = self.is_real
         invoice_vals['is_fictitious'] = not self.is_real
+        invoice_vals['delivery_id'] = self.delivery_id.id
         if self.partner_id and self.partner_id.is_real and self.partner_id.fictitious_id and self.partner_id.fictitious_id == self.partner_id:
             invoice_vals['is_real'] = True
             invoice_vals['is_fictitious'] = True
