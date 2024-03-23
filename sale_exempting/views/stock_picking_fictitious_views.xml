@@ -18,6 +18,9 @@
         <field name="model">stock.picking.fictitious</field>
         <field name="arch" type="xml">
             <form string="Transfer">
+                <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted"/>
+                    </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_detailed_operations" class="oe_stat_button" icon="fa-bars" type="object" help="List view of detailed operations">

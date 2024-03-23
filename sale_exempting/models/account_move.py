@@ -43,10 +43,6 @@ class AccountMove(models.Model):
                 record.is_real = True
                 record.is_fictitious = True
 
-    #@api.onchange('is_real')
-    #def onchange_is_real(self):
-       # self.field_name = ''
-
     def compute_remaining_qty(self):
         for record in self:
             record.remaining_qty_not_declared = sum(line.remaining_qty_not_declared for line in record.invoice_line_ids) or 0
@@ -111,31 +107,37 @@ class AccountMove(models.Model):
 
     def action_post(self):
         super(AccountMove, self).action_post()
-        if self.is_fictitious and self.move_type == 'out_invoice' and self.real_invoice_id:
-            self.create_fictitious_delivery()
+        if self.is_fictitious and self.move_type == 'out_invoice':
+            delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
+            if not delivery:
+                self.create_fictitious_delivery()
         if self.is_real and self.delivery_id and self.move_type == 'out_invoice':
             self.name = self.delivery_id.name
 
     def create_fictitious_delivery(self):
-        if self.is_fictitious and not self.is_real and self.real_invoice_id:
+        if self.delivery_id:
+            delivery_id = self.delivery_id
+        elif self.is_fictitious and not self.is_real and self.real_invoice_id:
             sale_line_ids = self.real_invoice_id.invoice_line_ids.sale_line_ids
             sale_id = sale_line_ids.mapped('order_id')
             if sale_id:
                 picking_id = self.env['stock.picking'].search([('sale_id', '=', sale_id.id)])
                 if picking_id:
-                    fictitious_transfer = self.env['stock.picking.fictitious'].create({
-                        'partner_id': picking_id.partner_id.id,
-                        'operation_type_id': picking_id.picking_type_id.id,
-                        'scheduled_date': picking_id.scheduled_date,
-                        'origin': self.name,
-                        'invoice_id': self.id,
-                    })
-                    for line in self.invoice_line_ids:
-                        fictitious_transfer.operation_ids = [(0, 0, {
-                            'product_id': line.product_id.id,
-                            'product_uom_qty': line.quantity,
-                            'quantity': line.quantity,
-                        })]
+                    delivery_id = picking_id[0]
+        if delivery_id:
+            fictitious_transfer = self.env['stock.picking.fictitious'].create({
+                'partner_id': delivery_id.partner_id.id,
+                'operation_type_id': delivery_id.picking_type_id.id,
+                'scheduled_date': delivery_id.scheduled_date,
+                'origin': self.name,
+                'invoice_id': self.id,
+            })
+            for line in self.invoice_line_ids:
+                fictitious_transfer.operation_ids = [(0, 0, {
+                    'product_id': line.product_id.id,
+                    'product_uom_qty': line.quantity,
+                    'quantity': line.quantity,
+                })]
 
 
 class AccountMoveLine(models.Model):

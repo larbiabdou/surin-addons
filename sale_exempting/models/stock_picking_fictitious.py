@@ -1,4 +1,6 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
+
 
 
 class StcokPickingFictitious(models.Model):
@@ -10,6 +12,8 @@ class StcokPickingFictitious(models.Model):
         string='Invoice_id',
         required=False)
     name = fields.Char(related='invoice_id.name', store=True)
+    state = fields.Selection()
+
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Delivery address',
@@ -33,10 +37,17 @@ class StcokPickingFictitious(models.Model):
 
     state = fields.Selection(
         string='State',
-        selection=[('cancel', 'Cancel'),
-                   ('posted', 'Posted'), ],
+        related='invoice_id.state',
+        selection=[('draft', 'Draft'),
+            ('posted', 'Posted'),
+            ('cancel', 'Cancelled'),],
         required=False, )
 
+    def unlink(self):
+        for record in self:
+            if record.state == 'posted':
+                raise ValidationError(_('You can not delete a posted transfer'))
+        return super(StcokPickingFictitious, self).unlink()
 
     def action_detailed_operations(self):
         self.ensure_one()

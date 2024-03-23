@@ -4,9 +4,15 @@ from odoo import api, fields, models, _
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    is_real = fields.Boolean(
+    # is_real = fields.Boolean(
+    #     string='Is real',
+    #     required=False)
+
+    is_real = fields.Selection(
         string='Is real',
-        required=False)
+        selection=[('yes', 'Yes'),
+                   ('no', 'No'), ],
+        required=True, )
 
     partner_id = fields.Many2one(
         comodel_name='res.partner',
@@ -17,23 +23,36 @@ class SaleOrder(models.Model):
         string='Delivery_id',
         required=False)
 
+    is_readonly = fields.Boolean(
+        string='Is_readonly',
+        compute="compute_is_readonly",
+        required=False)
+
+    @api.depends('partner_id')
+    def compute_is_readonly(self):
+        for record in self:
+            if record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
+                record.is_readonly = True
+            else:
+                record.is_readonly = False
+
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:
             if record.partner_id and record.partner_id.is_real and (not record.partner_id.fictitious_id or record.partner_id.fictitious_id != record.partner_id):
-                record.is_real = True
+                record.is_real = 'yes'
                 record.journal_id = self.env.ref('sale_exempting.journal_sale_exempting').id
             elif record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
-                record.is_real = False
+                record.is_real = 'no'
                 record.journal_id = False
             else:
-                record.is_real = False
+                record.is_real = 'no'
                 record.journal_id = False
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
-        invoice_vals['is_real'] = self.is_real
-        invoice_vals['is_fictitious'] = not self.is_real
+        invoice_vals['is_real'] = True if self.is_real == 'yes' else False
+        invoice_vals['is_fictitious'] = True if self.is_real == 'no' else False
         invoice_vals['delivery_id'] = self.delivery_id.id
         if self.partner_id and self.partner_id.is_real and self.partner_id.fictitious_id and self.partner_id.fictitious_id == self.partner_id:
             invoice_vals['is_real'] = True
@@ -47,7 +66,7 @@ class SaleOrder(models.Model):
                 seq_date = fields.Datetime.context_timestamp(
                     self, fields.Datetime.to_datetime(vals['date_order'])
                 ) if 'date_order' in vals else None
-                if vals['is_real'] == True:
+                if 'is_real' in vals and vals['is_real'] == 'yes':
                     vals['name'] = self.env['ir.sequence'].next_by_code(
                         'sale.order.exempt', sequence_date=seq_date) or _("New")
 

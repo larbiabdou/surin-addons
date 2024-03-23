@@ -6,7 +6,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <field name="partner_id" position='after'>
-                <field name="is_real"/>
+                <field name="is_readonly" invisible="1"/>
+                <field name="is_real" widget="radio" options="{'horizontal': True}"/>
                 <field name="journal_id" invisible="1"/>
             </field>
         </field>
