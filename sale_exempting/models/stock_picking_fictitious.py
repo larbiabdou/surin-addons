@@ -11,7 +11,7 @@ class StcokPickingFictitious(models.Model):
         comodel_name='account.move',
         string='Invoice_id',
         required=False)
-    name = fields.Char(related='invoice_id.name', store=True)
+    name = fields.Char(string='Name', store=True, compute="compute_name")
     state = fields.Selection()
 
     partner_id = fields.Many2one(
@@ -42,6 +42,18 @@ class StcokPickingFictitious(models.Model):
             ('posted', 'Posted'),
             ('cancel', 'Cancelled'),],
         required=False, )
+
+    @api.depends('invoice_id.name')
+    def compute_name(self):
+        for record in self:
+            if record.invoice_id:
+                list = self.invoice_id.name.rsplit('/')
+                if record.invoice_id.sale_type == 'type_1':
+                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.transfer.type_1')], limit=1)
+                else:
+                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.transfer.type_2')], limit=1)
+                prefix = sequence[0]._get_prefix_suffix()[0]
+                self.name = prefix + list[len(list) - 1]
 
     def unlink(self):
         for record in self:

@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
@@ -32,6 +33,51 @@ class AccountMove(models.Model):
         comodel_name='stock.picking',
         string='Delivery_id',
         required=False)
+
+    customers_domain = fields.Many2many(
+        comodel_name='res.partner',
+        compute="compute_customers_domain")
+
+    sale_type = fields.Selection(
+        string='Sale type',
+        compute="compute_sale_type",
+        selection=[('type_1', 'type 1'),
+                   ('type_2', 'Type 2'), ])
+    
+    def unlink(self):
+        for record in self:
+            delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', record.id)])
+            if delivery:
+                delivery.unlink()
+        super(AccountMove, self).unlink()
+
+    def compute_sale_type(self):
+        for record in self:
+            record.sale_type = ''
+            line = record.invoice_line_ids.filtered(lambda line: line.product_id.sale_type != '')
+            if line:
+                record.sale_type = line[0].product_id.sale_type
+
+    @api.constrains('invoice_line_ids')
+    def _check_sale_type(self):
+        for record in self:
+            if record.is_fictitious:
+                sale_type = ''
+                for line in record.invoice_line_ids:
+                    if line.product_id.sale_type == '':
+                        raise ValidationError(_('Sale type must not be empty in any product'))
+                    elif sale_type != '' and sale_type != line.product_id.sale_type:
+                        raise ValidationError(_('All product must have the same sale type'))
+                    else:
+                        sale_type = line.product_id.sale_type
+
+    @api.onchange('is_real')
+    def compute_customers_domain(self):
+        for record in self:
+            if record.is_real:
+                record.customers_domain = self.env['res.partner'].search([('is_real', '=', True)])
+            else:
+                record.customers_domain = self.env['res.partner'].search([('is_real', '=', False)])
 
     @api.onchange('partner_id')
     def onchange_customer_id(self):
@@ -96,25 +142,42 @@ class AccountMove(models.Model):
                 move_id = self.env['account.move'].create(
                     {
                         'move_type': self.move_type,
-                        'partner_id': self.partner_id.id,
+                        #'partner_id': self.partner_id.id,
                         'invoice_date': self.invoice_date,
                         'journal_id': self.env.ref('account.1_sale', raise_if_not_found=False).id,
                         'real_invoice_id': self.id,
                         'is_fictitious': True,
                         'is_real': False,
+                        #'type': type,
                         'invoice_line_ids': [(0, 0, line) for line in new_move_lines],
                     })
 
     def action_post(self):
         super(AccountMove, self).action_post()
-        if self.is_fictitious and self.move_type == 'out_invoice':
+        if self.is_fictitious and self.move_type == 'out_invoice' and self.sale_type != '':
+            if self.sale_type == 'type_1':
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
+                prefix = sequence[0]._get_prefix_suffix()[0]
+            else:
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
+                prefix = sequence[0]._get_prefix_suffix()[0]
+            if not self.name.startswith(prefix):
+                if self.sale_type == 'type_1':
+                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
+                else:
+                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
             delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
             if not delivery:
                 self.create_fictitious_delivery()
-        if self.is_real and self.delivery_id and self.move_type == 'out_invoice':
-            self.name = self.delivery_id.name
+        elif self.is_real and self.delivery_id and self.move_type == 'out_invoice':
+            list = self.delivery_id.name.rsplit('/')
+            sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
+            prefix = sequence[0]._get_prefix_suffix()[0]
+            self.name = prefix + list[len(list)-1]
+
 
     def create_fictitious_delivery(self):
+        delivery_id = False
         if self.delivery_id:
             delivery_id = self.delivery_id
         elif self.is_fictitious and not self.is_real and self.real_invoice_id:
