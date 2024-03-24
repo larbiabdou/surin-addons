@@ -174,16 +174,16 @@ class AccountMove(models.Model):
         super(AccountMove, self).action_post()
         if self.is_fictitious and self.move_type == 'out_invoice' and self.sale_type != '':
             if self.sale_type == 'type_1':
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.account.move.type_1')], limit=1)
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
             else:
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.account.move.type_2')], limit=1)
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
             if not self.name.startswith(prefix):
                 if self.sale_type == 'type_1':
-                    self.name = self.env['ir.sequence'].next_by_code('declared.account.move.type_1') or _("New")
+                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
                 else:
-                    self.name = self.env['ir.sequence'].next_by_code('declared.account.move.type_2') or _("New")
+                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
             delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
             if not delivery:
                 self.create_fictitious_delivery()
