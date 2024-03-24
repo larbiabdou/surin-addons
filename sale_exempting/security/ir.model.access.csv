@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_stock_picking_fictitious,access_stock_picking_fictitious,model_stock_picking_fictitious,base.group_user,1,1,1,1
 access_stock_move_fictitious,access_stock_move_fictitious,model_stock_move_fictitious,base.group_user,1,1,1,1
 access_stock_move_line_fictitious,access_stock_move_line_fictitious,model_stock_move_line_fictitious,base.group_user,1,1,1,1
+access_account_move_type,access_account_move_type,model_account_move_type,base.group_user,1,1,1,1

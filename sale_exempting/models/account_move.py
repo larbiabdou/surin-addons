@@ -5,6 +5,13 @@ from odoo.exceptions import ValidationError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    invoice_types = fields.Many2many(
+        comodel_name='account.move.type',
+        compute="compute_invoice_types",
+        relation="account_invoice_invoice_type_rel",
+        store=True,
+        string='Types de facture')
+
     is_real = fields.Boolean(
         string='Is real',
         default="True",
@@ -43,7 +50,18 @@ class AccountMove(models.Model):
         compute="compute_sale_type",
         selection=[('type_1', 'type 1'),
                    ('type_2', 'Type 2'), ])
-    
+
+    @api.depends('is_real', 'is_fictitious')
+    def compute_invoice_types(self):
+        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
+        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+        for record in self:
+            record.invoice_types = False
+            if record.is_real:
+                record.invoice_types = [(4, real.id)]
+            if record.is_fictitious:
+                record.invoice_types = [(4, declared.id)]
+
     def unlink(self):
         for record in self:
             delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', record.id)])
@@ -156,16 +174,16 @@ class AccountMove(models.Model):
         super(AccountMove, self).action_post()
         if self.is_fictitious and self.move_type == 'out_invoice' and self.sale_type != '':
             if self.sale_type == 'type_1':
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.account.move.type_1')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
             else:
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
+                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.account.move.type_2')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
             if not self.name.startswith(prefix):
                 if self.sale_type == 'type_1':
-                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
+                    self.name = self.env['ir.sequence'].next_by_code('declared.account.move.type_1') or _("New")
                 else:
-                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
+                    self.name = self.env['ir.sequence'].next_by_code('declared.account.move.type_2') or _("New")
             delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
             if not delivery:
                 self.create_fictitious_delivery()
@@ -206,6 +224,12 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    invoice_types = fields.Many2many(
+        comodel_name='account.move.type',
+        compute="compute_invoice_types",
+        store=True,
+        string='Invoice types')
+
     is_real = fields.Boolean(
         string='Is real',
         related="move_id.is_real",
@@ -227,6 +251,17 @@ class AccountMoveLine(models.Model):
         string='Real_line_id',
         required=False)
 
+    @api.depends('is_real', 'is_fictitious')
+    def compute_invoice_types(self):
+        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
+        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+        for record in self:
+            record.invoice_types = False
+            if record.is_real:
+                record.invoice_types = [(4, real.id)]
+            if record.is_fictitious:
+                record.invoice_types = [(4, declared.id)]
+
     def compute_remaining_qty(self):
         for record in self:
             fictitious_invoice_lines = self.env['account.move.line'].search([('move_id.real_invoice_id', '=', record.move_id.id),
@@ -235,4 +270,12 @@ class AccountMoveLine(models.Model):
                 record.remaining_qty_not_declared = record.quantity - sum(line.quantity for line in fictitious_invoice_lines)
             else:
                 record.remaining_qty_not_declared = record.quantity
+
+
+class InvoiceType(models.Model):
+    _name = 'account.move.type'
+    _description = 'Invoice Type'
+
+    name = fields.Char(string="Name")
+
 

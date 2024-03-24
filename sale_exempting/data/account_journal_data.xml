@@ -6,5 +6,11 @@
             <field name="type">sale</field>
             <field name="code">EFAC</field>
         </record>
+        <record id="invoice_type_real" model="account.move.type">
+            <field name="name">Réel</field>
+        </record>
+        <record id="invoice_type_declared" model="account.move.type">
+            <field name="name">Déclaré</field>
+        </record>
     </data>
 </odoo>
