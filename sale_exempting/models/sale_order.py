@@ -23,19 +23,6 @@ class SaleOrder(models.Model):
         string='Delivery_id',
         required=False)
 
-    is_readonly = fields.Boolean(
-        string='Is_readonly',
-        compute="compute_is_readonly",
-        required=False)
-
-    @api.depends('partner_id')
-    def compute_is_readonly(self):
-        for record in self:
-            if record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
-                record.is_readonly = True
-            else:
-                record.is_readonly = False
-
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:

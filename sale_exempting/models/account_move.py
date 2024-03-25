@@ -51,6 +51,12 @@ class AccountMove(models.Model):
         selection=[('type_1', 'type 1'),
                    ('type_2', 'Type 2'), ])
 
+    @api.constrains('is_real', 'is_fictitious')
+    def _check_sale_type(self):
+        for record in self:
+            if not record.is_real and not record.is_fictitious and record.move_type == 'out_invoice':
+                raise ValidationError(_('Sale Invoice must be real or declared'))
+
     @api.depends('is_real', 'is_fictitious')
     def compute_invoice_types(self):
         real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
@@ -79,7 +85,7 @@ class AccountMove(models.Model):
     @api.constrains('invoice_line_ids')
     def _check_sale_type(self):
         for record in self:
-            if record.is_fictitious:
+            if record.is_fictitious and record.move_type == 'out_invoice':
                 sale_type = ''
                 for line in record.invoice_line_ids:
                     if line.product_id.sale_type == '':
@@ -92,20 +98,23 @@ class AccountMove(models.Model):
     @api.onchange('is_real')
     def compute_customers_domain(self):
         for record in self:
-            if record.is_real:
-                record.customers_domain = self.env['res.partner'].search([('is_real', '=', True)])
-            else:
-                record.customers_domain = self.env['res.partner'].search([('is_real', '=', False)])
+            record.customers_domain = False
+            if record.move_type == 'out_invoice':
+                if record.is_real:
+                    record.customers_domain = self.env['res.partner'].search([('is_real', '=', True)])
+                else:
+                    record.customers_domain = self.env['res.partner'].search([('is_real', '=', False)])
 
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:
-            if record.partner_id and record.partner_id.is_real and (not record.partner_id.fictitious_id or record.partner_id.fictitious_id != record.partner_id):
-                record.is_real = True
-                record.is_fictitious = False
-            elif record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
-                record.is_real = True
-                record.is_fictitious = True
+            if record.move_type == 'out_invoice':
+                if record.partner_id and record.partner_id.is_real and (not record.partner_id.fictitious_id or record.partner_id.fictitious_id != record.partner_id):
+                    record.is_real = True
+                    record.is_fictitious = False
+                elif record.partner_id and record.partner_id.is_real and record.partner_id.fictitious_id and record.partner_id.fictitious_id == record.partner_id:
+                    record.is_real = True
+                    record.is_fictitious = True
 
     def compute_remaining_qty(self):
         for record in self:
@@ -172,26 +181,27 @@ class AccountMove(models.Model):
 
     def action_post(self):
         super(AccountMove, self).action_post()
-        if self.is_fictitious and self.move_type == 'out_invoice' and self.sale_type != '':
-            if self.sale_type == 'type_1':
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
-                prefix = sequence[0]._get_prefix_suffix()[0]
-            else:
-                sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
-                prefix = sequence[0]._get_prefix_suffix()[0]
-            if not self.name.startswith(prefix):
+        if self.move_type == 'out_invoice':
+            if self.is_fictitious and self.sale_type != '':
                 if self.sale_type == 'type_1':
-                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
+                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
+                    prefix = sequence[0]._get_prefix_suffix()[0]
                 else:
-                    self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
-            delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
-            if not delivery:
-                self.create_fictitious_delivery()
-        elif self.is_real and self.delivery_id and self.move_type == 'out_invoice':
-            list = self.delivery_id.name.rsplit('/')
-            sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
-            prefix = sequence[0]._get_prefix_suffix()[0]
-            self.name = prefix + list[len(list)-1]
+                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
+                    prefix = sequence[0]._get_prefix_suffix()[0]
+                if not self.name.startswith(prefix):
+                    if self.sale_type == 'type_1':
+                        self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
+                    else:
+                        self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
+                delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
+                if not delivery:
+                    self.create_fictitious_delivery()
+            elif self.is_real and self.delivery_id:
+                list = self.delivery_id.name.rsplit('/')
+                sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
+                prefix = sequence[0]._get_prefix_suffix()[0]
+                self.name = prefix + list[len(list)-1]
 
 
     def create_fictitious_delivery(self):
