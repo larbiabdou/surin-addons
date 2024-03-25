@@ -17,6 +17,7 @@
         'views/product_template_views.xml',
         'views/account_invoice_report_views.xml',
         'views/stock_picking_fictitious_views.xml',
+        'views/account_payment_views.xml',
     ],
     'installable': True,
     'auto_install': False

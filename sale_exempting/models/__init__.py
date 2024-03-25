@@ -5,3 +5,5 @@ from . import sale_order
 from . import account_invoice_report
 from . import stock_picking_fictitious
 from . import stock_picking
+from . import account_payment
+from . import account_payment_register
