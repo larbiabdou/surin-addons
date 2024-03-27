@@ -52,4 +52,16 @@
             </xpath>
         </field>
     </record>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+       <field name="name">account.move.search</field>
+       <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='cancel']" position="after">
+                <separator/>
+                <filter string="Real Invoice" name="real_invoice" domain="[('is_real','=', True)]" groups="sale_exempting.can_view_fictitious_invoices"/>
+                <filter string="Declared Invoice" name="declared_invoice" domain="[('is_fictitious','=', True)]" groups="sale_exempting.can_view_fictitious_invoices"/>
+            </xpath>
+       </field>
+    </record>
 </odoo>
