@@ -5,6 +5,12 @@ from odoo.exceptions import ValidationError
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
+    def default_has_group(self):
+        if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
+            return True
+        else:
+            return False
+
     is_real = fields.Boolean(
         string='Is real',
         default="True",
@@ -13,6 +19,19 @@ class AccountPayment(models.Model):
     is_fictitious = fields.Boolean(
         string='Is fictitious',
         required=False)
+
+    has_group = fields.Boolean(
+        string='Has_group',
+        default=default_has_group,
+        compute="compute_has_group",
+        required=False)
+
+    def compute_has_group(self):
+        for record in self:
+            if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
+                record.has_group = True
+            else:
+                record.has_group = False
 
     @api.constrains('is_real', 'is_fictitious')
     def _check_sale_type(self):

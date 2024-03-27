@@ -5,6 +5,12 @@ from odoo.exceptions import ValidationError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+    def default_has_group(self):
+        if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
+            return True
+        else:
+            return False
+
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
         compute="compute_invoice_types",
@@ -48,11 +54,26 @@ class AccountMove(models.Model):
     sale_type = fields.Selection(
         string='Sale type',
         compute="compute_sale_type",
+        store=True,
         selection=[('type_1', 'type 1'),
                    ('type_2', 'Type 2'), ])
 
+    has_group = fields.Boolean(
+        string='Has_group',
+        default=default_has_group,
+        compute="compute_has_group",
+        required=False)
+
+    def compute_has_group(self):
+        for record in self:
+            if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
+                record.has_group = True
+            else:
+                record.has_group = False
+
+
     @api.constrains('is_real', 'is_fictitious')
-    def _check_sale_type(self):
+    def _check_invoice_type(self):
         for record in self:
             if not record.is_real and not record.is_fictitious and record.move_type == 'out_invoice':
                 raise ValidationError(_('Sale Invoice must be real or declared'))
@@ -75,12 +96,22 @@ class AccountMove(models.Model):
                 delivery.unlink()
         super(AccountMove, self).unlink()
 
+    @api.depends('invoice_line_ids')
     def compute_sale_type(self):
         for record in self:
             record.sale_type = ''
             line = record.invoice_line_ids.filtered(lambda line: line.product_id.sale_type != '')
             if line:
                 record.sale_type = line[0].product_id.sale_type
+
+    def _search_default_journal(self):
+        journal = super(AccountMove, self)._search_default_journal()
+        if self.is_fictitious and self.move_type == 'out_invoice':
+            if self.sale_type == 'type_1':
+                journal = self.env.ref('account.1_sale', raise_if_not_found=False).id
+            else:
+                journal = self.env.ref('sale_exempting.journal_sale_declared', raise_if_not_found=False).id
+        return journal
 
     @api.constrains('invoice_line_ids')
     def _check_sale_type(self):
@@ -95,7 +126,7 @@ class AccountMove(models.Model):
                     else:
                         sale_type = line.product_id.sale_type
 
-    @api.onchange('is_real')
+    @api.depends('is_real')
     def compute_customers_domain(self):
         for record in self:
             record.customers_domain = False
@@ -166,12 +197,16 @@ class AccountMove(models.Model):
                         'tax_ids': [(6, 0, line.tax_ids.ids)],
                     })
             if new_move_lines:
+                if type == 'type_1':
+                    journal_id = self.env.ref('account.1_sale', raise_if_not_found=False)
+                else:
+                    journal_id = self.env.ref('sale_exempting.journal_sale_declared', raise_if_not_found=False)
                 move_id = self.env['account.move'].create(
                     {
                         'move_type': self.move_type,
-                        #'partner_id': self.partner_id.id,
+                        'partner_id': False,
                         'invoice_date': self.invoice_date,
-                        'journal_id': self.env.ref('account.1_sale', raise_if_not_found=False).id,
+                        'journal_id': journal_id.id,
                         'real_invoice_id': self.id,
                         'is_fictitious': True,
                         'is_real': False,
@@ -182,27 +217,15 @@ class AccountMove(models.Model):
     def action_post(self):
         super(AccountMove, self).action_post()
         if self.move_type == 'out_invoice':
-            if self.is_fictitious and self.sale_type != '':
-                if self.sale_type == 'type_1':
-                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_1')], limit=1)
-                    prefix = sequence[0]._get_prefix_suffix()[0]
-                else:
-                    sequence = self.env['ir.sequence'].search([('code', '=', 'declared.invoice.type_2')], limit=1)
-                    prefix = sequence[0]._get_prefix_suffix()[0]
-                if not self.name.startswith(prefix):
-                    if self.sale_type == 'type_1':
-                        self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_1') or _("New")
-                    else:
-                        self.name = self.env['ir.sequence'].next_by_code('declared.invoice.type_2') or _("New")
+            if self.is_fictitious:
                 delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
                 if not delivery:
                     self.create_fictitious_delivery()
-            elif self.is_real and self.delivery_id:
+            if self.is_real and self.delivery_id and not self.is_fictitious:
                 list = self.delivery_id.name.rsplit('/')
                 sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
                 self.name = prefix + list[len(list)-1]
-
 
     def create_fictitious_delivery(self):
         delivery_id = False
@@ -217,7 +240,6 @@ class AccountMove(models.Model):
                     delivery_id = picking_id[0]
         if delivery_id:
             fictitious_transfer = self.env['stock.picking.fictitious'].create({
-                'partner_id': delivery_id.partner_id.id,
                 'operation_type_id': delivery_id.picking_type_id.id,
                 'scheduled_date': delivery_id.scheduled_date,
                 'origin': self.name,

@@ -33,8 +33,9 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="is_real" readonly="state in ('cancel', 'posted')" groups="sale_exempting.can_view_fictitious_invoices"/>
-                <field name="is_fictitious" readonly="state in ('cancel', 'posted')" groups="sale_exempting.can_view_fictitious_invoices"/>
+                <field name="has_group" invisible="1"/>
+                <field name="is_real" readonly="state in ('cancel', 'posted')" invisible="not has_group or partner_type != 'customer'"/>
+                <field name="is_fictitious" readonly="state in ('cancel', 'posted')" invisible="not has_group or partner_type != 'customer'"/>
             </xpath>
 
         </field>

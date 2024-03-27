@@ -16,6 +16,7 @@ class StcokPickingFictitious(models.Model):
 
     partner_id = fields.Many2one(
         comodel_name='res.partner',
+        related="invoice_id.partner_id",
         string='Delivery address',
         required=False)
     operation_type_id = fields.Many2one(
