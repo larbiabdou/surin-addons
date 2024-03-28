@@ -13,7 +13,7 @@ class AccountMove(models.Model):
 
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
-        compute="compute_invoice_types",
+        #compute="compute_invoice_types",
         relation="account_invoice_invoice_type_rel",
         store=True,
         string='Types de facture')
@@ -78,16 +78,16 @@ class AccountMove(models.Model):
             if not record.is_real and not record.is_fictitious and record.move_type == 'out_invoice':
                 raise ValidationError(_('Sale Invoice must be real or declared'))
 
-    @api.depends('is_real', 'is_fictitious')
-    def compute_invoice_types(self):
-        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
-        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
-        for record in self:
-            record.invoice_types = False
-            if record.is_real:
-                record.invoice_types = [(4, real.id)]
-            if record.is_fictitious:
-                record.invoice_types = [(4, declared.id)]
+    # @api.depends('is_real', 'is_fictitious')
+    # def compute_invoice_types(self):
+    #     real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
+    #     declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+    #     for record in self:
+    #         record.invoice_types = False
+    #         if record.is_real:
+    #             record.invoice_types = [(4, real.id)]
+    #         if record.is_fictitious:
+    #             record.invoice_types = [(4, declared.id)]
 
     def unlink(self):
         for record in self:
@@ -258,7 +258,7 @@ class AccountMoveLine(models.Model):
 
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
-        compute="compute_invoice_types",
+        #compute="compute_invoice_types",
         store=True,
         string='Invoice types')
 
@@ -283,16 +283,16 @@ class AccountMoveLine(models.Model):
         string='Real_line_id',
         required=False)
 
-    @api.depends('is_real', 'is_fictitious')
-    def compute_invoice_types(self):
-        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
-        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
-        for record in self:
-            record.invoice_types = False
-            if record.is_real:
-                record.invoice_types = [(4, real.id)]
-            if record.is_fictitious:
-                record.invoice_types = [(4, declared.id)]
+    # @api.depends('is_real', 'is_fictitious')
+    # def compute_invoice_types(self):
+    #     real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
+    #     declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+    #     for record in self:
+    #         record.invoice_types = False
+    #         if record.is_real:
+    #             record.invoice_types = [(4, real.id)]
+    #         if record.is_fictitious:
+    #             record.invoice_types = [(4, declared.id)]
 
     def compute_remaining_qty(self):
         for record in self:
