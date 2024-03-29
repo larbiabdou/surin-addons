@@ -44,7 +44,7 @@
             <xpath expr="//field[@name='ref']" position="after">
                 <field name="has_group" invisible="1"/>
                 <field name="customers_domain" widget="many2many_tags" invisible="1"/>
-                <field name="sale_type" invisible="move_type != 'out_invoice'"/>
+                <field name="sale_type" invisible="move_type != 'out_invoice' or not is_fictitious"/>
                 <field name="invoice_types" widget="many2many_tags" invisible="1"/>
                 <field name="is_real" invisible="move_type != 'out_invoice' or not has_group" readonly="1"/>
                 <field name="is_fictitious" invisible="move_type != 'out_invoice' or not has_group" readonly="1"/>

@@ -7,13 +7,14 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="is_real"/>
-                <field name="fictitious_id" invisible="not is_real"/>
+                <field name="is_real" groups="sale_exempting.can_view_fictitious_invoices"/>
+                <field name="fictitious_id" invisible="not is_real" groups="sale_exempting.can_view_fictitious_invoices"/>
             </xpath>
         </field>
     </record>
     <record id="account.res_partner_action_customer" model="ir.actions.act_window">
         <field name="domain">[('is_real', '=', True)]</field>
+        <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True,'default_is_real': True, 'default_customer_rank': 1}</field>
     </record>
     <record id="action_account_declared_customers" model="ir.actions.act_window">
             <field name="name">Declared Customers</field>
