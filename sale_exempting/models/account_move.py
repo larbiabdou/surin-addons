@@ -38,7 +38,7 @@ class AccountMove(models.Model):
         required=False)
 
     remaining_qty_not_declared = fields.Float(
-        string='Remaining_qty_not_declared',
+        string='Quantité restante non déclaré',
         compute="compute_remaining_qty",
         required=False)
 
@@ -64,13 +64,21 @@ class AccountMove(models.Model):
         compute="compute_has_group",
         required=False)
 
+    declaration_state = fields.Selection(
+        string='Status de déclaration',
+        selection=[('not_declared', 'Non déclaré'),
+                   ('partially', 'Parciellement déclaré'),
+                   ('full', 'Déclaré')],
+        compute="compute_remaining_qty",
+        required=False, )
+
+
     def compute_has_group(self):
         for record in self:
             if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
                 record.has_group = True
             else:
                 record.has_group = False
-
 
     @api.constrains('is_real', 'is_fictitious')
     def _check_invoice_type(self):
@@ -150,6 +158,16 @@ class AccountMove(models.Model):
     def compute_remaining_qty(self):
         for record in self:
             record.remaining_qty_not_declared = sum(line.remaining_qty_not_declared for line in record.invoice_line_ids) or 0
+            if record.is_fictitious:
+                record.declaration_state = 'full'
+            else:
+                if record.remaining_qty_not_declared == sum(line.quantity for line in record.invoice_line_ids):
+                    record.declaration_state = 'not_declared'
+                elif record.remaining_qty_not_declared != 0:
+                    record.declaration_state = 'partially'
+                elif record.remaining_qty_not_declared == 0:
+                    record.declaration_state = 'full'
+
 
     def compute_count_fictitious_invoices(self):
         for record in self:
@@ -275,7 +293,7 @@ class AccountMoveLine(models.Model):
         required=False)
 
     remaining_qty_not_declared = fields.Float(
-        string='Remaining_qty_not_declared',
+        string='Quantité restante non déclaré',
         compute="compute_remaining_qty",
         required=False)
     real_line_id = fields.Many2one(

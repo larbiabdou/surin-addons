@@ -16,6 +16,11 @@
         <field name="domain">[('is_real', '=', True)]</field>
         <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True,'default_is_real': True, 'default_customer_rank': 1}</field>
     </record>
+    res_partner_action_customer
+        <record id="account.res_partner_action_customer" model="ir.actions.act_window">
+            <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+            <field name="domain">[('is_real', '=', True)]</field>
+        </record>
     <record id="action_account_declared_customers" model="ir.actions.act_window">
             <field name="name">Declared Customers</field>
             <field name="res_model">res.partner</field>
@@ -30,6 +35,6 @@
               </p>
             </field>
         </record>
-            <menuitem id="menu_declared_customer" parent="account.menu_finance_receivables"
+            <menuitem id="menu_declared_customer" parent="account.menu_finance_receivables" sequence="400"
           action="action_account_declared_customers" groups="sale_exempting.can_view_fictitious_invoices"/>
 </odoo>

@@ -81,7 +81,7 @@
         <field name="view_mode">tree,form</field>
     </record>
     <!-- This Menu Item must have a parent and an action -->
-    <menuitem id="menu_stock_picking_fictitious" name="Declared Transfers"
+    <menuitem id="menu_stock_picking_fictitious" name="Declared Transfers" sequence="300"
               parent="account.menu_finance_receivables" action="stock_picking_fictitious_action"
               groups="sale_exempting.can_view_fictitious_invoices"/>
 </odoo>

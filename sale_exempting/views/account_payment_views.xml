@@ -22,7 +22,18 @@
                 </p>
             </field>
         </record>
-        <menuitem id="menu_declared_payment" parent="account.menu_finance_receivables"
+    <record id="account.action_account_payments" model="ir.actions.act_window">
+            <field name="context">{
+                'default_payment_type': 'inbound',
+                'default_partner_type': 'customer',
+                'search_default_inbound_filter': 1,
+                'default_move_journal_types': ('bank', 'cash'),
+                'display_account_trust': True,
+                'is_real': True,
+            }</field>
+            <field name="domain">[('is_real', '=', True)]</field>
+        </record>
+        <menuitem id="menu_declared_payment" parent="account.menu_finance_receivables" sequence="200"
           action="action_account_declared_payments" groups="sale_exempting.can_view_fictitious_invoices"/>
     <!-- Inherit Form View to Modify it -->
 
