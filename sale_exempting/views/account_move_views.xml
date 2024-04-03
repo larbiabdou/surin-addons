@@ -60,7 +60,7 @@
             <field name="view_id" ref="sale_exempting.view_invoice_tree_declared"/>
             <field name="search_view_id" ref="account.view_account_invoice_filter"/>
             <field name="domain">[('move_type', '=', 'out_invoice'), ('is_fictitious', '=', True)]</field>
-            <field name="context">{'default_move_type': 'out_invoice', 'default_is_fictitious': True}</field>
+            <field name="context">{'default_move_type': 'out_invoice', 'default_is_fictitious': True,'create':False,}</field>
             <field name="help" type="html">
               <p class="o_view_nocontent_smiling_face">
                 Create a customer invoice
@@ -71,7 +71,7 @@
         </record>
         <record id="account.action_move_out_invoice_type" model="ir.actions.act_window">
             <field name="domain">[('move_type', '=', 'out_invoice'), ('is_real', '=', True)]</field>
-            <field name="context">{'default_move_type': 'out_invoice', 'default_is_real': True}</field>
+            <field name="context">{'default_move_type': 'out_invoice', 'default_is_real': True, 'create':False,}</field>
         </record>
     <record id="view_invoice_tree" model="ir.ui.view">
         <field name="name">view_invoice_tree</field>
