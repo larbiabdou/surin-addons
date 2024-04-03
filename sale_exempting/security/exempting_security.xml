@@ -3,6 +3,9 @@
     <record id="can_view_fictitious_invoices" model="res.groups">
         <field name="name">Accès aux Factures contrepartie</field>
     </record>
+    <record id="can_create_invoices_from_dashboard" model="res.groups">
+        <field name="name">Création des factures a partir du tableau de bord</field>
+    </record>
     <record id="can_view_real_invoices" model="res.groups">
         <field name="name">Accès aux Factures réel</field>
     </record>

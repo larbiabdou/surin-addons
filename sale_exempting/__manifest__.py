@@ -19,6 +19,7 @@
         'views/stock_picking_fictitious_views.xml',
         'views/account_payment_views.xml',
         'views/invoicing_dashboard.xml',
+        'views/account_journal_dashboard_views.xml',
     ],
     'installable': True,
     'auto_install': False
