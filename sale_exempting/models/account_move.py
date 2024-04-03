@@ -11,6 +11,11 @@ class AccountMove(models.Model):
         else:
             return False
 
+    invoice_real_name = fields.Char(
+        string='Vente valorisée',
+        default="Vente valorisée",
+        required=False)
+
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
         compute="compute_invoice_types",

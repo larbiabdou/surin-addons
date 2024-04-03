@@ -63,4 +63,7 @@
             </xpath>
         </field>
     </record>
+    <record id="account.menu_action_account_payments_receivable" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('sale_exempting.can_view_real_invoices'))]"/>
+    </record>
 </odoo>

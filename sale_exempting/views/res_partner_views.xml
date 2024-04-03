@@ -37,4 +37,7 @@
         </record>
             <menuitem id="menu_declared_customer" parent="account.menu_finance_receivables" sequence="400"
           action="action_account_declared_customers" groups="sale_exempting.can_view_fictitious_invoices"/>
+        <record id="account.menu_account_customer" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('sale_exempting.can_view_real_invoices'))]"/>
+        </record>
 </odoo>

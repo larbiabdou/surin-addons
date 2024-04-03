@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="sequence_sale_exempting" model="ir.sequence">
-            <field name="name">Sales Order Exempting</field>
-            <field name="code">sale.order.exempt</field>
-            <field name="prefix">EBC/%(y)s/</field>
-            <field name="padding">4</field>
-            <field name="company_id" eval="False"/>
-        </record>
         <record id="sequence_real_invoice" model="ir.sequence">
             <field name="name">Séquence Facture Réel</field>
             <field name="code">real.invoice</field>

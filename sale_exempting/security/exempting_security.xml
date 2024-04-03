@@ -3,6 +3,9 @@
     <record id="can_view_fictitious_invoices" model="res.groups">
         <field name="name">Accès aux Factures contrepartie</field>
     </record>
+    <record id="can_view_real_invoices" model="res.groups">
+        <field name="name">Accès aux Factures réel</field>
+    </record>
     <record id="account_rule_can_view_fictitious_invoices" model="ir.rule">
         <field name="name">Facture contrepartie</field>
         <field ref="account.model_account_move" name="model_id"/>
@@ -131,9 +134,6 @@
             </function>
         <value eval="{'noupdate': True}" />
     </function>
-
-
-
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
                 <value eval="[('module', '=', 'sale'), ('name', '=', 'account_invoice_rule_see_personal')]"/>

@@ -46,15 +46,15 @@ class SaleOrder(models.Model):
             invoice_vals['is_fictitious'] = True
         return invoice_vals
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('name', _("New")) == _("New"):
-                seq_date = fields.Datetime.context_timestamp(
-                    self, fields.Datetime.to_datetime(vals['date_order'])
-                ) if 'date_order' in vals else None
-                if 'is_real' in vals and vals['is_real'] == 'yes':
-                    vals['name'] = self.env['ir.sequence'].next_by_code(
-                        'sale.order.exempt', sequence_date=seq_date) or _("New")
-
-        return super().create(vals_list)
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     for vals in vals_list:
+    #         if vals.get('name', _("New")) == _("New"):
+    #             seq_date = fields.Datetime.context_timestamp(
+    #                 self, fields.Datetime.to_datetime(vals['date_order'])
+    #             ) if 'date_order' in vals else None
+    #             if 'is_real' in vals and vals['is_real'] == 'yes':
+    #                 vals['name'] = self.env['ir.sequence'].next_by_code(
+    #                     'sale.order.exempt', sequence_date=seq_date) or _("New")
+    #
+    #     return super().create(vals_list)
