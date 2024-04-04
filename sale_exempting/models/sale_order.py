@@ -45,12 +45,9 @@ class SaleOrder(models.Model):
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
-        invoice_vals['is_real'] = True if self.is_real == 'yes' else False
+        invoice_vals['is_real'] = True
         invoice_vals['is_fictitious'] = True if self.is_real == 'no' else False
         invoice_vals['delivery_id'] = self.delivery_id.id
-        if self.partner_id and self.partner_id.is_real and self.partner_id.fictitious_id and self.partner_id.fictitious_id == self.partner_id:
-            invoice_vals['is_real'] = True
-            invoice_vals['is_fictitious'] = True
         return invoice_vals
 
     # @api.model_create_multi
