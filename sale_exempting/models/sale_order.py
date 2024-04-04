@@ -36,6 +36,13 @@ class SaleOrder(models.Model):
                 record.is_real = 'no'
                 record.journal_id = False
 
+    @api.onchange('is_real')
+    def onchange_is_real(self):
+        if self.is_real == 'yes':
+            self.journal_id = self.env.ref('sale_exempting.journal_sale_exempting').id
+        else:
+            self.journal_id = False
+
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrder, self)._prepare_invoice()
         invoice_vals['is_real'] = True if self.is_real == 'yes' else False
