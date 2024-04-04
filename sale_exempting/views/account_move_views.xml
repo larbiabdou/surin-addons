@@ -197,4 +197,7 @@
     <record id="stock.out_picking" model="ir.ui.menu">
         <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>
     </record>
+    <record id="stock.menu_warehouse_report" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>
+    </record>
 </odoo>
