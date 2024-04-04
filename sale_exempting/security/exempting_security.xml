@@ -21,27 +21,35 @@
         <field name="domain_force">[('is_fictitious', '=', True)]</field>
         <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
     </record>
-<!--    <record id="account_rule_can_view_fictitious_customer" model="ir.rule">
-        <field name="name">Client fictif</field>
-        <field ref="base.model_res_partner" name="model_id"/>
-        <field name="domain_force">[('is_real', '=', False)]</field>
-        <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
-    </record>
-    <function name="write" model="ir.model.data">
+
+
+<!--    <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
-                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule')]"/>
+                <value eval="[('module', '=', 'account'), ('name', '=', 'journal_comp_rule')]"/>
             </function>
         <value eval="{'noupdate': False}" />
     </function>
-    <record id="base.res_partner_rule" model="ir.rule">
-        <field name="domain_force">[('is_real', '=', True),'|', '|', ('partner_share', '=', False), ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>
+    <record id="account.journal_comp_rule" model="ir.rule">
+        <field name="domain_force">[('company_id', 'parent_of', company_ids), ('is_real', '=', False)]</field>
     </record>
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">
-                <value eval="[('module', '=', 'base'), ('name', '=', 'res_partner_rule')]"/>
+                <value eval="[('module', '=', 'account'), ('name', '=', 'journal_comp_rule')]"/>
             </function>
         <value eval="{'noupdate': True}" />
     </function>-->
+    <record id="account_rule_can_view_real_journals" model="ir.rule">
+        <field name="name">Journals réel</field>
+        <field ref="account.model_account_journal" name="model_id"/>
+        <field name="domain_force">[('is_real', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
+    </record>
+    <record id="account_rule_can_view_declared_journals" model="ir.rule">
+        <field name="name">Journals Déclaré</field>
+        <field ref="account.model_account_journal" name="model_id"/>
+        <field name="domain_force">[('is_real', '=', False)]</field>
+        <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
+    </record>
 
     <function name="write" model="ir.model.data">
             <function name="search" model="ir.model.data">

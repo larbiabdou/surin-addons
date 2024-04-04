@@ -7,3 +7,4 @@ from . import stock_picking_fictitious
 from . import stock_picking
 from . import account_payment
 from . import account_payment_register
+from . import account_journal
