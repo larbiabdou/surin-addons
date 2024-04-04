@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="can_view_fictitious_invoices" model="res.groups">
+    <data noupdate="1">
+        <record id="can_view_fictitious_invoices" model="res.groups">
         <field name="name">Accès aux Factures contrepartie</field>
     </record>
     <record id="can_create_invoices_from_dashboard" model="res.groups">
@@ -41,14 +42,14 @@
     <record id="account_rule_can_view_real_journals" model="ir.rule">
         <field name="name">Journals réel</field>
         <field ref="account.model_account_journal" name="model_id"/>
-        <field name="domain_force">[('is_real', '=', True)]</field>
+        <field name="domain_force">[('is_real', '=', False)]</field>
         <field name="groups" eval="[(4, ref('account.group_account_invoice'))]"/>
     </record>
     <record id="account_rule_can_view_declared_journals" model="ir.rule">
         <field name="name">Journals Déclaré</field>
         <field ref="account.model_account_journal" name="model_id"/>
-        <field name="domain_force">[('is_real', '=', False)]</field>
-        <field name="groups" eval="[(4, ref('can_view_fictitious_invoices'))]"/>
+        <field name="domain_force">[('is_real', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('can_view_real_invoices'))]"/>
     </record>
 
     <function name="write" model="ir.model.data">
@@ -207,4 +208,5 @@
             </function>
         <value eval="{'noupdate': True}" />
     </function>
+    </data>
 </odoo>
