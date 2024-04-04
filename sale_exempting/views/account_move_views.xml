@@ -188,6 +188,11 @@
     <record id="account.menu_action_account_moves_all" model="ir.ui.menu">
         <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>
     </record>
-
+    <record id="account.menu_board_journal_1" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>
+    </record>
+    <record id="account_accountant.menu_account_reconcile" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>
+    </record>
 
 </odoo>
