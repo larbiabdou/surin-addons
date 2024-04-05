@@ -13,7 +13,10 @@ class StcokPickingFictitious(models.Model):
         required=False)
     name = fields.Char(string='Name', store=True, compute="compute_name")
     state = fields.Selection()
-
+    delivery_id = fields.Many2one(
+        comodel_name='stock.picking',
+        string='Delivery_id',
+        required=False)
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         related="invoice_id.partner_id",
@@ -43,6 +46,30 @@ class StcokPickingFictitious(models.Model):
             ('posted', 'Posted'),
             ('cancel', 'Cancelled'),],
         required=False, )
+    
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Company',
+        related='delivery_id.company_id',
+        required=False)
+
+    stock_moves = fields.Many2many(
+        comodel_name='stock.move',
+        compute="compute_stock_moves",
+        string='Stock_moves')
+    
+    move_type = fields.Selection(related='delivery_id.move_type')
+    user_id = fields.Many2one(
+        comodel_name='res.users',
+        string='Responsible',
+        related='delivery_id.user_id',)
+    note = fields.Text(
+        string="Note",
+        required=False)
+
+    def compute_stock_moves(self):
+        for record in self:
+            record.stock_moves = self.operation_ids.mapped('stock_move_id')
 
     @api.depends('invoice_id.name')
     def compute_name(self):
@@ -70,8 +97,9 @@ class StcokPickingFictitious(models.Model):
             'res_model': 'stock.move.line.fictitious',
             'name': "Detailed Operations",
             'domain': [('id', 'in', detailed_operation.ids)],
-            'view_mode': 'tree,form',
+            'view_mode': 'tree',
             'type': 'ir.actions.act_window',
+            'context': {'create': False},
         }
         return action
 
@@ -98,10 +126,20 @@ class stockMoveFictitious(models.Model):
         string='Quantity', 
         required=False)
 
+    product_uom = fields.Many2one(
+        comodel_name='uom.uom',
+        string='Uom',
+        required=False)
+
     detailed_operation_ids = fields.One2many(
         comodel_name='stock.move.line.fictitious',
         inverse_name='move_id',
         string='Operations',
+        required=False)
+
+    stock_move_id = fields.Many2one(
+        comodel_name='stock.move',
+        string='Stock_move_id',
         required=False)
 
 
@@ -125,5 +163,10 @@ class stockMoveFictitous(models.Model):
     
     quantity = fields.Float(
         string='Quantity', 
+        required=False)
+
+    product_uom = fields.Many2one(
+        comodel_name='uom.uom',
+        string='Uom',
         required=False)
 

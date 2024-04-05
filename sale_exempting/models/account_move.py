@@ -252,28 +252,36 @@ class AccountMove(models.Model):
 
     def create_fictitious_delivery(self):
         delivery_id = False
+        domain = []
         if self.delivery_id:
             delivery_id = self.delivery_id
-        elif self.is_fictitious and not self.is_real and self.real_invoice_id:
-            sale_line_ids = self.real_invoice_id.invoice_line_ids.sale_line_ids
-            sale_id = sale_line_ids.mapped('order_id')
-            if sale_id:
-                picking_id = self.env['stock.picking'].search([('sale_id', '=', sale_id.id)])
-                if picking_id:
-                    delivery_id = picking_id[0]
+            domain = [('id', 'in', delivery_id.move_ids_without_package.ids)]
+        elif self.real_invoice_id and self.real_invoice_id.delivery_id:
+            delivery_id = self.real_invoice_id.delivery_id
+            domain = [('sale_line_id', 'in', self.invoice_line_ids.real_line_id.sale_line_ids.ids), ('picking_id', '=', delivery_id.id)]
         if delivery_id:
-            fictitious_transfer = self.env['stock.picking.fictitious'].create({
-                'operation_type_id': delivery_id.picking_type_id.id,
-                'scheduled_date': delivery_id.scheduled_date,
-                'origin': self.name,
-                'invoice_id': self.id,
-            })
-            for line in self.invoice_line_ids:
-                fictitious_transfer.operation_ids = [(0, 0, {
-                    'product_id': line.product_id.id,
-                    'product_uom_qty': line.quantity,
-                    'quantity': line.quantity,
-                })]
+            stock_moves = self.env['stock.move'].search(domain)
+            if stock_moves:
+                fictitious_transfer = self.env['stock.picking.fictitious'].create({
+                    'operation_type_id': delivery_id.picking_type_id.id,
+                    'scheduled_date': delivery_id.scheduled_date,
+                    'origin': self.name,
+                    'invoice_id': self.id,
+                    'delivery_id': delivery_id.id,
+                })
+                for line in stock_moves:
+                    fictitious_transfer.operation_ids = [(0, 0, {
+                        'product_id': line.product_id.id,
+                        'product_uom_qty': line.quantity,
+                        'quantity': line.quantity,
+                        'product_uom': line.product_uom.id,
+                        'stock_move_id': line.id,
+                        'detailed_operation_ids': [(0, 0, {
+                            'product_id': mv_line.product_id.id,
+                            'quantity': mv_line.quantity,
+                            'product_uom': mv_line.product_uom_id.id,
+                            'lot_id': mv_line.lot_id.id}) for mv_line in line.move_line_ids],
+                    })]
 
 
 class AccountMoveLine(models.Model):

@@ -21,6 +21,7 @@
         'views/invoicing_dashboard.xml',
         'views/account_journal_dashboard_views.xml',
         'views/account_journal_views.xml',
+        'report/report_delivery_fictitious.xml',
     ],
     'installable': True,
     'auto_install': False
