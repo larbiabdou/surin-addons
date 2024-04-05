@@ -22,20 +22,5 @@
             <field name="padding">4</field>
             <field name="company_id" eval="False"/>
         </record>
-        <record id="sequence_declared_invoice" model="ir.sequence">
-            <field name="name">Séquence Factures déclarés type_1</field>
-            <field name="code">declared.invoice.type_1</field>
-            <field name="prefix">FAC1/%(y)s/</field>
-            <field name="padding">4</field>
-            <field name="company_id" eval="False"/>
-        </record>
-        <record id="sequence_declared_invoice_2" model="ir.sequence">
-            <field name="name">Séquence Factures déclarés type_2</field>
-            <field name="code">declared.invoice.type_2</field>
-            <field name="prefix">FAC2/%(y)s/</field>
-            <field name="padding">4</field>
-            <field name="company_id" eval="False"/>
-        </record>
-
     </data>
 </odoo>
