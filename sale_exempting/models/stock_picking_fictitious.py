@@ -66,6 +66,9 @@ class StcokPickingFictitious(models.Model):
     note = fields.Text(
         string="Note",
         required=False)
+    sale_type = fields.Selection(
+        string='Sale type',
+        related="invoice_id.sale_type")
 
     def compute_stock_moves(self):
         for record in self:

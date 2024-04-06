@@ -9,6 +9,16 @@
                 <field name="is_real" readonly="state == 'sale'" widget="radio" options="{'horizontal': True}"/>
                 <field name="journal_id" invisible="1"/>
             </field>
+            <xpath expr="//button[@id='create_invoice']" position="attributes">
+                <attribute name="string">Créer Vente sur BL</attribute>
+            </xpath>
+            <xpath expr="//button[@id='create_invoice_percentage']" position="attributes">
+                <attribute name="string">Créer Vente sur BL</attribute>
+            </xpath>
+
         </field>
         </record>
+        <record id="sale.action_view_sale_advance_payment_inv" model="ir.actions.act_window">
+        <field name="name">Créer Vente sur BL</field>
+    </record>
 </odoo>

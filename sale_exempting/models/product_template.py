@@ -6,7 +6,7 @@ class ProductTemplate(models.Model):
 
     sale_type = fields.Selection(
         string='Sale type',
-        selection=[('type_1', 'type 1'),
-                   ('type_2', 'Type 2')])
+        selection=[('type_1', 'Produits de négoce'),
+                   ('type_2', 'Produits de fabrication')])
 
 

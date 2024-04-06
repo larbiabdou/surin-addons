@@ -60,8 +60,8 @@ class AccountMove(models.Model):
         string='Sale type',
         compute="compute_sale_type",
         store=True,
-        selection=[('type_1', 'type 1'),
-                   ('type_2', 'Type 2'), ])
+        selection=[('type_1', 'Produits de négoce'),
+                   ('type_2', 'Produits de fabrication') ])
 
     has_group = fields.Boolean(
         string='Has_group',
