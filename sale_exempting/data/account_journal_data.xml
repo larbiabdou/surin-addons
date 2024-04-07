@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="journal_sale_exempting" model="account.journal">
             <field name="name">Factures client réelles</field>
             <field name="type">sale</field>
