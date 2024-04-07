@@ -38,7 +38,7 @@
                         <group>
                             <field name="partner_id"/>
                             <field name="operation_type_id" readonly="1"/>
-                            <field name="sale_type"/>
+                            <field name="sale_type" invisible="1"/>
                             <field name="stock_moves" widget="many2many_tags" invisible="1"/>
                         </group>
                         <group>
