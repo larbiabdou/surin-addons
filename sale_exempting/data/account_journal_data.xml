@@ -8,7 +8,7 @@
             <field name="code">EFAC</field>
         </record>
         <record id="journal_sale_declared" model="account.journal">
-            <field name="name">Vente de production: Factures de vente: Produits de fabrication</field>
+            <field name="name">Factures de vente: Produits de fabrication</field>
             <field name="type">sale</field>
             <field name="code">FAC2</field>
         </record>
