@@ -2,13 +2,13 @@
 <odoo>
     <data noupdate="1">
         <record id="journal_sale_exempting" model="account.journal">
-            <field name="name">Factures client réelles</field>
+            <field name="name">Ventes sur BLs</field>
             <field name="type">sale</field>
             <field name="is_real">True</field>
             <field name="code">EFAC</field>
         </record>
         <record id="journal_sale_declared" model="account.journal">
-            <field name="name">Factures client Déclarées TYpe 2</field>
+            <field name="name">Vente de production: Factures de vente</field>
             <field name="type">sale</field>
             <field name="code">FAC2</field>
         </record>

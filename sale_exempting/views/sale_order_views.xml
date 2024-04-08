@@ -5,20 +5,27 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position='after'>
+            <xpath expr="//button[@name='action_view_invoice']" position="replace">
+                <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="invoice_count == 0 or is_real == 'no'">
+                    <field name="invoice_count" widget="statinfo" string="Ventes sur BL"/>
+                </button>
+                <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="invoice_count == 0 or is_real == 'yes'">
+                    <field name="invoice_count" widget="statinfo" string="Factures client"/>
+                </button>
+            </xpath>
+            <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="is_real" readonly="state == 'sale'" widget="radio" options="{'horizontal': True}"/>
+            </xpath>
+            <field name="partner_id" position='after'>
                 <field name="journal_id" invisible="1"/>
             </field>
             <xpath expr="//button[@id='create_invoice']" position="attributes">
-                <attribute name="string">Créer Vente sur BL</attribute>
+                <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//button[@id='create_invoice_percentage']" position="attributes">
-                <attribute name="string">Créer Vente sur BL</attribute>
+                <attribute name="invisible">1</attribute>
             </xpath>
 
         </field>
         </record>
-        <record id="sale.action_view_sale_advance_payment_inv" model="ir.actions.act_window">
-        <field name="name">Créer Vente sur BL</field>
-    </record>
 </odoo>

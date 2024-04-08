@@ -9,9 +9,9 @@ class SaleOrder(models.Model):
     #     required=False)
 
     is_real = fields.Selection(
-        string='Is real',
-        selection=[('yes', 'Yes'),
-                   ('no', 'No'), ],
+        string='Type de vente',
+        selection=[('yes', 'Vente sur BL'),
+                   ('no', 'Vente déclarée'), ],
         required=True, )
 
     partner_id = fields.Many2one(
