@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="journal_sale_exempting" model="account.journal">
             <field name="name">Ventes sur BLs</field>
             <field name="type">sale</field>
@@ -8,7 +8,7 @@
             <field name="code">EFAC</field>
         </record>
         <record id="journal_sale_declared" model="account.journal">
-            <field name="name">Vente de production: Factures de vente</field>
+            <field name="name">Vente de production: Factures de vente: Produits de fabrication</field>
             <field name="type">sale</field>
             <field name="code">FAC2</field>
         </record>
