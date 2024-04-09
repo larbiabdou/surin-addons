@@ -19,6 +19,10 @@ class AccountPayment(models.Model):
     is_fictitious = fields.Boolean(
         string='Is fictitious',
         required=False)
+    
+    is_invisible = fields.Boolean(
+        string='Is_invisible', 
+        required=False)
 
     has_group = fields.Boolean(
         string='Has_group',

@@ -39,6 +39,19 @@
             </function>
         <value eval="{'noupdate': True}" />
     </function>-->
+
+    <record id="account_rule_can_view_declared_delivery" model="ir.rule">
+        <field name="name">Types d'opération</field>
+        <field ref="stock.model_stock_picking_type" name="model_id"/>
+        <field name="domain_force">[('is_real', '=', False)]</field>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+    <record id="account_rule_can_view_real_delivery" model="ir.rule">
+        <field name="name">Types d'opération de livraison réel</field>
+        <field ref="stock.model_stock_picking_type" name="model_id"/>
+        <field name="domain_force">[('is_real', '=', True)]</field>
+        <field name="groups" eval="[(4, ref('can_view_real_invoices'))]"/>
+    </record>
     <record id="account_rule_can_view_real_journals" model="ir.rule">
         <field name="name">Journals réel</field>
         <field ref="account.model_account_journal" name="model_id"/>

@@ -71,6 +71,7 @@
         </record>
         <record id="account.action_move_out_invoice_type" model="ir.actions.act_window">
             <field name="domain">[('move_type', '=', 'out_invoice'), ('is_real', '=', True)]</field>
+            <field name="name">Ventes sur BLs</field>
             <field name="context">{'default_move_type': 'out_invoice', 'default_is_real': True, 'create':False,}</field>
         </record>
     <record id="view_invoice_tree" model="ir.ui.view">
@@ -177,7 +178,7 @@
     <menuitem id="menu_action_account_moves_declared_all" parent="account.menu_finance_entries_accounting_miscellaneous" action="action_account_moves_all_declared" groups="sale_exempting.can_view_fictitious_invoices" sequence="600"/>
     <record id="account.menu_action_move_out_invoice_type" model="ir.ui.menu">
         <field name="groups_id" eval="[(4, ref('sale_exempting.can_view_real_invoices'))]"/>
-        <field name="name">Vente valorisée</field>
+        <field name="name">Ventes sur BLs</field>
     </record>
     <record id="account.menu_finance_reports" model="ir.ui.menu">
         <field name="groups_id" eval="[(6 ,0 , [ref('sale_exempting.can_view_real_invoices')])]"/>

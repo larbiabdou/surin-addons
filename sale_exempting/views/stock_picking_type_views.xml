@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="name">view_picking_type_form</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='reservation_method']" position="after">
+                <field name="is_real" groups="sale_exempting.can_view_real_invoices"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

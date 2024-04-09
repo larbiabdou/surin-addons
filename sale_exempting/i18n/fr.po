@@ -296,6 +296,13 @@ msgstr ""
 msgid "Factures client"
 msgstr ""
 
+#. module: accountw
+#: model:ir.actions.act_window,name:account.action_move_out_invoice_type
+#: model:ir.ui.menu,name:account.menu_action_move_out_invoice_type
+#, python-format
+msgid "Invoices"
+msgstr "Ventes sur BLs"
+
 #. module: sale_exempting
 #: model:account.journal,name:sale_exempting.journal_sale_declared
 msgid "Factures de vente: Produits de fabrication"

@@ -21,6 +21,8 @@
         'views/invoicing_dashboard.xml',
         'views/account_journal_dashboard_views.xml',
         'views/account_journal_views.xml',
+        'views/product_view.xml',
+        'views/stock_picking_type_views.xml',
         'report/report_delivery_fictitious.xml',
     ],
     'installable': True,

@@ -34,4 +34,5 @@ class AccountPaymentRegister(models.TransientModel):
         payment_vals = super(AccountPaymentRegister, self)._create_payment_vals_from_wizard(batch_result)
         payment_vals['is_real'] = self.is_real
         payment_vals['is_fictitious'] = self.is_fictitious
+        payment_vals['is_invisible'] = True
         return payment_vals

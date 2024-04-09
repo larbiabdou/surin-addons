@@ -45,8 +45,9 @@
 
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="has_group" invisible="1"/>
-                <field name="is_real" readonly="state in ('cancel', 'posted')" invisible="not has_group or partner_type != 'customer'"/>
-                <field name="is_fictitious" readonly="state in ('cancel', 'posted')" invisible="not has_group or partner_type != 'customer'"/>
+                <field name="is_invisible" invisible="1"/>
+                <field name="is_real" readonly="state in ('cancel', 'posted')" invisible="is_invisible or not has_group or partner_type != 'customer'"/>
+                <field name="is_fictitious" readonly="state in ('cancel', 'posted')" invisible="is_invisible or not has_group or partner_type != 'customer'"/>
             </xpath>
 
         </field>
