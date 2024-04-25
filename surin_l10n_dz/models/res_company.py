@@ -11,6 +11,16 @@ class ResCompany(models.Model):
     rc_1 = fields.Char(
         string='RC', 
         required=False)
+    nif = fields.Char(
+        string='NIF',
+        required=False)
+    ai = fields.Char(
+        string='AI',
+        required=False)
+    nis = fields.Char(
+        string='NIS',
+        required=False)
+
     nif_1 = fields.Char(
         string='NIF',
         required=False)
