@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <xpath expr="//div" position="replace">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row">
+                    <div class="col-3 text-end"></div>
+                    <div class="col-9 mb4 text-end">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 55px;" alt="Logo"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>

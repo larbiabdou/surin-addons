@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_a4_custom" model="report.paperformat">
+        <field name="name">Custom A4</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">32</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="account.account_invoices" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_a4_custom"/>
+    </record>
+    <record id="account.account_invoices_without_payment" model="ir.actions.report">
+        <field name="paperformat_id" ref="paperformat_a4_custom"/>
+    </record>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('row')]" position="replace">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
+                <div class="col-6">
+                    <span t-if="not proforma"></span>
+                    <span t-else="">PROFORMA</span>
+                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
+                    <span t-elif="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                    <span t-elif="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                    <span t-elif="o.move_type == 'out_refund' and o.state == 'posted'">Credit Note</span>
+                    <span t-elif="o.move_type == 'out_refund' and o.state == 'draft'">Draft Credit Note</span>
+                    <span t-elif="o.move_type == 'out_refund' and o.state == 'cancel'">Cancelled Credit Note</span>
+                    <span t-elif="o.move_type == 'in_refund'">Vendor Credit Note</span>
+                    <span t-elif="o.move_type == 'in_invoice'">Vendor Bill</span>
+                </div>
+                <div class="col-6 text-end">
+                    <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
+                </div>
+            </div>
+            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+                <table class="invoice-table">
+                    <tr>
+                        <td style="width:48%">
+                            <span t-if="o.move_type == 'out_invoice'">Fournisseur</span>
+                    <span t-elif="o.move_type == 'in_invoice'">Client</span>
+                        </td>
+                        <td style="width:4%"></td>
+                        <td style="width:48%">
+                            <span t-if="o.move_type == 'in_invoice'">Fournisseur</span>
+                    <span t-elif="o.move_type == 'out_invoice'">Client</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black !important;padding: 5px; width:48%">
+                            <address class="mb-0" t-field="o.company_id.partner_id"  t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                        <div t-if="o.partner_id.vat" id="partner_vat_no_shipping">
+                            <t t-if="o.company_id.account_fiscal_country_id.vat_label" t-out="o.company_id.account_fiscal_country_id.vat_label" id="inv_tax_id_label"/>
+                            <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                        </div>
+                        </td>
+                        <td></td>
+                        <td style="border: 1px solid black !important;padding: 5px; width:48%">
+                            <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                            <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t> <br/>
+                            <t t-if="o.partner_id.ai">AI: <span t-field="o.partner_id.ai"/></t> <br/>
+                            <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
+                            <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t> <br/>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+                <table class="invoice-table" style="margin-top: 10px;">
+                    <tr>
+                        <td style="border-right: 1px solid black !important;padding: 5px; width:50%">
+                             Compte bancaire: <br/>
+                            banque: badr <br/>
+                            bic: 8975678 <br/>
+                            SWIFT: 879565445 <br/>
+                        </td>
+                        <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
+                            <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
+                            <t t-foreach="payments_vals" t-as="payment_vals">
+                                <t t-set="payment" t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
+
+                                Paiement: <span t-esc="payment.name"/> <br/>
+                                Date du paiement: <span t-esc="payment_vals['date']"/> <br/>
+                                Montant: <span t-esc="payment_vals['amount']"/> <br/>
+                            </t>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </xpath>
+    </template>
+</odoo>

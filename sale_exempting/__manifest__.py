@@ -5,7 +5,7 @@
     'description': 'Sale exempting',
     'category': 'Contact',
     'author': 'Abdelhak',
-    'depends': ['account', 'sale_management', 'stock'],
+    'depends': ['account', 'sale_management', 'stock', 'account_accountant'],
     'data': [
         'security/exempting_security.xml',
         'security/ir.model.access.csv',

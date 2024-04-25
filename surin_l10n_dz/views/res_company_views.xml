@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">view_company_form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='general_info']" position="after">
+                <page string="Informations fiscales produits négoce">
+                    <group>
+                        <group>
+                            <field name="company_name_type_1"/>
+                            <label for="street_1" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street_1" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2_1" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city_1" placeholder="City" class="o_address_city"/>
+                                <field name="state_id_1" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                                <field name="zip_1" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id_1" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            </div>
+                            <field name="rc_1"/>
+                            <field name="nif_1"/>
+                            <field name="ai_1"/>
+                            <field name="nis_1"/>
+                        </group>
+                    </group>
+                </page>
+                <page string="Informations fiscales produits fabrication">
+                    <group>
+                        <group>
+                            <field name="company_name_type_2"/>
+                            <label for="street_2" string="Address"/>
+                            <div class="o_address_format">
+                                <field name="street_2" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2_2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city_2" placeholder="City" class="o_address_city"/>
+                                <field name="state_id_2" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                                <field name="zip_2" placeholder="ZIP" class="o_address_zip"/>
+                                <field name="country_id_2" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            </div>
+                            <field name="rc_2"/>
+                            <field name="nif_2"/>
+                            <field name="ai_2"/>
+                            <field name="nis_2"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
