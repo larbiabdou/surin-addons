@@ -8,6 +8,10 @@ class ResCompany(models.Model):
         string='Nom de la société',
         required=False)
 
+    fax = fields.Char(
+        string='Fax',
+        required=False)
+
     rc_1 = fields.Char(
         string='RC', 
         required=False)

@@ -6,7 +6,9 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">
-
+            <xpath expr="//field[@name='mobile']" position="after">
+                <field name="fax"/>
+            </xpath>
             <xpath expr="//page[@name='general_info']" position="after">
                 <page string="Informations fiscales produits négoce">
                     <group>

@@ -11,5 +11,22 @@
                 </div>
             </div>
         </xpath>
+        <xpath expr="//div[3]/div/ul" position="replace">
+            <div class="row">
+                <div class="col-3" style="text-align: left !important;font-size: 14px">
+                    <i class="fa fa-phone"></i> <span t-field="company.phone"/>
+                </div>
+                <div class="col-3" style="text-align: left !important;font-size: 14px">
+                    <i class="fa fa-fax"></i> <span t-field="company.fax"/>
+                </div>
+                <div class="col-3" style="text-align: left !important;font-size: 14px">
+                    <i class="fa fa-envelope"></i> <span t-field="company.email"/>
+                </div>
+                <div class="col-3" style="text-align: left !important;font-size: 14px">
+                    <i class="fa fa-globe"></i>  <span t-field="company.website"/>
+                </div>
+            </div>
+            <br/>
+        </xpath>
     </template>
 </odoo>
