@@ -23,7 +23,7 @@
     </record>
     <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals_template">
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
-            <tr>
+            <tr style="border-bottom:1px solid black">
                 <td><strong>Total TTC</strong></td>
                 <td  class="text-end">
                     <span t-out="tax_totals['formatted_amount_total']">31.05</span>
@@ -45,7 +45,7 @@
         <xpath expr="//tr" position="before">
             <t t-if="o.discount_amount > 0">
                 <tr>
-                    <td><strong>Montant HT Brute</strong></td>
+                    <td><strong>Montant HT Brut</strong></td>
 
                     <td class="text-end">
                         <span t-field="o.total_without_discount">27.00</span>
@@ -214,7 +214,7 @@
                                     <th name="th_taxes" t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>TVA</span></th>
                                     <t t-if="display_discount_fixed or display_discount">
                                         <th name="th_subtotal_tva" class="text-end">
-                                        <span>Montant HT sans remise</span>
+                                        <span>Montant HT</span>
                                     </th>
                                     </t>
                                 </tr>
