@@ -51,7 +51,11 @@
                 <div class="col-6">
                     <span t-if="not proforma"></span>
                     <span t-else="">PROFORMA</span>
-                    <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
+                    <t t-if="o.is_fictitious == False">
+                        <span>Vente sur BL</span>
+                    </t>
+                    <t t-else="">
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
                     <span t-elif="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                     <span t-elif="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
                     <span t-elif="o.move_type == 'out_refund' and o.state == 'posted'">Credit Note</span>
@@ -59,7 +63,7 @@
                     <span t-elif="o.move_type == 'out_refund' and o.state == 'cancel'">Cancelled Credit Note</span>
                     <span t-elif="o.move_type == 'in_refund'">Vendor Credit Note</span>
                     <span t-elif="o.move_type == 'in_invoice'">Vendor Bill</span>
-                    <span t-if="o.move_type == 'out_invoice' and o.is_fictitious == 'False'">Vente sur BL</span>
+                    </t>
                 </div>
                 <div class="col-6 text-end">
                     <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
