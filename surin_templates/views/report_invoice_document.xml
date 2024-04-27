@@ -59,6 +59,7 @@
                     <span t-elif="o.move_type == 'out_refund' and o.state == 'cancel'">Cancelled Credit Note</span>
                     <span t-elif="o.move_type == 'in_refund'">Vendor Credit Note</span>
                     <span t-elif="o.move_type == 'in_invoice'">Vendor Bill</span>
+                    <span t-if="o.move_type == 'out_invoice' and o.is_fictitious == 'False'">Vente sur BL</span>
                 </div>
                 <div class="col-6 text-end">
                     <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
@@ -171,7 +172,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <table class="table table-sm o_main_table table-borderless mb-4" name="invoice_line_table">
+            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>
                                     <th name="th_description" class="text-start"><span>Référence</span></th>
@@ -252,6 +253,8 @@
                                 </t>
                             </tbody>
                         </table>
+            <br/>
+            <br/>
         </xpath>
     </template>
 
