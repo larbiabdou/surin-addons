@@ -17,6 +17,13 @@ class AccountMoveLine(models.Model):
             "the quantity of the product."
         ),
     )
+    discount_amount = fields.Monetary(string='Discount Amount', compute="compute_discount_amount")
+    total_without_discount = fields.Monetary(string='Total without discount', compute="compute_discount_amount")
+
+    def compute_discount_amount(self):
+        for record in self:
+            record.discount_amount = record.quantity * record.price_unit - record.price_subtotal if record.discount else 0
+            record.total_without_discount = record.quantity * record.price_unit
 
     @api.depends("quantity", "discount", "price_unit", "tax_ids", "currency_id")
     def _compute_totals(self):

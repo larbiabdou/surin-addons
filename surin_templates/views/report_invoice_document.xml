@@ -21,10 +21,31 @@
     <record id="account.account_invoices_without_payment" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_a4_custom"/>
     </record>
-    <xpath expr="//div[hasclass('oe_structure')]" position="replace">
+    <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals_template">
+        <xpath expr="//tr" position="before">
+            <t t-if="tax_totals['discount_amount']">
+                <tr>
+                    <td><strong>Montant HT Brute</strong></td>
 
-    </xpath>
+                    <td class="text-end">
+                        <span t-field="o.total_without_discount">27.00</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Remise</strong></td>
+
+                    <td class="text-end">
+                        <span t-field="o.discount_amount">27.00</span>
+                    </td>
+                </tr>
+            </t>
+
+        </xpath>
+    </template>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[hasclass('oe_structure')]" position="replace">
+
+        </xpath>
         <xpath expr="//div[hasclass('row')]" position="replace">
             <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
                 <div class="col-6">
@@ -124,7 +145,7 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div t-if="o.invoice_date" name="invoice_date" style="margin-top:-30px;margin-bottom:20px; margin-left:70px">
+            <div class="text-end" t-if="o.invoice_date" name="invoice_date" style="margin-top:-30px;margin-bottom:20px; margin-left:70px">
                 <t t-if="o.move_type == 'out_invoice'"><strong>Invoice Date:</strong></t>
                 <t t-elif="o.move_type == 'out_refund'"><strong>Credit Note Date:</strong></t>
                 <t t-elif="o.move_type == 'out_receipt'"><strong>Receipt Date:</strong></t>
@@ -133,8 +154,11 @@
             </div>
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
-            <div style="border:1px solid black; width: 300px; margin-top: 0px;padding: 8px;">
-                TVA: <span t-field="o.amount_tax"/>
+            <div class="text-center" style="width: 300px;">
+                TVA
+                <div class="text-center" style="border:1px solid black; width: 300px; margin-top: 5px;padding: 8px;">
+                     <span t-field="o.amount_tax"/>
+                </div>
             </div>
              <div class="mt-4">
                 <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
@@ -147,7 +171,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
+            <table class="table table-sm o_main_table table-borderless mb-4" name="invoice_line_table">
                             <thead>
                                 <tr>
                                     <th name="th_description" class="text-start"><span>Référence</span></th>
@@ -230,7 +254,6 @@
                         </table>
         </xpath>
     </template>
-    <template id="report_invoice_document_discount" inherit_id="account_invoice_fixed_discount.report_invoice_document">
-    </template>
+
 
 </odoo>
