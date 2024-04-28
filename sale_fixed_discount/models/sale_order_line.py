@@ -15,6 +15,14 @@ class SaleOrderLine(models.Model):
         help="Fixed amount discount.",
     )
 
+    discount_amount = fields.Monetary(string='Discount Amount', compute="compute_discount_amount")
+    total_without_discount = fields.Monetary(string='Total without discount', compute="compute_discount_amount")
+
+    def compute_discount_amount(self):
+        for record in self:
+            record.discount_amount = record.product_uom_qty * record.price_unit - record.price_subtotal if record.discount else 0
+            record.total_without_discount = record.product_uom_qty * record.price_unit
+
     @api.constrains("discount_fixed", "discount")
     def _check_discounts(self):
         """Check that the fixed discount and the discount percentage are consistent."""

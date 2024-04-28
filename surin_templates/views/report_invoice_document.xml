@@ -21,7 +21,7 @@
     <record id="account.account_invoices_without_payment" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_a4_custom"/>
     </record>
-    <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals_template">
+    <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals">
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
             <tr style="border-bottom:1px solid black">
                 <td><strong>Total TTC</strong></td>
@@ -141,6 +141,11 @@
                         <td style="border-right: 1px solid black !important;padding: 5px; width:50%">
                             <t t-if="o.company_id.partner_id.bank_ids">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
+                            <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
+                            <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
+                            <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
+                            <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
+                            <t t-if="o.company_id.partner_id.bank_ids[1]" t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
                             <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
                             <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                             <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>

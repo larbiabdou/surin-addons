@@ -9,6 +9,7 @@
     'data': [
         'views/external_layout.xml',
         'views/report_invoice_document.xml',
+        'views/sale_order_report.xml',
     ],
     'assets': {
         'web.report_assets_common': [
