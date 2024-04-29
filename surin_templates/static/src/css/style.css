@@ -4,4 +4,10 @@
 }
 .invoice-table td{
     border: none;
+
+}
+#invoice_table_td{
+    height: 100px !important;
+    border-right: 1px solid black !important;
+    padding: 5px; width:50%
 }

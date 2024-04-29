@@ -108,7 +108,7 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%">
+                            <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
                                 <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
                                     <t t-if="o.company_id.company_name_type_1"><span t-field="o.company_id.company_name_type_1"/></t> <br/>
                                     <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
@@ -149,18 +149,20 @@
             <div style="padding-bottom: 10px; border-bottom:1px solid black">
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
-                        <td style="border-right: 1px solid black !important;padding: 5px; width:50%">
+                        <td id="invoice_table_td" >
                             <t t-if="o.company_id.partner_id.bank_ids">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
-                            <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
-                            <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                            <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
-                            <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
-                            <t t-if="o.company_id.partner_id.bank_ids[1]" t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
-                            <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
-                            <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                            <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
-                            <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
+                                <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
+                                <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
+                                <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
+                                <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
+                                <t t-if="o.company_id.partner_id.bank_ids[1]">
+                                    <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
+                                    <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
+                                    <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
+                                    <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
+                                    <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
+                                </t>
                             </t>
 
                         </td>
