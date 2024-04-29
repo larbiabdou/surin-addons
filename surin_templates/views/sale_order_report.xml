@@ -10,7 +10,16 @@
         <xpath expr="//t[4]" position="replace">
 
         </xpath>
-
+        <xpath expr="//table[1]" position="attributes">
+            <attribute name="style">border-bottom:1px solid black; margin-bottom: 20px !important</attribute>
+        </xpath>
+        <xpath expr="//table[1]/thead/tr/th[@name='th_description']" position="before">
+            <th name="th_reference" class="text-start">Référence</th>
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="replace">
+            <td name="td_reference"><span t-field="line.product_id.default_code">Bacon Burger</span></td>
+            <td name="td_name"><span t-field="line.product_id.name">Bacon Burger</span></td>
+        </xpath>
         <xpath expr="//t[@t-set='address']" position="replace">
             <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
                 <div class="col-6">
@@ -83,7 +92,7 @@
 
         </xpath>
     </template>
-        <template id="document_tax_totals_template_inherit" inherit_id="sale.document_tax_totals">
+        <template id="document_sale_tax_totals_template_inherit" inherit_id="sale.document_tax_totals">
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
             <tr style="border-bottom:1px solid black">
                 <td><strong>Total TTC</strong></td>

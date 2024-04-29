@@ -217,7 +217,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
+            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table" style="border-bottom:1px solid black">
                             <thead>
                                 <tr>
                                     <th name="th_description" class="text-start"><span>Référence</span></th>
