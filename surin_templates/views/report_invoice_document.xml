@@ -109,9 +109,8 @@
                     </tr>
                     <tr>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
-                                <t t-if="o.is_fictitious == False">
                                     <t t-if="o.company_id.name"><span t-field="o.company_id.name"/></t>
-                                </t>
+
                                 <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
                                     <t t-if="o.company_id.company_name_type_1"><span t-field="o.company_id.company_name_type_1"/></t> <br/>
                                     <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
