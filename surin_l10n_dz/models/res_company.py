@@ -70,6 +70,14 @@ class ResCompany(models.Model):
     )
     country_id_2 = fields.Many2one('res.country', string="Country")
 
-    
+
+class BaseDocumentLayout(models.TransientModel):
+
+    _inherit = 'base.document.layout'
+
+    fax = fields.Char(
+        string='Fax',
+        related='company_id.fax',
+        required=False)
     
 
