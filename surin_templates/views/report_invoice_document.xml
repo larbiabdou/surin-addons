@@ -77,7 +77,7 @@
                     <span t-if="not proforma"></span>
                     <span t-else="">PROFORMA</span>
                     <t t-if="o.is_fictitious == False">
-                        <span>Vente sur BL</span>
+                        <span>Vente</span>
                     </t>
                     <t t-else="">
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Invoice</span>
@@ -109,6 +109,9 @@
                     </tr>
                     <tr>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
+                                <t t-if="o.is_fictitious == False">
+                                    <t t-if="o.company_id.name"><span t-field="o.company_id.name"/></t>
+                                </t>
                                 <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
                                     <t t-if="o.company_id.company_name_type_1"><span t-field="o.company_id.company_name_type_1"/></t> <br/>
                                     <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
@@ -202,12 +205,14 @@
             </div>
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
-            <div class="text-center" style="width: 300px;">
+            <t t-if="o.is_fictitious == 'True'">
+                <div class="text-center" style="width: 300px; margin-left: 90px">
                 TVA
                 <div class="text-center" style="border:1px solid black; width: 300px; margin-top: 5px;padding: 8px;">
                      <span t-field="o.amount_tax"/>
                 </div>
             </div>
+            </t>
              <div class="mt-4">
                 <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
                     Montant total en lettres: <br/>
@@ -219,19 +224,19 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table" style="border-bottom:1px solid black">
+            <table class="table table-sm o_main_table table-borderless" name="invoice_line_table" style="border-bottom:1px solid black; border-top:1px solid black">
                             <thead>
                                 <tr>
-                                    <th name="th_description" class="text-start"><span>Référence</span></th>
-                                    <th name="th_description" class="text-start"><span>Description</span></th>
-                                    <th name="th_quantity" class="text-end"><span>Quantité</span></th>
-                                    <th name="th_priceunit" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>PU</span></th>
-                                    <th name="th_discount" t-if="display_discount" t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <th name="th_description" class="text-center"><span>Référence</span></th>
+                                    <th name="th_description" class="text-center"><span>Description</span></th>
+                                    <th name="th_quantity" class="text-center"><span>Quantité</span></th>
+                                    <th name="th_priceunit" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>PU</span></th>
+                                    <th name="th_discount" t-if="display_discount" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                         <span>Disc.%</span>
                                     </th>
-                                    <th name="th_taxes" t-attf-class="text-start {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>TVA</span></th>
+                                    <th name="th_taxes" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>TVA</span></th>
                                     <t t-if="display_discount_fixed or display_discount">
-                                        <th name="th_subtotal_tva" class="text-end">
+                                        <th name="th_subtotal_tva" class="text-center">
                                         <span>Montant HT</span>
                                     </th>
                                     </t>
@@ -298,6 +303,7 @@
                                 </t>
                             </tbody>
                         </table>
+            <br/>
             <br/>
             <br/>
         </xpath>

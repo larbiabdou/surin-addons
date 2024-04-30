@@ -1,6 +1,7 @@
 .invoice-table{
     width:100% !important;
     border: transparent !important;
+    padding-bottom: 30px;
 }
 .invoice-table td{
     border: none;

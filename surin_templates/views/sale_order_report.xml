@@ -11,7 +11,7 @@
 
         </xpath>
         <xpath expr="//table[1]" position="attributes">
-            <attribute name="style">border-bottom:1px solid black; margin-bottom: 20px !important</attribute>
+            <attribute name="style">border-bottom:1px solid black; margin-bottom: 20px !important; border-top:1px solid black</attribute>
         </xpath>
         <xpath expr="//table[1]/thead/tr/th[@name='th_description']" position="before">
             <th name="th_reference" class="text-start">Référence</th>
@@ -43,7 +43,7 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%">
+                            <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
                                 <address class="mb-0" t-field="doc.company_id.partner_id"  t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                                     <t t-if="doc.company_id.company_registry">RC: <span t-field="doc.company_id.company_registry"/></t> <br/>
                                     <t t-if="doc.company_id.ai">AI: <span t-field="doc.company_id.ai"/></t> <br/>
@@ -65,7 +65,7 @@
             <div style="padding-bottom: 10px; border-bottom:1px solid black">
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
-                        <td style="border-right: 1px solid black !important;padding: 5px; width:50%">
+                        <td id="invoice_table_td" >
                             <t t-if="doc.company_id.partner_id.bank_ids">
                                 <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
                             <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
