@@ -68,8 +68,8 @@
                     <table class="table table-sm" t-if="o.delivery_id.state!='done'" name="stock_move_table">
                         <thead>
                             <tr>
-                                <th name="th_sm_ref"><strong>Reference</strong></th>
-                                <th name="th_sm_product"><strong>Product</strong></th>
+                                <th name="th_sm_ref" class="text-start"><strong>Reference</strong></th>
+                                <th name="th_sm_product" class="text-start"><strong>Product</strong></th>
                                 <th name="th_sm_ordered"><strong>Ordered</strong></th>
                                 <th name="th_sm_quantity"><strong>Delivered</strong></th>
                             </tr>
@@ -105,8 +105,8 @@
                         <t t-set="has_serial_number" t-value="o.delivery_id.move_line_ids.filtered(lambda x: x.move_id.id in o.stock_moves.ids).mapped('lot_id')" groups="stock.group_lot_on_delivery_slip"/>
                         <thead>
                             <tr>
-                                <th name="th_sm_ref"><strong>Reference</strong></th>
-                                <th name="th_sml_product"><strong>Product</strong></th>
+                                <th name="th_sm_ref" class="text-start"><strong>Reference</strong></th>
+                                <th name="th_sml_product" class="text-start"><strong>Product</strong></th>
                                 <th name="th_sml_qty_ordered" class="text-center" t-if="not has_serial_number">
                                     <strong>Ordered</strong>
                                 </th>

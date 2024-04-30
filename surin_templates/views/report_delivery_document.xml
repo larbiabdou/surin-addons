@@ -19,12 +19,12 @@
 
     <template inherit_id="stock.report_delivery_document" id="report_delivery_document">
         <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_product']" position="replace">
-            <th name="th_sml_ref"><strong>Reference</strong></th>
-            <th name="th_sml_product"><strong>Product</strong></th>
+            <th name="th_sml_ref" class="text-start"><strong>Reference</strong></th>
+            <th name="th_sml_product" class="text-start"><strong>Product</strong></th>
         </xpath>
         <xpath expr="//table[@name='stock_move_table']/thead/tr/th[@name='th_sm_product']" position="replace">
-            <th name="th_sm_ref"><strong>Reference</strong></th>
-            <th name="th_sm_product"><strong>Product</strong></th>
+            <th name="th_sm_ref" class="text-start"><strong>Reference</strong></th>
+            <th name="th_sm_product" class="text-start"><strong>Product</strong></th>
         </xpath>
         <xpath expr="//table[@name='stock_move_table']/tbody/tr/td[1]" position="replace">
             <td><span t-field="move.product_id.default_code"/></td>
