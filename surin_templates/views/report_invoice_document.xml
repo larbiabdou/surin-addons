@@ -153,7 +153,7 @@
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
                         <td id="invoice_table_td" >
-                            <t t-if="o.company_id.partner_id.bank_ids">
+                            <t t-if="o.company_id.partner_id.bank_ids and o.is_fictitious == True">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
                                 <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
                                 <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
@@ -213,7 +213,7 @@
                 </div>
             </div>
             </t>
-             <div class="mt-4">
+             <div class="mt-5">
                 <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
                     Montant total en lettres: <br/>
                     <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
@@ -224,7 +224,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:20px;padding-bottom: 20px; padding-top: 10px">
+            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px">
                 <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>
