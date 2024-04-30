@@ -55,7 +55,7 @@
                                     <span t-field="line.discount">-</span>
                                 </td>
                                 <td name="td_taxes" class="text-end">
-                                    <span t-out="', '.join(map(lambda x: (x.description or x.name), line.tax_id))">
+                                    <span t-out="', '.join(map(lambda x: (x.x.name), line.tax_id))">
                                         Tax 15%
                                     </span>
                                 </td>
