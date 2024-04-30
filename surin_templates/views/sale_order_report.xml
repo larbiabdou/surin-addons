@@ -168,7 +168,7 @@
             <div style="margin-top: -110px; width: 400px;">
                     <p class="lh-sm" t-if="doc.company_id.display_invoice_amount_total_words">
                         Montant total en lettres: <br/>
-                        <small class="text-muted lh-sm"><span >Thirty one dollar and Five cents</span></small>
+                        <small class="text-muted lh-sm"><span t-field="doc.amount_total_words">Thirty one dollar and Five cents</span></small>
                     </p>
                 </div>
         </xpath>

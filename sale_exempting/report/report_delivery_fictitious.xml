@@ -8,6 +8,7 @@
             <field name="report_file">sale_exempting.report_delivery_fictitious_document</field>
             <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
             <field name="binding_model_id" ref="sale_exempting.model_stock_picking_fictitious"/>
+            <field name="paperformat_id" ref="surin_templates.paperformat_a4_custom"/>
             <field name="binding_type">report</field>
         </record>
     <template id="report_delivery_fictitious_document">
@@ -15,6 +16,14 @@
             <t t-call="web.html_container">
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o.delivery_id._get_report_lang())" />
+                <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
+                    <div class="col-6">
+                        Bon de livraison
+                    </div>
+                    <div class="col-6 text-end">
+                        <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
+                    </div>
+                </div>
                 <t t-set="partner" t-value="o.partner_id"/>
 
                 <t t-set="address">
