@@ -61,7 +61,9 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                                    Date du paiement:"
-msgstr ""
+msgstr
+"<br/>\n"
+"                                    Date du paiement: "
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -77,7 +79,7 @@ msgid ""
 "                                <strong>Delivery Date:</strong>"
 msgstr ""
 "<br/>\n"
-"                                <strong>Date du livraison:</strong>"
+"                                <strong>Date du livraison: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -86,7 +88,7 @@ msgid ""
 "                                <strong>Due Date:</strong>"
 msgstr ""
 "<br/>\n"
-"                                <strong>Date d'échéance:</strong>"
+"                                <strong>Date d'échéance: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -95,7 +97,7 @@ msgid ""
 "                                <strong>Source:</strong>"
 msgstr ""
 "<br/>\n"
-"                                <strong>Document Source:</strong>"
+"                                <strong>Document Source: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
@@ -172,7 +174,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Invoice Date:</strong>"
-msgstr "<strong>Date de facturation:</strong>"
+msgstr "<strong>Date de facturation: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
@@ -183,7 +185,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Receipt Date:</strong>"
-msgstr "<strong>Date de réception:</strong>"
+msgstr "<strong>Date de réception: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
