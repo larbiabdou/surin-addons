@@ -205,7 +205,7 @@
             </div>
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
-            <t t-if="o.is_fictitious == 'True'">
+            <t t-if="o.is_fictitious == True">
                 <div class="text-center" style="width: 300px; margin-left: 90px">
                 TVA
                 <div class="text-center" style="border:1px solid black; width: 300px; margin-top: 5px;padding: 8px;">
