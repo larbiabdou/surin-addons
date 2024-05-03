@@ -7,8 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[@name='partner_details']" position="inside">
                 <field name="is_stamp_tax"/>
-                <field name="tax_stamp_amount"/>
-                <field name="amount_total"/>
+                <field name="tax_stamp_amount" invisible="1"/>
             </xpath>
 
         </field>
