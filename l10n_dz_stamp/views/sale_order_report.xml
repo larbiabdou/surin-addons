@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="document_sale_tax_totals_template_inherit" inherit_id="sale.document_tax_totals">
+        <xpath expr="//tr[1]" position="after">
+            <tr>
+                <td><strong>Timbre Fiscal</strong></td>
+                <td  class="text-end">
+                    <span t-out="tax_totals['amount_stamp']">31.05</span>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+
+</odoo>

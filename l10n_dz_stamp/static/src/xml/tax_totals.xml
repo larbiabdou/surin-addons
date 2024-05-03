@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="account.TaxTotalsField" t-inherit-mode="extension">
+        <xpath expr="//table/tbody/tr[2]" position="replace">
+            <tr>
+                    <td class="o_td_label">
+                        <label class="o_form_label o_tax_total_label">Total</label>
+                    </td>
+
+                    <td class="o_list_monetary">
+                        <span
+                            name="amount_total"
+                            t-att-class="Object.keys(totals.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                            t-out="totals.formatted_amount_totals"
+                            style="font-size: 1.3em; font-weight: bold; white-space: nowrap;"
+                        />
+                    </td>
+                </tr>
+        </xpath>
+        <xpath expr="//table/tbody/tr[2]" position="before">
+            <tr t-if="'formatted_amount_stamp' in totals and totals.formatted_amount_stamp !== 0">
+                <td class="o_td_label">
+                    <label class="o_form_label o_tax_total_label">Timbre Fiscal</label>
+                </td>
+
+                <td class="o_list_monetary">
+                    <span
+                        name="amount_total"
+                        t-att-class="Object.keys(totals.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                        t-out="totals.formatted_amount_stamp"
+                        style="font-size: 1.3em; font-weight: bold; white-space: nowrap;"
+                    />
+                </td>
+            </tr>
+        </xpath>
+    </t>
+</templates>
