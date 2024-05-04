@@ -18,6 +18,9 @@
     </template>
 
     <template inherit_id="stock.report_delivery_document" id="report_delivery_document">
+        <xpath expr="//h2" position="replace">
+
+        </xpath>
         <xpath expr="//table[@name='stock_move_line_table']/thead/tr/th[@name='th_sml_product']" position="replace">
             <th name="th_sml_ref" class="text-start"><strong>Reference</strong></th>
             <th name="th_sml_product" class="text-start"><strong>Product</strong></th>

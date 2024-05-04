@@ -44,9 +44,6 @@
                                 <td name="td_quantity" class="text-end">
                                     <span t-field="line.product_uom_qty">3</span>
                                     <span t-field="line.product_uom">units</span>
-                                    <span t-if="line.product_packaging_id">
-                                        (<span t-field="line.product_packaging_qty" t-options='{"widget": "integer"}'/> <span t-field="line.product_packaging_id"/>)
-                                    </span>
                                 </td>
                                 <td name="td_priceunit" class="text-end">
                                     <span t-field="line.price_unit">3</span>
@@ -118,15 +115,20 @@
                     </tr>
                     <tr>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
-                                <t t-if="doc.company_id.name"><span t-field="doc.company_id.name"/></t>
+                                <address class="mb-0" t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                <t t-if="doc.company_id.partner_id.rc">RC: <span t-field="doc.company_id.partner_id.rc"/></t> <t t-if="doc.company_id.partner_id.nif"> NIF: <span t-field="doc.company_id.partner_id.nif"/></t><br/>
+                                <t t-if="doc.company_id.partner_id.nis">NIS: <span t-field="doc.company_id.partner_id.nis"/></t>
+                                <t t-if="doc.company_id.partner_id.ai">AI: <span t-field="doc.company_id.partner_id.ai"/></t>
+                                 <br/>
                             </td>
                             <td></td>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%">
                                 <address class="mb-0" t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-                                <t t-if="doc.partner_id.rc">RC: <span t-field="doc.partner_id.rc"/></t> <br/>
-                                <t t-if="doc.partner_id.ai">AI: <span t-field="doc.partner_id.ai"/></t> <br/>
+                                <t t-if="doc.partner_id.rc">RC: <span t-field="doc.partner_id.rc"/></t>
                                 <t t-if="doc.partner_id.nif">NIF: <span t-field="doc.partner_id.nif"/></t> <br/>
-                                <t t-if="doc.partner_id.nis">NIS: <span t-field="doc.partner_id.nis"/></t> <br/>
+                                <t t-if="doc.partner_id.nis">NIS: <span t-field="doc.partner_id.nis"/></t>
+                                <t t-if="doc.partner_id.ai">AI: <span t-field="doc.partner_id.ai"/></t> <br/>
+
                             </td>
                     </tr>
                 </table>
@@ -152,9 +154,18 @@
                         </td>
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
                             <t t-if="doc.payment_term_id.name">
-                                Condition du paiement: <span t-field="doc.payment_term_id.name"/>
+                                <strong>Condition du paiement: </strong>
+                                <span t-field="doc.payment_term_id.name"/>
                             </t>
-
+                            <br/>
+                            <t t-if="doc.validity_date and doc.state in ['draft', 'sent']">
+                                <strong>Expiration:</strong>
+                                <span t-field="doc.validity_date">2023-12-31</span>
+                            </t> <br/>
+                            <t t-if="doc.user_id.name">
+                                <strong>Salesperson:</strong>
+                                <span t-field="doc.user_id">Mitchell Admin</span>
+                            </t>
                         </td>
                     </tr>
                 </table>
@@ -163,6 +174,13 @@
         </xpath>
         <xpath expr="//h2" position="replace">
 
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="replace">
+            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:20px;margin-bottom:20px; margin-left:70px">
+                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                <strong t-else="">Order Date:</strong>
+                <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>
+            </div>
         </xpath>
         <xpath expr="//div[hasclass('clearfix')]" position="after">
             <div style="margin-top: -110px; width: 400px;">

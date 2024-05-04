@@ -8,7 +8,7 @@
         <field name="page_width">0</field>
         <field name="orientation">Portrait</field>
         <field name="margin_top">10</field>
-        <field name="margin_bottom">32</field>
+        <field name="margin_bottom">18</field>
         <field name="margin_left">7</field>
         <field name="margin_right">7</field>
         <field name="header_line" eval="False" />
@@ -72,6 +72,9 @@
         <xpath expr="//t/tr/t/td" position="replace">
             <td><strong>TVA</strong></td>
         </xpath>
+        <xpath expr="//t/tr/t[2]/td" position="replace">
+            <td><strong>TVA</strong></td>
+        </xpath>
     </template>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath expr="//div[hasclass('oe_structure')]" position="replace">
@@ -125,10 +128,10 @@
                                     <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
                                     <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t> <br/>
                                     <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
-                                    <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t> <br/>
-                                    <t t-if="o.company_id.ai_1">AI: <span t-field="o.company_id.ai_1"/></t> <br/>
+                                    <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
                                     <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
-                                    <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t> <br/>
+                                    <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
+                                    <t t-if="o.company_id.ai_1">AI: <span t-field="o.company_id.ai_1"/></t> <br/>
                                 </t>
                                 <t t-if="o.is_fictitious == True and o.sale_type == 'type_2'">
                                     <t t-if="o.company_id.company_name_type_2"><span t-field="o.company_id.company_name_type_2"/></t> <br/>
@@ -137,19 +140,19 @@
                                     <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
                                     <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t> <br/>
                                     <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t> <br/>
-                                    <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t> <br/>
-                                    <t t-if="o.company_id.ai_2">AI: <span t-field="o.company_id.ai_2"/></t> <br/>
+                                    <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
                                     <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
-                                    <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t> <br/>
+                                    <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
+                                    <t t-if="o.company_id.ai_2">AI: <span t-field="o.company_id.ai_2"/></t> <br/>
                                 </t>
                             </td>
                             <td></td>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%">
                                 <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-                                <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t> <br/>
-                                <t t-if="o.partner_id.ai">AI: <span t-field="o.partner_id.ai"/></t> <br/>
+                                <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
                                 <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
-                                <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t> <br/>
+                                <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t>
+                                <t t-if="o.partner_id.ai">AI: <span t-field="o.partner_id.ai"/></t> <br/>
                             </td>
                     </tr>
                 </table>
@@ -161,15 +164,15 @@
                         <td id="invoice_table_td" >
                             <t t-if="o.company_id.partner_id.bank_ids and o.is_fictitious == True">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
-                                <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
+                                Compte bancaire: <br/>
                                 <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                                <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
+                                <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                 <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
                                 <t t-if="len(o.company_id.partner_id.bank_ids) > 1">
                                     <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
-                                    <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
+                                    Compte bancaire: <br/>
                                     <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                                    <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
+                                    <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                     <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
                                 </t>
                             </t>
