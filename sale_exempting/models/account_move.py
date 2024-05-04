@@ -215,6 +215,7 @@ class AccountMove(models.Model):
                         'product_uom_id': line.product_uom_id.id,
                         'quantity': line.remaining_qty_not_declared,
                         'discount': line.discount,
+                        'discount_fixed': line.discount_fixed,
                         'price_unit': line.price_unit,
                         'real_line_id': line.id,
                         'tax_ids': [(6, 0, line.tax_ids.ids)],
@@ -233,6 +234,7 @@ class AccountMove(models.Model):
                         'real_invoice_id': self.id,
                         'is_fictitious': True,
                         'is_real': False,
+                        'is_stamp_tax': self.is_stamp_tax,
                         #'type': type,
                         'invoice_line_ids': [(0, 0, line) for line in new_move_lines],
                     })

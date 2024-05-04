@@ -12,17 +12,16 @@ class SaleOrder(models.Model):
         string='Tax stamp',
         required=False)
 
-    # @api.onchange('is_stamp_tax')
-    # def onchange_is_stamp_tax(self):
-    #     for order in self:
-    #         order._compute_amounts()
-    #         order._compute_tax_totals()
+    def _prepare_invoice(self):
+        invoice_vals = super(SaleOrder, self)._prepare_invoice()
+        invoice_vals['is_stamp_tax'] = self.is_stamp_tax
+        return invoice_vals
 
     @api.depends('order_line.price_subtotal', 'order_line.price_tax', 'order_line.price_total', 'is_stamp_tax')
     def _compute_amounts(self):
         super(SaleOrder, self)._compute_amounts()
         for order in self:
-            if order.is_stamp_tax:
+            if order.is_stamp_tax and order.amount_total > 0:
                 order.tax_stamp_amount = max(order.company_id.stamp_amount_min, min(order.amount_untaxed * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max))
                 order.amount_total += order.tax_stamp_amount
             else:
@@ -34,7 +33,7 @@ class SaleOrder(models.Model):
     def _compute_tax_totals(self):
         super()._compute_tax_totals()
         for order in self:
-            if order.is_stamp_tax:
+            if order.is_stamp_tax and order.amount_total > 0:
                 amount_total = order.amount_total
                 order.tax_totals['amount_total'] = amount_total
                 order.tax_totals['amount_stamp'] = order.tax_stamp_amount

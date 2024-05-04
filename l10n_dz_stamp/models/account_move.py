@@ -26,7 +26,7 @@ class AccountMove(models.Model):
     def _compute_tax_totals(self):
         super()._compute_tax_totals()
         for order in self:
-            if order.is_stamp_tax:
+            if order.is_stamp_tax and order.amount_total > 0:
                 amount_total = order.amount_total
                 order.tax_totals['amount_total'] = amount_total
                 order.tax_totals['amount_stamp'] = order.tax_stamp_amount
@@ -54,7 +54,7 @@ class AccountMove(models.Model):
     def _compute_amount(self):
         super(AccountMove, self)._compute_amount()
         for move in self:
-            if move.is_stamp_tax:
+            if move.is_stamp_tax and move.amount_total > 0:
                 move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(move.amount_untaxed * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
                 move.amount_total += move.tax_stamp_amount
                 move.amount_total_in_currency_signed += move.tax_stamp_amount
