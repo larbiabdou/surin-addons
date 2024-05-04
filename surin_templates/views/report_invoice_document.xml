@@ -214,7 +214,7 @@
             </div>
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
-            <br/><br/><br/>
+            <br/><br/>
                 <div>
                     <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
                         Montant total en lettres: <br/>
