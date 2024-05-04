@@ -10,6 +10,8 @@
         'views/res_company_views.xml',
         'views/res_bank_views.xml',
         'views/res_partner_views.xml',
+        'views/account_move_view.xml',
+        'views/sale_order_views.xml',
     ],
     'installable': True,
     'auto_install': False

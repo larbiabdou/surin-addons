@@ -6,8 +6,7 @@
         <field name="inherit_id" ref="account.view_move_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='ref']" position="after">
-                <field name="is_stamp_tax" readonly="state == 'posted'"/>
-                <field name="tax_stamp_amount" invisible="1"/>
+                <field name="payment_mode"/>
             </xpath>
         </field>
     </record>

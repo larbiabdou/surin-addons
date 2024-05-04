@@ -11,6 +11,11 @@
                 </div>
             </div>
         </xpath>
+        <xpath expr="//div[3]/div/div" position="replace">
+            <div t-if="report_type == 'pdf'" class="text-muted" style="margin-top: -15px">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+        </xpath>
         <xpath expr="//div[3]/div/ul" position="replace">
             <div class="row">
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
@@ -25,6 +30,9 @@
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
                     <i class="fa fa-globe"></i>  <span t-field="company.website"/>
                 </div>
+            </div>
+            <div class="row text-center" style="text-align: left !important;font-size: 14px">
+                <span t-field="company.partner_id.legal_status"/> au capital social de 35 000 000 DA
             </div>
             <br/>
         </xpath>

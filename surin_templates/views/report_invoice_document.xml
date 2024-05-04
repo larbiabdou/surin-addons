@@ -20,6 +20,7 @@
     </record>
     <record id="account.account_invoices_without_payment" model="ir.actions.report">
         <field name="paperformat_id" ref="paperformat_a4_custom"/>
+        <field name="binding_model_id" eval="False"/>
     </record>
     <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals">
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
@@ -77,6 +78,9 @@
         </xpath>
     </template>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//t[@t-if='print_with_payments']" position="replace">
+
+        </xpath>
         <xpath expr="//div[hasclass('oe_structure')]" position="replace">
 
         </xpath>
@@ -128,6 +132,7 @@
                                     <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
                                     <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t> <br/>
                                     <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
+                                    Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
                                     <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
                                     <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
                                     <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
@@ -140,6 +145,7 @@
                                     <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
                                     <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t> <br/>
                                     <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t> <br/>
+                                    Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
                                     <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
                                     <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
                                     <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
@@ -149,6 +155,8 @@
                             <td></td>
                             <td style="border: 1px solid black !important;padding: 5px; width:48%">
                                 <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/>
+                                Forme juridique: <span t-field="o.partner_id.legal_status"/> <br/>
                                 <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
                                 <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
                                 <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t>
@@ -184,9 +192,9 @@
                                 <t t-foreach="payments_vals" t-as="payment_vals">
                                     <t t-set="payment" t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
 
-                                    Paiement: <span t-esc="payment.name"/> <br/>
-                                    Date du paiement: <span t-esc="payment_vals['date']"/> <br/>
-                                    Montant: <span t-esc="payment_vals['amount']"/> <br/>
+                                    Réf: <span t-esc="payment.name"/> <br/>
+                                    Mode de paiement: <span t-field="o.payment_mode"/> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/> <br/>
+                                    Montant: <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> <br/>
                                 </t>
                             </t>
                             <t t-else="">

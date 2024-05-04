@@ -16,3 +16,14 @@ class ResPartner(models.Model):
     nis = fields.Char(
         string='NIS',
         required=False)
+    legal_status = fields.Selection(
+        string='Legal status',
+        selection=[('sarl', 'SARL'),
+                   ('eurl', 'EURL'),
+                   ('spa', 'SPA'),
+                   ('snc', 'SNC'),
+                   ('etablissement', 'Établissement'),
+                   ('ets', 'ETS'),
+                   ],
+        required=False, )
+        

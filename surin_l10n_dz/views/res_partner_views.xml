@@ -11,6 +11,7 @@
                 <field name="ai"/>
                 <field name="nif"/>
                 <field name="nis"/>
+                <field name="legal_status"/>
             </xpath>
         </field>
     </record>
