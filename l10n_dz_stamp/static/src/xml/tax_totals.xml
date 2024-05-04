@@ -7,11 +7,19 @@
                         <label class="o_form_label o_tax_total_label">Total</label>
                     </td>
 
-                    <td class="o_list_monetary">
+                    <td class="o_list_monetary" t-if="'formatted_amount_totals' in totals and totals.formatted_amount_totals !== 0">
                         <span
                             name="amount_total"
                             t-att-class="Object.keys(totals.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
                             t-out="totals.formatted_amount_totals"
+                            style="font-size: 1.3em; font-weight: bold; white-space: nowrap;"
+                        />
+                    </td>
+                    <td class="o_list_monetary" t-else="">
+                        <span
+                            name="amount_total"
+                            t-att-class="Object.keys(totals.groups_by_subtotal).length > 0 ? 'oe_subtotal_footer_separator' : ''"
+                            t-out="totals.formatted_amount_total"
                             style="font-size: 1.3em; font-weight: bold; white-space: nowrap;"
                         />
                     </td>

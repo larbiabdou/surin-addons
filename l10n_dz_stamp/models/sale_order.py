@@ -35,8 +35,6 @@ class SaleOrder(models.Model):
         super()._compute_tax_totals()
         for order in self:
             if order.is_stamp_tax:
-                tax_totals = order.tax_totals
-                tax_stamp_amount = max(order.company_id.stamp_amount_min, min(order.amount_untaxed * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max))
                 amount_total = order.amount_total
                 order.tax_totals['amount_total'] = amount_total
                 order.tax_totals['amount_stamp'] = order.tax_stamp_amount

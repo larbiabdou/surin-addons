@@ -10,6 +10,7 @@
         'views/res_config_settings.xml',
         'views/sale_order_views.xml',
         'views/sale_order_report.xml',
+        'views/account_move_view.xml',
     ],
     'assets': {
         'web.assets_backend': [
