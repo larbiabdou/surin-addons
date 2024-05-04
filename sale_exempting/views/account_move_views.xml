@@ -127,7 +127,7 @@
                 <field name="invoice_types" widget="many2many_tags" invisible="1"/>
                 <field name="is_real" invisible="1" readonly="1"/>
                 <field name="is_fictitious" invisible="1" readonly="1"/>
-                <field name="real_invoice_id" invisible="not is_fictitious or is_real or not has_group" readonly="1"/>
+                <field name="real_invoice_id" invisible="not is_fictitious or is_real" groups="sale_exempting.can_view_real_invoices" readonly="1"/>
             </xpath>
         </field>
     </record>

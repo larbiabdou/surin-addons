@@ -182,13 +182,27 @@
                 <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>
             </div>
         </xpath>
-        <xpath expr="//div[hasclass('clearfix')]" position="after">
-            <div style="margin-top: -110px; width: 400px;">
+        <xpath expr="//div[hasclass('clearfix')]" position="replace">
+            <table style="width: 100%; border:transparent">
+                <tr>
+                    <td style="width: 62%; vertical-align:middle;">
                     <p class="lh-sm" t-if="doc.company_id.display_invoice_amount_total_words">
                         Montant total en lettres: <br/>
                         <small class="text-muted lh-sm"><span t-field="doc.amount_total_words">Thirty one dollar and Five cents</span></small>
                     </p>
-                </div>
+                    </td>
+                    <td style="width: 38%" name="so_total_summary">
+                        <div>
+                            <table class="table table-sm table-borderless">
+                                <!-- Tax totals -->
+                                <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                <t t-call="sale.document_tax_totals"/>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
         </xpath>
     </template>
         <template id="document_sale_tax_totals_template_inherit" inherit_id="sale.document_tax_totals">

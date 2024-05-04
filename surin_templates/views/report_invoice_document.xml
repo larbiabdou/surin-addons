@@ -214,30 +214,13 @@
             </div>
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
-            <t t-if="o.is_fictitious == True">
-                <br/>
-                <div class="text-center" style="width: 300px; margin-left: 80px">
-                    TVA
-                    <div class="text-center" style="border:1px solid black; width: 300px; margin-top: 5px;padding: 8px;">
-                         <span t-field="o.amount_tax"/>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
-                        Montant total en lettres: <br/>
-                        <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
-                    </p>
-                </div>
-            </t>
-            <t t-else="">
-                <br/><br/><br/>
+            <br/><br/><br/>
                 <div>
                     <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
                         Montant total en lettres: <br/>
                         <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
                     </p>
                 </div>
-            </t>
         </xpath>
         <xpath expr="//div[@id='right-elements']/div[2]" position="replace">
 
