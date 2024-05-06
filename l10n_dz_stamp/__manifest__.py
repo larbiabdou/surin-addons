@@ -7,6 +7,7 @@
     'author': 'Abdelhak',
     'depends': ['l10n_dz', 'surin_templates'],
     'data': [
+        'data/product_product_data.xml',
         'views/res_config_settings.xml',
         'views/sale_order_views.xml',
         'views/account_move_view.xml',
