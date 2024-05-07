@@ -114,21 +114,35 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
+                            <td style="width:48%;height: 100px !important;">
+                                <div class="square-table">
+                                  <div class="corner top-left"></div>
+                                  <div class="corner top-right"></div>
+                                  <div class="corner bottom-left"></div>
+                                  <div class="corner bottom-right"></div>
+                                  <div class="content">
                                 <address class="mb-0" t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                                 <t t-if="doc.company_id.partner_id.rc">RC: <span t-field="doc.company_id.partner_id.rc"/></t> <t t-if="doc.company_id.partner_id.nif"> NIF: <span t-field="doc.company_id.partner_id.nif"/></t><br/>
                                 <t t-if="doc.company_id.partner_id.nis">NIS: <span t-field="doc.company_id.partner_id.nis"/></t>
                                 <t t-if="doc.company_id.partner_id.ai">AI: <span t-field="doc.company_id.partner_id.ai"/></t>
                                  <br/>
+                                  </div>
+                                </div>
                             </td>
                             <td></td>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%">
+                            <td style="width:48%">
+                                <div class="square-table">
+                                  <div class="corner top-left"></div>
+                                  <div class="corner top-right"></div>
+                                  <div class="corner bottom-left"></div>
+                                  <div class="corner bottom-right"></div>
+                                  <div class="content">
                                 <address class="mb-0" t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                                 <t t-if="doc.partner_id.rc">RC: <span t-field="doc.partner_id.rc"/></t>
                                 <t t-if="doc.partner_id.nif">NIF: <span t-field="doc.partner_id.nif"/></t> <br/>
                                 <t t-if="doc.partner_id.nis">NIS: <span t-field="doc.partner_id.nis"/></t>
                                 <t t-if="doc.partner_id.ai">AI: <span t-field="doc.partner_id.ai"/></t> <br/>
-
+                                  </div></div>
                             </td>
                     </tr>
                 </table>

@@ -121,46 +121,63 @@
                         </td>
                     </tr>
                     <tr>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%;height: 100px !important;">
-                                <t t-if="o.is_fictitious == False">
-                                    <t t-if="o.company_id.name"><span t-field="o.company_id.name"/></t>
-                                </t>
-                                <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
-                                    <t t-if="o.company_id.company_name_type_1"><span t-field="o.company_id.company_name_type_1"/></t> <br/>
-                                    <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
-                                    <t t-if="o.company_id.city_1"><span t-field="o.company_id.city_1">, </span></t>
-                                    <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
-                                    <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t> <br/>
-                                    <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
-                                    Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
-                                    <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
-                                    <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
-                                    <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
-                                    <t t-if="o.company_id.ai_1">AI: <span t-field="o.company_id.ai_1"/></t> <br/>
-                                </t>
-                                <t t-if="o.is_fictitious == True and o.sale_type == 'type_2'">
-                                    <t t-if="o.company_id.company_name_type_2"><span t-field="o.company_id.company_name_type_2"/></t> <br/>
-                                    <t t-if="o.company_id.street_2"><span t-field="o.company_id.street_2"/></t> <br/>
-                                    <t t-if="o.company_id.city_2"><span t-field="o.company_id.city_2">, </span></t>
-                                    <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
-                                    <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t> <br/>
-                                    <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t> <br/>
-                                    Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
-                                    <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
-                                    <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
-                                    <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
-                                    <t t-if="o.company_id.ai_2">AI: <span t-field="o.company_id.ai_2"/></t> <br/>
-                                </t>
+                            <td style="width:48%;height: 100px !important;">
+                                <div class="square-table">
+                                  <div class="corner top-left"></div>
+                                  <div class="corner top-right"></div>
+                                  <div class="corner bottom-left"></div>
+                                  <div class="corner bottom-right"></div>
+                                  <div class="content">
+                                      <t t-if="o.is_fictitious == False">
+                                        <t t-if="o.company_id.name"><span t-field="o.company_id.name"/></t>
+                                    </t>
+                                    <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
+                                        <t t-if="o.company_id.company_name_type_1"><span t-field="o.company_id.company_name_type_1"/></t> <br/>
+                                        <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
+                                        <t t-if="o.company_id.city_1"><span t-field="o.company_id.city_1">, </span></t>
+                                        <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
+                                        <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t> <br/>
+                                        <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
+                                        Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
+                                        <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
+                                        <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
+                                        <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
+                                        <t t-if="o.company_id.ai_1">AI: <span t-field="o.company_id.ai_1"/></t> <br/>
+                                    </t>
+                                    <t t-if="o.is_fictitious == True and o.sale_type == 'type_2'">
+                                        <t t-if="o.company_id.company_name_type_2"><span t-field="o.company_id.company_name_type_2"/></t> <br/>
+                                        <t t-if="o.company_id.street_2"><span t-field="o.company_id.street_2"/></t> <br/>
+                                        <t t-if="o.company_id.city_2"><span t-field="o.company_id.city_2">, </span></t>
+                                        <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
+                                        <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t> <br/>
+                                        <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t> <br/>
+                                        Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
+                                        <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
+                                        <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
+                                        <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
+                                        <t t-if="o.company_id.ai_2">AI: <span t-field="o.company_id.ai_2"/></t> <br/>
+                                    </t>
+                                      </div>
+                                    </div>
+                                <!---->
                             </td>
                             <td></td>
-                            <td style="border: 1px solid black !important;padding: 5px; width:48%">
-                                <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-                                Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/>
-                                Forme juridique: <span t-field="o.partner_id.legal_status"/> <br/>
-                                <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
-                                <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
-                                <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t>
-                                <t t-if="o.partner_id.ai">AI: <span t-field="o.partner_id.ai"/></t> <br/>
+                            <td style="width:48%;height: 100px !important;">
+                                <div class="square-table">
+                                  <div class="corner top-left"></div>
+                                  <div class="corner top-right"></div>
+                                  <div class="corner bottom-left"></div>
+                                  <div class="corner bottom-right"></div>
+                                  <div class="content">
+                                    <address class="mb-0" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                                    Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/>
+                                    Forme juridique: <span t-field="o.partner_id.legal_status"/> <br/>
+                                    <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
+                                    <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
+                                    <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t>
+                                    <t t-if="o.partner_id.ai">AI: <span t-field="o.partner_id.ai"/></t> <br/>
+                                  </div>
+                                </div>
                             </td>
                     </tr>
                 </table>
