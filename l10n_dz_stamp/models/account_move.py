@@ -1,5 +1,6 @@
 from odoo import api, fields, models
 from odoo.tools.misc import clean_context, formatLang
+from odoo import api, fields, models, _, Command
 
 
 class AccountMove(models.Model):
@@ -7,35 +8,84 @@ class AccountMove(models.Model):
 
     tax_stamp_amount = fields.Float(
         string='Tax_stamp_amount',
+        compute="compute_tax_stamp",
+        store=True,
         required=False)
     is_stamp_tax = fields.Boolean(
         string='Tax stamp',
         required=False)
 
-    # @api.depends_context('lang')
-    # @api.depends(
-    #     'invoice_line_ids.currency_rate',
-    #     'invoice_line_ids.tax_base_amount',
-    #     'invoice_line_ids.tax_line_id',
-    #     'invoice_line_ids.price_total',
-    #     'invoice_line_ids.price_subtotal',
-    #     'invoice_payment_term_id',
-    #     'partner_id',
-    #     'currency_id', 'is_stamp_tax'
-    # )
-    # def _compute_tax_totals(self):
-    #     super()._compute_tax_totals()
-    #     for order in self:
-    #         if order.is_stamp_tax and order.amount_total > 0:
-    #             amount_total = order.amount_total
-    #             order.tax_totals['amount_total'] = amount_total
-    #             order.tax_totals['amount_stamp'] = order.tax_stamp_amount
-    #             order.tax_totals['formatted_amount_stamp'] = formatLang(self.env, order.tax_stamp_amount, currency_obj=order.currency_id)
-    #             order.tax_totals['formatted_amount_total'] = formatLang(self.env, amount_total, currency_obj=order.currency_id)
-    #             order.tax_totals['formatted_amount_totals'] = formatLang(self.env, amount_total, currency_obj=order.currency_id)
-    #         else:
-    #             order.tax_totals['formatted_amount_totals'] = formatLang(self.env, order.amount_total, currency_obj=order.currency_id)
-    #
+
+
+    @api.depends('is_stamp_tax', 'invoice_line_ids')
+    def compute_tax_stamp(self):
+        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        for move in self:
+            if move.is_stamp_tax and move.amount_total > 0:
+                amount_subtotal = 0
+                for line in move.invoice_line_ids.filtered(lambda l: l.product_id.id != product_stamp.id):
+                    if not line.quantity or not line.price_unit:
+                        continue
+
+                    amount_subtotal += line.price_subtotal
+
+                move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
+                if not any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
+                    vals = {
+                        'move_id': move._origin.id,
+                        'product_id': product_stamp.id,
+                        'sequence': 999,
+                        'tax_ids': False,
+                        'price_unit': max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max)),
+                    }
+                    self.env['account.move.line'].create(vals)
+                else:
+                    lines = move.invoice_line_ids.filtered(lambda l: l.product_id.id == product_stamp.id)
+                    lines.update({
+                        'price_unit': max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max)),
+                    })
+
+    def delete_stamp(self):
+        for move in self:
+            product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+            move.tax_stamp_amount = 0
+            if any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
+                lines = move.invoice_line_ids.filtered(lambda l: l.product_id.id == product_stamp.id)
+                move._origin.write({'invoice_line_ids': [Command.delete(line._origin.id) for line in lines]})
+
+    def write(self, values):
+        # Add code here
+        res = super(AccountMove, self).write(values)
+        if 'is_stamp_tax' in values and values['is_stamp_tax'] == False:
+            self.delete_stamp()
+        return res
+
+    @api.depends_context('lang')
+    @api.depends(
+        'invoice_line_ids.currency_rate',
+        'invoice_line_ids.tax_base_amount',
+        'invoice_line_ids.tax_line_id',
+        'invoice_line_ids.price_total',
+        'invoice_line_ids.price_subtotal',
+        'invoice_payment_term_id',
+        'partner_id',
+        'currency_id', 'is_stamp_tax'
+    )
+    def _compute_tax_totals(self):
+        super()._compute_tax_totals()
+        for move in self:
+            if move.is_stamp_tax and move.amount_total > 0:
+                amount_untaxed = move.amount_untaxed
+                move.tax_totals['amount_stamp'] = move.tax_stamp_amount
+                move.tax_totals['formatted_amount_stamp'] = formatLang(self.env, move.tax_stamp_amount, currency_obj=move.currency_id)
+                move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+                move.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+                move.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+            elif move.amount_total > 0:
+                if 'subtotals' in move.tax_totals and move.tax_totals['subtotals'][0]:
+                    move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, move.amount_untaxed, currency_obj=move.currency_id)
+                    move.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, move.amount_untaxed, currency_obj=move.currency_id)
+
     # @api.depends(
     #     'line_ids.matched_debit_ids.debit_move_id.move_id.payment_id.is_matched',
     #     'line_ids.matched_debit_ids.debit_move_id.move_id.line_ids.amount_residual',
@@ -54,14 +104,44 @@ class AccountMove(models.Model):
     # def _compute_amount(self):
     #     super(AccountMove, self)._compute_amount()
     #     for move in self:
-    #         if move.is_stamp_tax and move.amount_total > 0:
-    #             move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(move.amount_untaxed * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
-    #             move.amount_total += move.tax_stamp_amount
-    #             move.amount_total_in_currency_signed += move.tax_stamp_amount
-    #             move.amount_total_signed += move.tax_stamp_amount
-    #             move.amount_residual_signed += move.tax_stamp_amount
-    #             move.amount_residual += move.tax_stamp_amount
+    #         total_untaxed, total_untaxed_currency = 0.0, 0.0
+    #         total_tax, total_tax_currency = 0.0, 0.0
+    #         total_residual, total_residual_currency = 0.0, 0.0
+    #         total, total_currency = 0.0, 0.0
+    #         product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+    #         for line in move.line_ids:
+    #             if move.is_invoice(True):
+    #                 # === Invoices ===
+    #                 if line.display_type == 'tax' or (line.display_type == 'rounding' and line.tax_repartition_line_id):
+    #                     # Tax amount.
+    #                     total_tax += line.balance
+    #                     total_tax_currency += line.amount_currency
+    #                     total += line.balance
+    #                     total_currency += line.amount_currency
+    #                 elif line.display_type in ('product', 'rounding'):
+    #                     # Untaxed amount.
+    #                     total_untaxed += line.balance if line.product_id.id != product_stamp.id else 0
+    #                     total_untaxed_currency += line.amount_currency if line.product_id.id != product_stamp.id else 0
+    #                     total += line.balance
+    #                     total_currency += line.amount_currency
+    #                 elif line.display_type == 'payment_term':
+    #                     # Residual amount.
+    #                     total_residual += line.amount_residual
+    #                     total_residual_currency += line.amount_residual_currency
+    #             else:
+    #                 # === Miscellaneous journal entry ===
+    #                 if line.debit:
+    #                     total += line.balance
+    #                     total_currency += line.amount_currency
     #
-    #
-    #         else:
-    #             move.tax_stamp_amount = 0
+    #         sign = move.direction_sign
+    #         move.amount_untaxed = sign * total_untaxed_currency
+    #         move.amount_tax = sign * total_tax_currency
+    #         move.amount_total = sign * total_currency
+    #         move.amount_residual = -sign * total_residual_currency
+    #         move.amount_untaxed_signed = -total_untaxed
+    #         move.amount_tax_signed = -total_tax
+    #         move.amount_total_signed = abs(total) if move.move_type == 'entry' else -total
+    #         move.amount_residual_signed = total_residual
+    #         move.amount_total_in_currency_signed = abs(move.amount_total) if move.move_type == 'entry' else -(sign * move.amount_total)
+
