@@ -8,7 +8,7 @@ class AccountMove(models.Model):
 
     tax_stamp_amount = fields.Float(
         string='Tax_stamp_amount',
-        compute="compute_tax_stamp",
+        #compute="compute_tax_stamp",
         store=True,
         required=False)
     is_stamp_tax = fields.Boolean(
