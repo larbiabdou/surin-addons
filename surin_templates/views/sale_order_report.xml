@@ -167,15 +167,18 @@
 
                         </td>
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
+
                             <t t-if="doc.payment_term_id.name">
                                 <strong>Condition du paiement: </strong>
                                 <span t-field="doc.payment_term_id.name"/>
                             </t>
                             <br/>
-                            <t t-if="doc.validity_date and doc.state in ['draft', 'sent']">
+                            <div name="expiration_date">
+                                <t t-if="doc.validity_date and doc.state in ['draft', 'sent']">
                                 <strong>Expiration:</strong>
                                 <span t-field="doc.validity_date">2023-12-31</span>
                             </t> <br/>
+                            </div>
                             <t t-if="doc.user_id.name">
                                 <strong>Salesperson:</strong>
                                 <span t-field="doc.user_id">Mitchell Admin</span>
