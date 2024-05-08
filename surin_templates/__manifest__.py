@@ -5,7 +5,7 @@
     'description': 'Surin templates',
     'category': 'Base',
     'author': 'Abdelhak',
-    'depends': ['account_invoice_fixed_discount'],
+    'depends': ['account_invoice_fixed_discount', 'sale_pdf_quote_builder'],
     'data': [
         'views/external_layout.xml',
         'views/report_invoice_document.xml',

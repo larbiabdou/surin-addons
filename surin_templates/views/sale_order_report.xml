@@ -6,6 +6,10 @@
     <record id="sale.action_report_pro_forma_invoice" model="ir.actions.report">
         <field name="paperformat_id" ref="surin_templates.paperformat_a4_custom"/>
     </record>
+    <record id="sale_pdf_quote_builder.action_report_saleorder_raw" model="ir.actions.report">
+        <field name="paperformat_id" ref="surin_templates.paperformat_a4_custom"/>
+    </record>
+
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
         <xpath expr="//t[4]" position="replace">
 
