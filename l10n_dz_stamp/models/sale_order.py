@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
         )
         product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
         def show_line(line):
-            if line.product_id.id == product_stamp.id:
+            if line.product_id.id == product_stamp.id or line.price_unit < 0:
                 return False
             elif not line.is_downpayment:
                 return True
@@ -47,7 +47,7 @@ class SaleOrder(models.Model):
         for order in self:
             if order.is_stamp_tax and order.amount_total > 0:
                 amount_subtotal = 0
-                for line in order.order_line.filtered(lambda l: l.product_id.id != product_stamp.id):
+                for line in order.order_line.filtered(lambda l: l.product_id.id != product_stamp.id and l.price_unit > 0):
                     if not line.product_uom_qty or not line.price_unit:
                         continue
 

@@ -15,7 +15,18 @@ class AccountMove(models.Model):
         string='Tax stamp',
         required=False)
 
+    discount_amount = fields.Monetary(string='Discount Amount', compute="compute_discount_amount")
+    total_without_discount = fields.Monetary(string='Total without discount', compute="compute_discount_amount")
 
+    def compute_discount_amount(self):
+        for record in self:
+            record.discount_amount = sum(line.discount_amount for line in record.invoice_line_ids)
+            record.total_without_discount = sum(line.total_without_discount for line in record.invoice_line_ids)
+            if any(line.price_unit < 0 and line.discount == 0 for line in record.invoice_line_ids):
+                record.discount_amount = abs(sum(line.price_subtotal for line in record.invoice_line_ids.filtered(lambda line: line.price_unit < 0 and line.discount == 0)))
+                record.total_without_discount = record.amount_untaxed + record.discount_amount
+                if record.is_stamp_tax:
+                    record.total_without_discount -= record.tax_stamp_amount
 
     @api.depends('is_stamp_tax', 'invoice_line_ids')
     def compute_tax_stamp(self):
@@ -27,7 +38,7 @@ class AccountMove(models.Model):
                     if not line.quantity or not line.price_unit:
                         continue
 
-                    amount_subtotal += line.price_subtotal
+                    amount_subtotal += line.price_subtotal if line.price_subtotal > 0 else 0
 
                 move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
                 if not any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
