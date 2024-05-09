@@ -132,9 +132,9 @@ class AccountMove(models.Model):
             if record.is_fictitious and record.move_type == 'out_invoice':
                 sale_type = ''
                 for line in record.invoice_line_ids:
-                    if line.product_id.sale_type == '':
+                    if line.product_id.sale_type == '' and line.product_id.detailed_type == 'product':
                         raise ValidationError(_('Sale type must not be empty in any product'))
-                    elif sale_type != '' and sale_type != line.product_id.sale_type:
+                    elif sale_type != '' and sale_type != line.product_id.sale_type and line.product_id.detailed_type == 'product':
                         raise ValidationError(_('All product must have the same sale type'))
                     else:
                         sale_type = line.product_id.sale_type
@@ -166,7 +166,7 @@ class AccountMove(models.Model):
             if record.is_fictitious:
                 record.declaration_state = 'full'
             else:
-                if record.remaining_qty_not_declared == sum(line.quantity for line in record.invoice_line_ids):
+                if record.remaining_qty_not_declared == sum(line.quantity for line in record.invoice_line_ids.filtered(lambda line: line.product_id.detailed_type == 'product')):
                     record.declaration_state = 'not_declared'
                 elif record.remaining_qty_not_declared != 0:
                     record.declaration_state = 'partially'
@@ -202,8 +202,18 @@ class AccountMove(models.Model):
 
     def create_invoice_duplicated(self):
         types = ['type_1', 'type_2']
+        discount_line = False
+        if any(line.price_unit < 0 and line.discount == 0 for line in self.invoice_line_ids):
+            discount_line = self.env['account.move.line'].search([('move_id', '=', self.id),
+                                                                  ('price_unit', '<', 0)])
+        types_in_lines = []
+        for line in self.invoice_line_ids:
+            if line.product_id.sale_type not in types_in_lines and line.product_id.detailed_type == 'product':
+                types_in_lines.append(line.product_id.sale_type)
+        types_number = len(types_in_lines)
         for type in types:
             new_move_lines = []
+
             invoice_lines = self.env['account.move.line'].search([('move_id', '=', self.id),
                                                                   ('product_id.sale_type', '=', type)])
             for line in invoice_lines:
@@ -220,6 +230,16 @@ class AccountMove(models.Model):
                         'real_line_id': line.id,
                         'tax_ids': [(6, 0, line.tax_ids.ids)],
                     })
+            if discount_line:
+                new_move_lines.append({
+                    'name': discount_line.name,
+                    'product_id': discount_line.product_id.id,
+                    'product_uom_id': discount_line.product_uom_id.id,
+                    'quantity': 1,
+                    'price_unit': discount_line.price_unit / types_number,
+                    'real_line_id': discount_line.id,
+                    'tax_ids': False,
+                })
             if new_move_lines:
                 if type == 'type_1':
                     journal_id = self.env.ref('account.1_sale', raise_if_not_found=False)
@@ -329,12 +349,16 @@ class AccountMoveLine(models.Model):
 
     def compute_remaining_qty(self):
         for record in self:
-            fictitious_invoice_lines = self.env['account.move.line'].search([('move_id.real_invoice_id', '=', record.move_id.id),
-                                                                             ('product_id', '=', record.product_id.id)])
-            if fictitious_invoice_lines:
-                record.remaining_qty_not_declared = record.quantity - sum(line.quantity for line in fictitious_invoice_lines)
+            if record.product_id.detailed_type != 'product':
+                record.remaining_qty_not_declared = 0
             else:
-                record.remaining_qty_not_declared = record.quantity
+                fictitious_invoice_lines = self.env['account.move.line'].search([('move_id.real_invoice_id', '=', record.move_id.id),
+                                                                                 ('product_id', '=', record.product_id.id),
+                                                                                 ('product_id.detailed_type', '=', 'product')])
+                if fictitious_invoice_lines:
+                    record.remaining_qty_not_declared = record.quantity - sum(line.quantity for line in fictitious_invoice_lines)
+                else:
+                    record.remaining_qty_not_declared = record.quantity
 
 
 class InvoiceType(models.Model):
