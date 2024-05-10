@@ -144,7 +144,7 @@
                                         <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
                                         <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t>
                                         <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
-                                        Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
+                                        <t t-if="o.company_id.partner_id.industry_id">Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/></t> <br/>
                                         <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
                                         <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
                                         <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
@@ -157,7 +157,7 @@
                                         <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
                                         <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t>
                                         <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t><br/>
-                                        Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/> <br/><br/>
+                                        <t t-if="o.company_id.partner_id.industry_id">Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/></t> <br/><br/>
                                         <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
                                         <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
                                         <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
@@ -181,7 +181,7 @@
                                         <t t-if="o.partner_id.state_id.name"><span t-field="o.partner_id.state_id.name">, </span></t>
                                         <t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"></span></t>
                                         <t t-if="o.partner_id.country_id.name"><span t-field="o.partner_id.country_id.name"/></t><br/>
-                                    Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/>
+                                    <t t-if="o.partner_id.industry_id">Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/></t>
                                     Forme juridique: <span t-field="o.partner_id.legal_status"/> <br/>
                                     <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
                                     <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
@@ -221,7 +221,9 @@
                                     <t t-set="payment" t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
 
                                     Référence: <span t-esc="payment.name"/> <br/>
-                                    Mode de paiement: <span t-field="o.payment_mode"/> <![CDATA[&nbsp;]]> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/> <br/>
+                                    <t t-if="o.payment_mode">Mode de paiement: <span t-field="o.payment_mode"/> <![CDATA[&nbsp;]]> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+                                    <t t-else="">Date du paiement<span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+                                    <br/>
                                     Montant: <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> <br/>
                                 </t>
                             </t>
