@@ -406,7 +406,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Order Date:"
-msgstr "Date de commande"
+msgstr "Date de commande: "
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
