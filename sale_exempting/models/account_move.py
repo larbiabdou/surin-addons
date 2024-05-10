@@ -230,7 +230,7 @@ class AccountMove(models.Model):
                         'real_line_id': line.id,
                         'tax_ids': [(6, 0, line.tax_ids.ids)],
                     })
-            if discount_line:
+            if discount_line and new_move_lines != []:
                 new_move_lines.append({
                     'name': discount_line.name,
                     'product_id': discount_line.product_id.id,
