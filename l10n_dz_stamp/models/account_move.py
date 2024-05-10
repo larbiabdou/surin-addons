@@ -89,8 +89,9 @@ class AccountMove(models.Model):
                 amount_untaxed = move.amount_untaxed
                 move.tax_totals['amount_stamp'] = move.tax_stamp_amount
                 move.tax_totals['formatted_amount_stamp'] = formatLang(self.env, move.tax_stamp_amount, currency_obj=move.currency_id)
-                move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
-                move.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+                if 'subtotals' in move.tax_totals and move.tax_totals['subtotals']:
+                    move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+                    move.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
                 move.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
             elif move.amount_total > 0:
                 if 'subtotals' in move.tax_totals and move.tax_totals['subtotals'][0]:

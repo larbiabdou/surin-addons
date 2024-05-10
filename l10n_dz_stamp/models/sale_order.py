@@ -93,10 +93,11 @@ class SaleOrder(models.Model):
                 amount_untaxed = order.amount_untaxed
                 order.tax_totals['amount_stamp'] = order.tax_stamp_amount
                 order.tax_totals['formatted_amount_stamp'] = formatLang(self.env, order.tax_stamp_amount, currency_obj=order.currency_id)
-                order.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed, currency_obj=order.currency_id)
-                order.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed, currency_obj=order.currency_id)
+                if 'subtotals' in order.tax_totals and order.tax_totals['subtotals']:
+                    order.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed, currency_obj=order.currency_id)
+                    order.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed, currency_obj=order.currency_id)
                 order.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, amount_untaxed, currency_obj=order.currency_id)
             elif order.amount_total > 0:
-                if 'subtotals' in order.tax_totals and order.tax_totals['subtotals'][0]:
+                if 'subtotals' in order.tax_totals and order.tax_totals['subtotals']:
                     order.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, order.amount_untaxed, currency_obj=order.currency_id)
                 order.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, order.amount_untaxed, currency_obj=order.currency_id)
