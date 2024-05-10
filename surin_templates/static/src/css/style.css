@@ -60,7 +60,6 @@
 
   .content {
     z-index: 1; /* Assure que le texte est au-dessus des coins */
-    font-weight: bold;
     width: 100%;
     height: 100%;
   }
