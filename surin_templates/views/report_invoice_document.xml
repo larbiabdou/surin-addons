@@ -23,8 +23,11 @@
         <field name="binding_model_id" eval="False"/>
     </record>
     <template id="document_tax_totals_template_inherit" inherit_id="account.document_tax_totals">
+        <xpath expr="//tr[hasclass('o_total')]" position="attributes">
+            <attribute name="style">font-family: Merriweather;</attribute>
+        </xpath>
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
-            <tr t-if="o.tax_stamp_amount > 0">
+            <tr t-if="o.tax_stamp_amount > 0" style="font-family: Merriweather;">
                 <td><strong>Timbre Fiscal</strong></td>
                 <td  class="text-end">
                     <span t-out="tax_totals['formatted_amount_stamp']">31.05</span>
@@ -37,8 +40,11 @@
                 </td>
             </tr>
         </xpath>
+        <xpath expr="//tr" position="attributes">
+            <attribute name="style">font-family: Merriweather;</attribute>
+        </xpath>
         <xpath expr="//tr" position="replace">
-            <tr>
+            <tr style="font-family: Merriweather;">
                 <td><strong >Total HT Net</strong></td>
 
                 <td class="text-end">
@@ -51,14 +57,14 @@
         </xpath>
         <xpath expr="//tr" position="before">
             <t t-if="o.discount_amount > 0">
-                <tr>
+                <tr style="font-family: Merriweather;">
                     <td><strong>Montant HT Brut</strong></td>
 
                     <td class="text-end">
                         <span t-field="o.total_without_discount">27.00</span>
                     </td>
                 </tr>
-                <tr>
+                <tr style="font-family: Merriweather;">
                     <td><strong>Remise</strong></td>
 
                     <td class="text-end">
@@ -250,6 +256,9 @@
                         <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
                     </p>
                 </div>
+        </xpath>
+        <xpath expr="//div[@id='right-elements']/div[1]" position="attributes">
+            <attribute name="style">font-family: Merriweather;</attribute>
         </xpath>
         <xpath expr="//div[@id='right-elements']/div[2]" position="replace">
 
