@@ -61,7 +61,7 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                                    Date du paiement:"
-msgstr
+msgstr ""
 "<br/>\n"
 "                                    Date du paiement: "
 
