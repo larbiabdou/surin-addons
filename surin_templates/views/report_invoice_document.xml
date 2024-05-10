@@ -7,7 +7,7 @@
         <field name="page_height">0</field>
         <field name="page_width">0</field>
         <field name="orientation">Portrait</field>
-        <field name="margin_top">10</field>
+        <field name="margin_top">13</field>
         <field name="margin_bottom">18</field>
         <field name="margin_left">7</field>
         <field name="margin_right">7</field>
@@ -85,7 +85,7 @@
 
         </xpath>
         <xpath expr="//div[hasclass('row')]" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
                 <div class="col-6">
                     <span t-if="not proforma"></span>
                     <span t-else="">PROFORMA</span>
@@ -107,17 +107,17 @@
                     <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
                 </div>
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+            <div style="padding-bottom: 5px; border-bottom:1px solid black">
                 <table class="invoice-table">
                     <tr>
                         <td style="width:48%">
-                            <span t-if="o.move_type == 'out_invoice'">Fournisseur:</span>
-                    <span t-elif="o.move_type == 'in_invoice'">Client:</span>
+                            <span t-if="o.move_type == 'out_invoice'">Vendeur:</span>
+                    <span t-elif="o.move_type == 'in_invoice'">Acheteur:</span>
                         </td>
                         <td style="width:4%"></td>
                         <td style="width:48%">
-                            <span t-if="o.move_type == 'in_invoice'">Fournisseur:</span>
-                    <span t-elif="o.move_type == 'out_invoice'">Client:</span>
+                            <span t-if="o.move_type == 'in_invoice'">Vendeur:</span>
+                    <span t-elif="o.move_type == 'out_invoice'">Acheteur:</span>
                         </td>
                     </tr>
                     <tr>
@@ -136,9 +136,9 @@
                                         <t t-if="o.company_id.street_1"><span t-field="o.company_id.street_1"/></t> <br/>
                                         <t t-if="o.company_id.city_1"><span t-field="o.company_id.city_1">, </span></t>
                                         <t t-if="o.company_id.state_id_1.name"><span t-field="o.company_id.state_id_1.name">, </span></t>
-                                        <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t> <br/>
-                                        <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t> <br/>
-                                        Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
+                                        <t t-if="o.company_id.zip_1"><span t-field="o.company_id.zip_1"></span></t>
+                                        <t t-if="o.company_id.country_id_1.name"><span t-field="o.company_id.country_id_1.name"/></t>
+                                        Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
                                         <t t-if="o.company_id.rc_1">RC: <span t-field="o.company_id.rc_1"/></t>
                                         <t t-if="o.company_id.nif_1">NIF: <span t-field="o.company_id.nif_1"/></t> <br/>
                                         <t t-if="o.company_id.nis_1">NIS: <span t-field="o.company_id.nis_1"/></t>
@@ -149,9 +149,9 @@
                                         <t t-if="o.company_id.street_2"><span t-field="o.company_id.street_2"/></t> <br/>
                                         <t t-if="o.company_id.city_2"><span t-field="o.company_id.city_2">, </span></t>
                                         <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
-                                        <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t> <br/>
-                                        <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t> <br/>
-                                        Secteur d'activité : <span t-field="o.company_id.partner_id.industry_id.name"/> <br/>
+                                        <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t>
+                                        <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t><br/>
+                                        Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/> <br/><br/>
                                         <t t-if="o.company_id.rc_2">RC: <span t-field="o.company_id.rc_2"/></t>
                                         <t t-if="o.company_id.nif_2">NIF: <span t-field="o.company_id.nif_2"/></t> <br/>
                                         <t t-if="o.company_id.nis_2">NIS: <span t-field="o.company_id.nis_2"/></t>
@@ -209,16 +209,15 @@
                                 <t t-foreach="payments_vals" t-as="payment_vals">
                                     <t t-set="payment" t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
 
-                                    Réf: <span t-esc="payment.name"/> <br/>
-                                    Mode de paiement: <span t-field="o.payment_mode"/> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/> <br/>
+                                    Référence: <span t-esc="payment.name"/> <br/>
+                                    Mode de paiement: <span t-field="o.payment_mode"/> <![CDATA[&nbsp;]]> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/> <br/>
                                     Montant: <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/> <br/>
                                 </t>
                             </t>
                             <t t-else="">
-                                <strong>Invoice Date:</strong><span t-field="o.invoice_date">2023-09-12</span> <br/>
-                                <strong>Due Date:</strong><span t-field="o.invoice_date_due">2023-10-31</span> <br/>
-                                <strong>Delivery Date:</strong><span t-field="o.delivery_date">2023-09-25</span><br/>
-                                <strong>Source:</strong><span t-field="o.invoice_origin"></span>
+                                <strong>Due Date: </strong><span t-field="o.invoice_date_due">2023-10-31</span> <br/>
+                                <strong>Delivery Date: </strong><span t-field="o.delivery_date">2023-09-25</span><br/>
+                                <strong>Source: </strong><span t-field="o.invoice_origin"></span>
                             </t>
                         </td>
                     </tr>

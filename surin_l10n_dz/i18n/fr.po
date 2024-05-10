@@ -1,0 +1,264 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* surin_l10n_dz
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-10 14:13+0000\n"
+"PO-Revision-Date: 2024-05-10 14:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__ai
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__ai_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__ai_2
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__ai
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__ai
+msgid "AI"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Address"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_sale_order__amount_total_words
+msgid "Amount total in words"
+msgstr "Montant total en lettre"
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_res_bank
+msgid "Bank"
+msgstr "Banque"
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "City"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__city_1
+msgid "City 1"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__city_2
+msgid "City 2"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_res_company
+msgid "Companies"
+msgstr "Sociétés"
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_base_document_layout
+msgid "Company Document Layout"
+msgstr "Mise en page des documents de votre société"
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__country_id_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__country_id_2
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Country"
+msgstr "Pays"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__ets
+msgid "ETS"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__eurl
+msgid "EURL"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__account_move__payment_mode__cash
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__sale_order__payment_mode__cash
+msgid "Espèce"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_base_document_layout__fax
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__fax
+msgid "Fax"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__state_id_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__state_id_2
+msgid "Fed. State"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Informations fiscales produits fabrication"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Informations fiscales produits négoce"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__legal_status
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__legal_status
+msgid "Legal status"
+msgstr "Forme juridique"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nif
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nif_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nif_2
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__nif
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__nif
+msgid "NIF"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nis
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nis_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__nis_2
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__nis
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__nis
+msgid "NIS"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__company_name_type_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__company_name_type_2
+msgid "Nom de la société"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__account_move__payment_mode__check
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__sale_order__payment_mode__check
+msgid "Par chèque"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_bank_statement_line__payment_mode
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move__payment_mode
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_payment__payment_mode
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_sale_order__payment_mode
+msgid "Payment mode"
+msgstr "Mode de paiement"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__rc_1
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__rc_2
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__rc
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__rc
+msgid "RC"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__sarl
+msgid "SARL"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__snc
+msgid "SNC"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__spa
+msgid "SPA"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_bank__swift
+msgid "SWIFT"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_sale_order
+msgid "Sales Order"
+msgstr "Bon de commande"
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "State"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__street_1
+msgid "Street 1"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__street_2
+msgid "Street 2"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Street 2..."
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "Street..."
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__street2_1
+msgid "Street2 1"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__street2_2
+msgid "Street2 2"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__account_move__payment_mode__bank
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__sale_order__payment_mode__bank
+msgid "Versement bancaire"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__account_move__payment_mode__virement
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__sale_order__payment_mode__virement
+msgid "Virement bancaire"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
+msgid "ZIP"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__zip_1
+msgid "Zip 1"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__zip_2
+msgid "Zip 2"
+msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__etablissement
+msgid "Établissement"
+msgstr ""

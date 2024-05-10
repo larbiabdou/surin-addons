@@ -14,13 +14,13 @@ class ResConfigSettings(models.TransientModel):
         required=False)
 
     stamp_amount_max = fields.Float(
-        string='Maximmum value',
+        string='Maximum value',
         related='company_id.stamp_amount_max',
         readonly=False,
         required=False)
 
     stamp_amount_min = fields.Float(
-        string='Maximum value',
+        string='Minimum value',
         related='company_id.stamp_amount_min',
         readonly=False,
         required=False)

@@ -96,25 +96,25 @@
         </xpath>
 
         <xpath expr="//t[@t-set='address']" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
                 <div class="col-6">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
-                    <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
-                    <span t-else="">Order # </span>
+                    <span t-elif="doc.state in ['draft','sent']">Quotation </span>
+                    <span t-else="">Order </span>
                     </div>
                     <div class="col-6 text-end">
                         <span t-if="doc.name != '/'" t-field="doc.name"></span>
                     </div>
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+            <div style="padding-bottom: 5px; border-bottom:1px solid black">
                 <table class="invoice-table">
                     <tr>
                         <td style="width:48%">
-                            <span>Fournisseur:</span>
+                            <span>Vendeur:</span>
                         </td>
                         <td style="width:4%"></td>
                         <td style="width:48%">
-                     <span>Client:</span>
+                     <span>Acheteur:</span>
                         </td>
                     </tr>
                     <tr>
@@ -198,8 +198,8 @@
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
             <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:20px;margin-bottom:20px; margin-left:70px">
-                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
-                <strong t-else="">Order Date:</strong>
+                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date: </strong>
+                <strong t-else="">Order Date: </strong>
                 <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>
             </div>
         </xpath>

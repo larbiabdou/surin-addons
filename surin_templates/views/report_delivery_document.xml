@@ -37,7 +37,7 @@
 
         </xpath>
         <xpath expr="//t[@t-set='information_block']" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
 
                     <div class="col-6">
                         <t t-if="o.picking_type_id.code=='incoming'">Bon de reception</t>
