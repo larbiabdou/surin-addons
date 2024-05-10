@@ -18,7 +18,7 @@
 
         </xpath>
         <xpath expr="//table[1]" position="replace">
-            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px">
+            <div style="font-family: Merriweather;border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px">
                 <table class="table table-sm o_main_table table-borderless">
                 <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                 <thead style="display: table-row-group">
@@ -99,7 +99,7 @@
         </xpath>
 
         <xpath expr="//t[@t-set='address']" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
+            <div class="row zero_min_height" style="font-family: Merriweather; border-bottom: 1px solid black; margin-bottom: 30px">
                 <div class="col-6">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
                     <span t-elif="doc.state in ['draft','sent']">Quotation </span>
@@ -109,7 +109,7 @@
                         <span t-if="doc.name != '/'" t-field="doc.name"></span>
                     </div>
             </div>
-            <div style="padding-bottom: 5px; border-bottom:1px solid black">
+            <div style="padding-bottom: 5px; border-bottom:1px solid black;font-family: Merriweather;">
                 <table class="invoice-table">
                     <tr>
                         <td style="width:48%">
@@ -160,7 +160,7 @@
                 </table>
 
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+            <div style="padding-bottom: 10px; border-bottom:1px solid black;font-family: Merriweather;">
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
                         <td id="invoice_table_td" >
@@ -205,14 +205,14 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:20px;margin-bottom:20px; margin-left:70px">
+            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:20px;margin-bottom:20px; margin-left:70px; font-family: Merriweather;">
                 <strong t-if="doc.state in ['draft', 'sent']">Quotation Date: </strong>
                 <strong t-else="">Order Date: </strong>
                 <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>
             </div>
         </xpath>
         <xpath expr="//div[hasclass('clearfix')]" position="replace">
-            <table style="width: 100%; border:transparent">
+            <table style="width: 100%; border:transparent;font-family: Merriweather;">
                 <tr>
                     <td style="width: 62%; vertical-align:middle;">
                     <p class="lh-sm" t-if="doc.company_id.display_invoice_amount_total_words">

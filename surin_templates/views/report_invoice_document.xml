@@ -30,7 +30,7 @@
                     <span t-out="tax_totals['formatted_amount_stamp']">31.05</span>
                 </td>
             </tr>
-            <tr style="border-bottom:1px solid black">
+            <tr style="border-bottom:1px solid black; font-family: Merriweather;">
                 <td><strong>Total TTC</strong></td>
                 <td  class="text-end">
                     <span t-out="tax_totals['formatted_amount_total']">31.05</span>
@@ -85,7 +85,7 @@
 
         </xpath>
         <xpath expr="//div[hasclass('row')]" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px; font-family: Merriweather;">
                 <div class="col-6">
                     <span t-if="not proforma"></span>
                     <span t-else="">PROFORMA</span>
@@ -107,7 +107,7 @@
                     <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
                 </div>
             </div>
-            <div style="padding-bottom: 5px; border-bottom:1px solid black">
+            <div style="padding-bottom: 5px; border-bottom:1px solid black; font-family: Merriweather;">
                 <table class="invoice-table">
                     <tr>
                         <td style="width:48%">
@@ -188,7 +188,7 @@
                 </table>
 
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black">
+            <div style="padding-bottom: 10px; border-bottom:1px solid black; font-family: Merriweather;">
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
                         <td id="invoice_table_td" >
@@ -234,7 +234,7 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="text-end" t-if="o.invoice_date" name="invoice_date" style="margin-top:-30px;margin-bottom:20px; margin-left:70px">
+            <div class="text-end" t-if="o.invoice_date" name="invoice_date" style="margin-top:-30px;margin-bottom:20px; margin-left:70px; font-family: Merriweather;">
                 <t t-if="o.move_type == 'out_invoice'"><strong>Invoice Date:</strong></t>
                 <t t-elif="o.move_type == 'out_refund'"><strong>Credit Note Date:</strong></t>
                 <t t-elif="o.move_type == 'out_receipt'"><strong>Receipt Date:</strong></t>
@@ -244,7 +244,7 @@
         </xpath>
         <xpath expr="//div[@id='payment_term']" position="replace">
             <br/><br/>
-                <div>
+                <div style="font-family: Merriweather;">
                     <p class="lh-sm" t-if="o.company_id.display_invoice_amount_total_words">
                         Montant total en lettres: <br/>
                         <small class="text-muted lh-sm"><span t-field="o.amount_total_words">Thirty one dollar and Five cents</span></small>
@@ -255,7 +255,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px">
+            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-family: Merriweather;">
                 <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>

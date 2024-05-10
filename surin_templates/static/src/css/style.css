@@ -61,5 +61,6 @@
   .content {
     z-index: 1; /* Assure que le texte est au-dessus des coins */
     width: 100%;
+    font-family: Merriweather;
     height: 100%;
   }

@@ -36,8 +36,11 @@
         <xpath expr="//t[@t-set='address']" position="replace">
 
         </xpath>
+        <xpath expr="//div[hasclass('page')]" position="attributes">
+            <attribute name="style">font-family: Merriweather;</attribute>
+        </xpath>
         <xpath expr="//t[@t-set='information_block']" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px;font-family: Merriweather;">
 
                     <div class="col-6">
                         <t t-if="o.picking_type_id.code=='incoming'">Bon de reception</t>
@@ -47,7 +50,7 @@
                         <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>
                     </div>
                 </div>
-            <div class="row pt-4" style="font-weight:bold">
+            <div class="row pt-4" style="font-weight:bold; font-family: Merriweather;">
                     <div class="col-7" name="div_incoming_address">
                             <t t-set="show_partner" t-value="False" />
                             <div name="vendor_address" t-if="o.picking_type_id.code=='incoming' and partner">
