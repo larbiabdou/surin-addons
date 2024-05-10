@@ -51,7 +51,7 @@ class SaleOrder(models.Model):
                     if not line.product_uom_qty or not line.price_unit:
                         continue
 
-                    amount_subtotal += line.price_subtotal
+                    amount_subtotal += line.price_subtotal if line.price_subtotal > 0 else 0
 
                 order.tax_stamp_amount = max(order.company_id.stamp_amount_min, min(amount_subtotal * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max))
                 if not any(line.product_id.id == product_stamp.id for line in order.order_line):
