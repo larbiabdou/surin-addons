@@ -39,6 +39,9 @@
         <xpath expr="//div[hasclass('page')]" position="attributes">
             <attribute name="style">font-family: Merriweather;</attribute>
         </xpath>
+        <xpath expr="//div[@name='div_origin']" position="replace">
+
+        </xpath>
         <xpath expr="//t[@t-set='information_block']" position="replace">
             <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px;font-family: Merriweather; margin-top: 10px">
 

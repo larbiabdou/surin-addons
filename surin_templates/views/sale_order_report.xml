@@ -164,18 +164,18 @@
                 <table class="invoice-table" style="margin-top: 10px;">
                     <tr>
                         <td id="invoice_table_td" >
-                            <!--<t t-if="doc.company_id.partner_id.bank_ids">
+                            <t t-if="is_pro_forma">
                                 <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
-                            <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
-                            <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                            <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
-                            <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
-                            <t t-if="doc.company_id.partner_id.bank_ids[1]" t-set="bank" t-value="doc.company_id.partner_id.bank_ids[1]"/>
-                            <t t-if="bank.acc_number"> Compte bancaire: <span t-field="bank.acc_number"/></t> <br/>
-                            <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
-                            <t t-if="bank.bank_id">NIB: <span t-field="bank.bank_id.bic"/></t> <br/>
-                            <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
-                            </t>-->
+                                Compte bancaire: <br/>
+                                <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
+                                <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
+                                <t t-if="len(doc.company_id.partner_id.bank_ids) > 1">
+                                    <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[1]"/>
+                                    Compte bancaire: <br/>
+                                    <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
+                                    <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
+                                </t>
+                            </t>
 
                         </td>
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
