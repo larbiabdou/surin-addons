@@ -99,7 +99,7 @@
         </xpath>
 
         <xpath expr="//t[@t-set='address']" position="replace">
-            <div class="row zero_min_height" style="font-family: Merriweather; border-bottom: 1px solid black; margin-bottom: 30px">
+            <div class="row zero_min_height" style="font-family: Merriweather; border-bottom: 1px solid black; margin-bottom: 30px; margin-top: 10px">
                 <div class="col-6">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
                     <span t-elif="doc.state in ['draft','sent']">Quotation </span>

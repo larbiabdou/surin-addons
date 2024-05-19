@@ -97,7 +97,7 @@
 
         </xpath>
         <xpath expr="//div[hasclass('row')]" position="replace">
-            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px; font-family: Merriweather;">
+            <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 30px; font-family: Merriweather; margin-top: 10px">
                 <div class="col-6">
                     <span t-if="not proforma"></span>
                     <span t-else="">PROFORMA</span>
@@ -209,13 +209,11 @@
                                 Compte bancaire: <br/>
                                 <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                                 <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
-                                <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
                                 <t t-if="len(o.company_id.partner_id.bank_ids) > 1">
                                     <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
                                     Compte bancaire: <br/>
                                     <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                                     <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
-                                    <t t-if="bank.bank_id">SWIFT: <span t-field="bank.bank_id.swift"/></t> <br/>
                                 </t>
                             </t>
 
