@@ -181,14 +181,13 @@
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                      <t t-if="o.partner_id.name"><span t-field="o.partner_id.name"/></t> <br/>
+                                      <t t-if="o.partner_id.name"><span t-field="o.partner_id.legal_status"/> <span t-field="o.partner_id.name"/></t> <br/>
                                         <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></t> <br/>
                                         <t t-if="o.partner_id.city"><span t-field="o.partner_id.city">, </span></t>
                                         <t t-if="o.partner_id.state_id.name"><span t-field="o.partner_id.state_id.name">, </span></t>
                                         <t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"></span></t>
                                         <t t-if="o.partner_id.country_id.name"><span t-field="o.partner_id.country_id.name"/></t><br/>
-                                    <t t-if="o.partner_id.industry_id">Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/></t>
-                                    Forme juridique: <span t-field="o.partner_id.legal_status"/> <br/>
+                                    <t t-if="o.partner_id.industry_id">Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/></t> <br/>
                                     <t t-if="o.partner_id.rc">RC: <span t-field="o.partner_id.rc"/></t>
                                     <t t-if="o.partner_id.nif">NIF: <span t-field="o.partner_id.nif"/></t> <br/>
                                     <t t-if="o.partner_id.nis">NIS: <span t-field="o.partner_id.nis"/></t>

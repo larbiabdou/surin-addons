@@ -144,7 +144,7 @@
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                <t t-if="doc.partner_id.name"><span t-field="doc.partner_id.name"/></t> <br/>
+                                <t t-if="doc.partner_id.name"><span t-field="doc.partner_id.legal_status"/> <span t-field="doc.partner_id.name"/></t> <br/>
                                         <t t-if="doc.partner_id.street"><span t-field="doc.partner_id.street"/></t> <br/>
                                         <t t-if="doc.partner_id.city"><span t-field="doc.partner_id.city">, </span></t>
                                         <t t-if="doc.partner_id.state_id.name"><span t-field="doc.partner_id.state_id.name">, </span></t>

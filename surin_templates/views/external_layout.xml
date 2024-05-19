@@ -31,9 +31,9 @@
                     <i class="fa fa-globe"></i>  <span t-field="company.website"/>
                 </div>
             </div>
-            <div class="row text-center" style="text-align: left !important;font-size: 14px; font-family: Merriweather;">
+            <!--<div class="row text-center" style="text-align: left !important;font-size: 14px; font-family: Merriweather;">
                 <span t-field="company.partner_id.legal_status"/> au capital social de 35 000 000 DA
-            </div>
+            </div>-->
             <br/>
         </xpath>
     </template>
