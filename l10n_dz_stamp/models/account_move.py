@@ -24,6 +24,14 @@ class AccountMove(models.Model):
     discount_amount = fields.Monetary(string='Discount Amount', compute="compute_discount_amount")
     total_without_discount = fields.Monetary(string='Total without discount', compute="compute_discount_amount")
 
+    @api.onchange('payment_mode')
+    def _onchange_payment_mode(self):
+        for move in self:
+            if move.payment_mode == 'cash':
+                move.is_stamp_tax = True
+            else:
+                move.is_stamp_tax = False
+
     def compute_discount_amount(self):
         for record in self:
             record.discount_amount = sum(line.discount_amount for line in record.invoice_line_ids)

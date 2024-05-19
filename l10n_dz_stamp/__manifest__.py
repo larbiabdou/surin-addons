@@ -5,7 +5,7 @@
     'description': 'Surin l10n dz',
     'category': 'account',
     'author': 'Abdelhak',
-    'depends': ['l10n_dz', 'surin_templates'],
+    'depends': ['l10n_dz', 'surin_templates', 'surin_l10n_dz'],
     'data': [
         'data/product_product_data.xml',
         'views/res_config_settings.xml',
