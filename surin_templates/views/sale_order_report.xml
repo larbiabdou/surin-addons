@@ -236,7 +236,7 @@
     </template>
         <template id="document_sale_tax_totals_template_inherit" inherit_id="sale.document_tax_totals">
         <xpath expr="//tr[hasclass('o_total')]" position="replace">
-            <tr>
+            <tr t-if="doc.tax_stamp_amount > 0">
                 <td><strong>Total TTC</strong></td>
                 <td  class="text-end">
                     <span t-out="tax_totals['total_ttc_without_stamp']">31.05</span>

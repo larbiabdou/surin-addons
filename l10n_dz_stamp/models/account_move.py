@@ -11,6 +11,12 @@ class AccountMove(models.Model):
         compute="compute_tax_stamp",
         store=True,
         required=False)
+
+    total_ttc_without_stamp = fields.Float(
+        string='Total_ttc_without_stamp',
+        compute="compute_tax_stamp",
+        required=False)
+
     is_stamp_tax = fields.Boolean(
         string='Tax stamp',
         required=False)
@@ -38,9 +44,10 @@ class AccountMove(models.Model):
                     if not line.quantity or not line.price_unit:
                         continue
 
-                    amount_subtotal += line.price_subtotal if line.price_subtotal > 0 else 0
+                    amount_subtotal += line.price_total if line.product_id != product_stamp else 0
 
                 move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
+                move.total_ttc_without_stamp = move.amount_total - move.tax_stamp_amount
                 if not any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
                     vals = {
                         'move_id': move._origin.id,
@@ -93,6 +100,8 @@ class AccountMove(models.Model):
                     move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
                     move.tax_totals['subtotals'][0]['formatted_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
                 move.tax_totals['formatted_subtotal_amount'] = formatLang(self.env, amount_untaxed - move.tax_stamp_amount, currency_obj=move.currency_id)
+                move.tax_totals['total_ttc_without_stamp'] = formatLang(self.env, move.total_ttc_without_stamp, currency_obj=move.currency_id)
+
             elif move.amount_total > 0:
                 if 'subtotals' in move.tax_totals and move.tax_totals['subtotals'][0]:
                     move.tax_totals['subtotals'][0]['formatted_amounts'] = formatLang(self.env, move.amount_untaxed, currency_obj=move.currency_id)
