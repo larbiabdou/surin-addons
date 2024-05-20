@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Merriweather';
+    src: url('/usr/share/fonts/truetype/merriweather/Merriweather-Regular.ttf') format('truetype');
+}
 .invoice-table{
     width:100% !important;
     border: transparent !important;
