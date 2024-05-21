@@ -20,13 +20,13 @@ class SaleOrder(models.Model):
         compute="compute_tax_stamp",
         required=False)
 
-    # @api.onchange('payment_mode')
-    # def _onchange_payment_mode(self):
-    #     for order in self:
-    #         if order.payment_mode == 'cash':
-    #             order.is_stamp_tax = True
-    #         else:
-    #             order.is_stamp_tax = False
+    @api.onchange('payment_mode')
+    def _onchange_payment_mode(self):
+        for order in self:
+            if order.payment_mode == 'cash':
+                order.is_stamp_tax = True
+            else:
+                order.is_stamp_tax = False
 
     def _get_order_lines_to_report(self):
         down_payment_lines = self.order_line.filtered(lambda line:
