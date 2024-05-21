@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 15:30+0000\n"
-"PO-Revision-Date: 2024-05-10 15:30+0000\n"
+"POT-Creation-Date: 2024-05-21 08:59+0000\n"
+"PO-Revision-Date: 2024-05-21 08:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -71,20 +71,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid ""
 "<br/>\n"
-"                                        Secteur d'activité:"
-msgstr ""
-
-#. module: surin_templates
-#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
-msgid ""
-"<br/>\n"
-"                                    Mode de paiement:"
-msgstr ""
-
-#. module: surin_templates
-#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
-msgid ""
-"<br/>\n"
 "                                    Montant:"
 msgstr ""
 
@@ -117,12 +103,12 @@ msgstr "<span><strong>Adresse de livraison:</strong></span>"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_delivery_document
 msgid "<span><strong>Vendor Address:</strong></span>"
-msgstr ""
+msgstr "<span><strong>Adresse du fournisseur:</strong></span>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_delivery_document
 msgid "<span><strong>Warehouse Address:</strong></span>"
-msgstr ""
+msgstr "<span><strong>Adresse du dépôt:</strong></span>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
@@ -199,12 +185,12 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Date:</strong>"
-msgstr "<strong>Date: </strong>"
+msgstr "<strong>Date:</strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Due Date: </strong>"
-msgstr "<strong>Date d'échéance : </strong>"
+msgstr "<strong>Date d'échéance:</strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
@@ -214,7 +200,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Invoice Date:</strong>"
-msgstr "<strong>Date de facturation: </strong>"
+msgstr "<strong>Date: </strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
@@ -230,7 +216,7 @@ msgstr "<strong>Produit</strong>"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "<strong>Receipt Date:</strong>"
-msgstr "<strong>Date de réception: </strong>"
+msgstr "<strong>Date de réception:</strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_delivery_document
@@ -246,7 +232,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "<strong>Salesperson:</strong>"
-msgstr "<strong>Vendeur :</strong>"
+msgstr "<strong>Vendeur:</strong>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.tax_groups_totals
@@ -263,6 +249,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_tax_totals_template_inherit
 msgid "<strong>Total HT Net</strong>"
+msgstr ""
+
+#. module: surin_templates
+#: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
+#: model_terms:ir.ui.view,arch_db:surin_templates.document_tax_totals_template_inherit
+msgid "<strong>Total TTC Net</strong>"
 msgstr ""
 
 #. module: surin_templates
@@ -301,6 +293,7 @@ msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Banque:"
 msgstr ""
 
@@ -326,12 +319,18 @@ msgstr "Facture annulée"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Compte bancaire: <br/>"
 msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "Credit Note"
+msgstr ""
+
+#. module: surin_templates
+#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
+msgid "Date du paiement"
 msgstr ""
 
 #. module: surin_templates
@@ -350,11 +349,6 @@ msgid "Draft Invoice"
 msgstr "Facture brouillon"
 
 #. module: surin_templates
-#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
-msgid "Forme juridique:"
-msgstr ""
-
-#. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "INV/2023/0001"
@@ -363,7 +357,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "Invoice"
-msgstr "Facture"
+msgstr "Facture NO."
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.external_layout_standard
@@ -377,12 +371,18 @@ msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
+msgid "Mode de paiement:"
+msgstr ""
+
+#. module: surin_templates
+#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Montant total en lettres: <br/>"
 msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "NIB:"
 msgstr ""
 
@@ -406,7 +406,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Order Date:"
-msgstr "Date de commande: "
+msgstr "Date:"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -436,7 +436,7 @@ msgstr "Vente"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Quotation Date:"
-msgstr "Date de devis"
+msgstr "Date"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -452,11 +452,6 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "Référence:"
-msgstr ""
-
-#. module: surin_templates
-#: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
-msgid "SWIFT:"
 msgstr ""
 
 #. module: surin_templates
@@ -489,7 +484,7 @@ msgstr "Prix unitaire"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "Vendeur:"
-msgstr "Vendeur: "
+msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
@@ -499,11 +494,6 @@ msgstr "Facture Fournisseur"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_invoice_document
 msgid "Vendor Credit Note"
-msgstr ""
-
-#. module: surin_templates
-#: model_terms:ir.ui.view,arch_db:surin_templates.external_layout_standard
-msgid "au capital social de 35 000 000 DA"
 msgstr ""
 
 #. module: surin_templates

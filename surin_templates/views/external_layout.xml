@@ -17,21 +17,29 @@
                 </div>
         </xpath>
         <xpath expr="//div[3]/div/ul" position="replace">
-            <div class="row" style="font-family: Merriweather;">
+            <div class="row" style="font-size:9pt">
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
-                    <i class="fa fa-phone"></i> <span t-field="company.phone"/>
+                    <t t-if="company.phone">
+                        <i class="fa fa-phone"></i> <span t-field="company.phone"/>
+                    </t>
                 </div>
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
-                    <i class="fa fa-fax"></i> <span t-field="company.fax"/>
+                    <t t-if="company.fax">
+                        <i class="fa fa-fax"></i> <span t-field="company.fax"/>
+                    </t>
                 </div>
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
-                    <i class="fa fa-envelope"></i> <span t-field="company.email"/>
+                    <t t-if="company.email">
+                        <i class="fa fa-envelope"></i> <span t-field="company.email"/>
+                    </t>
                 </div>
                 <div class="col-3" style="text-align: left !important;font-size: 14px">
-                    <i class="fa fa-globe"></i>  <span t-field="company.website"/>
+                    <t t-if="company.website">
+                        <i class="fa fa-globe"></i>  <span t-field="company.website"/>
+                    </t>
                 </div>
             </div>
-            <!--<div class="row text-center" style="text-align: left !important;font-size: 14px; font-family: Merriweather;">
+            <!--<div class="row text-center" style="text-align: left !important;font-size: 14px; font-family: Pt sans;">
                 <span t-field="company.partner_id.legal_status"/> au capital social de 35 000 000 DA
             </div>-->
             <br/>

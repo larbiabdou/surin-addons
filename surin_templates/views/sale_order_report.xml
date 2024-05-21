@@ -18,7 +18,7 @@
 
         </xpath>
         <xpath expr="//table[1]" position="replace">
-            <div style="font-family: Merriweather;border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px">
+            <div style="font-family: Pt sans;border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-size:10pt">
                 <table class="table table-sm o_main_table table-borderless">
                 <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                 <thead style="display: table-row-group">
@@ -99,7 +99,7 @@
         </xpath>
 
         <xpath expr="//t[@t-set='address']" position="replace">
-            <div class="row zero_min_height" style="font-family: Merriweather; border-bottom: 1px solid black; margin-bottom: 30px; margin-top: 10px">
+            <div class="row zero_min_height" style="font-family: Pt sans; border-bottom: 1px solid black; margin-bottom: 30px; margin-top: 10px; font-size:14pt">
                 <div class="col-6">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
                     <span t-elif="doc.state in ['draft','sent']">Quotation </span>
@@ -109,69 +109,81 @@
                         <span t-if="doc.name != '/'" t-field="doc.name"></span>
                     </div>
             </div>
-            <div style="padding-bottom: 5px; border-bottom:1px solid black;font-family: Merriweather;">
+            <div style="padding-bottom: 5px; border-bottom:1px solid black;font-family: Pt sans;">
                 <table class="invoice-table">
                     <tr>
-                        <td style="width:48%">
+                        <td style="width:48%; font-size:7pt">
                             <span>Vendeur:</span>
                         </td>
                         <td style="width:4%"></td>
-                        <td style="width:48%">
+                        <td style="width:48%; font-size:7pt">
                      <span>Acheteur:</span>
                         </td>
                     </tr>
                     <tr>
-                            <td style="width:48%;height: 100px !important;">
+                            <td style="width:48%;height: 100px !important;font-size:9pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                <address class="mb-0" t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
-                                <t t-if="doc.company_id.partner_id.rc">RC: <span t-field="doc.company_id.partner_id.rc"/></t> <t t-if="doc.company_id.partner_id.nif"> NIF: <span t-field="doc.company_id.partner_id.nif"/></t><br/>
-                                <t t-if="doc.company_id.partner_id.nis">NIS: <span t-field="doc.company_id.partner_id.nis"/></t>
-                                <t t-if="doc.company_id.partner_id.ai">AI: <span t-field="doc.company_id.partner_id.ai"/></t>
+                                      <t t-if="doc.company_id.partner_id.name"><span style="font-size:12pt" t-field="doc.company_id.partner_id.legal_status"/> <span style="font-size:12pt" t-field="doc.company_id.partner_id.name"/></t> <br/>
+                                        <t t-if="doc.company_id.partner_id.street"><span t-field="doc.company_id.partner_id.street"/></t> <br/>
+                                        <t t-if="doc.company_id.partner_id.city"><span t-field="doc.company_id.partner_id.city">, </span></t>
+                                        <t t-if="doc.company_id.partner_id.state_id.name"><span t-field="doc.company_id.partner_id.state_id.name">, </span></t>
+                                        <t t-if="doc.company_id.partner_id.zip"><span t-field="doc.company_id.partner_id.zip"></span></t>
+                                        <t t-if="doc.company_id.partner_id.country_id.name"><span t-field="doc.company_id.partner_id.country_id.name"/></t><br/>
+                                      <t t-if="doc.company_id.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.company_id.partner_id.rc"/></span></t>
+                                      <t t-if="doc.company_id.partner_id.nif"><span style="font-weight: 800;" > NIF: <span
+                                              t-field="doc.company_id.partner_id.nif"/></span></t><br/>
+                                      <t t-if="doc.company_id.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.company_id.partner_id.nis"/></span></t>
+                                      <t t-if="doc.company_id.partner_id.ai"><span style="font-weight: 800;" >AI: <span t-field="doc.company_id.partner_id.ai"/></span></t>
                                  <br/>
                                   </div>
                                 </div>
                             </td>
                             <td></td>
-                            <td style="width:48%">
+                            <td style="width:48%; font-size:9pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                <t t-if="doc.partner_id.name"><span t-field="doc.partner_id.legal_status"/> <span t-field="doc.partner_id.name"/></t> <br/>
+                                <t t-if="doc.partner_id.name" style="font-size:12pt !important"><span style="font-size:12pt !important" t-field="doc.partner_id.legal_status"/>
+                                    <span style="font-size:12pt !important" t-field="doc.partner_id.name"/></t> <br/>
                                         <t t-if="doc.partner_id.street"><span t-field="doc.partner_id.street"/></t> <br/>
                                         <t t-if="doc.partner_id.city"><span t-field="doc.partner_id.city">, </span></t>
                                         <t t-if="doc.partner_id.state_id.name"><span t-field="doc.partner_id.state_id.name">, </span></t>
                                         <t t-if="doc.partner_id.zip"><span t-field="doc.partner_id.zip"></span></t>
                                         <t t-if="doc.partner_id.country_id.name"><span t-field="doc.partner_id.country_id.name"/></t><br/>
-                                <t t-if="doc.partner_id.rc">RC: <span t-field="doc.partner_id.rc"/></t>
-                                <t t-if="doc.partner_id.nif">NIF: <span t-field="doc.partner_id.nif"/></t> <br/>
-                                <t t-if="doc.partner_id.nis">NIS: <span t-field="doc.partner_id.nis"/></t>
-                                <t t-if="doc.partner_id.ai">AI: <span t-field="doc.partner_id.ai"/></t> <br/>
+                                      <t t-if="doc.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.partner_id.rc"/></span></t>
+                                      <t t-if="doc.partner_id.nif"><span style="font-weight: 800;" >NIF: <span t-field="doc.partner_id.nif"/></span></t> <br/>
+                                      <t t-if="doc.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.partner_id.nis"/></span></t>
+                                      <t t-if="doc.partner_id.ai"><span style="font-weight: 800;" >AI: <span t-field="doc.partner_id.ai"/></span></t> <br/>
                                   </div></div>
                             </td>
                     </tr>
                 </table>
 
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black;font-family: Merriweather;">
-                <table class="invoice-table" style="margin-top: 10px;">
-                    <tr>
+            <div style="padding-bottom: 10px; border-bottom:1px solid black;font-family: Pt sans;">
+                <table class="invoice-table" style="margin-top: 10px; margin-top: 8px;">
+                    <tr style="font-size:8pt !important">
                         <td id="invoice_table_td" >
                             <t t-if="is_pro_forma">
                                 <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
-                                Compte bancaire: <br/>
+                                <span style="font-size:10pt !important">
+                                    Compte bancaire: <br/>
+                                </span>
                                 <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                                 <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                 <t t-if="len(doc.company_id.partner_id.bank_ids) > 1">
                                     <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[1]"/>
+                                    <span style="font-size:10pt !important">
                                     Compte bancaire: <br/>
+                                </span>
                                     <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                                     <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                 </t>
@@ -181,18 +193,18 @@
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
 
                             <t t-if="doc.payment_term_id.name">
-                                <strong>Condition du paiement: </strong>
+                                <span>Condition du paiement: </span>
                                 <span t-field="doc.payment_term_id.name"/>
                             </t>
                             <br/>
                             <div name="expiration_date">
                                 <t t-if="doc.validity_date and doc.state in ['draft', 'sent']">
-                                <strong>Expiration:</strong>
+                                <span>Expiration:</span>
                                 <span t-field="doc.validity_date">2023-12-31</span>
                             </t> <br/>
                             </div>
                             <t t-if="doc.user_id.name">
-                                <strong>Salesperson:</strong>
+                                <span>Salesperson:</span>
                                 <span t-field="doc.user_id">Mitchell Admin</span>
                             </t>
                         </td>
@@ -205,14 +217,14 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:20px;margin-bottom:20px; margin-left:70px; font-family: Merriweather;">
+            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:10px;margin-bottom:10px; margin-left:70px; font-family: Pt sans;font-size:8pt">
                 <strong t-if="doc.state in ['draft', 'sent']">Quotation Date: </strong>
                 <strong t-else="">Order Date: </strong>
                 <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>
             </div>
         </xpath>
         <xpath expr="//div[hasclass('clearfix')]" position="replace">
-            <table style="width: 100%; border:transparent;font-family: Merriweather;">
+            <table style="width: 100%; border:transparent;font-family: Pt sans; font-size:10pt">
                 <tr>
                     <td style="width: 62%; vertical-align:middle;">
                     <p class="lh-sm" t-if="doc.company_id.display_invoice_amount_total_words">

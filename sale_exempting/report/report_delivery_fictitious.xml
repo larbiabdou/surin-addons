@@ -17,7 +17,7 @@
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o.delivery_id._get_report_lang())" />
 
-                <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px; font-family: Merriweather;">
+                <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px; font-family: Pt sans;font-size:14pt">
                     <div class="col-6">
                         Bon de livraison
                     </div>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <t t-set="partner" t-value="o.partner_id"/>
-                <div class="row pt-4" style="font-weight:bold;font-family: Merriweather;">
+                <div class="row pt-4" style="font-weight:bold;font-family: Pt sans;">
                     <div class="col-7" name="div_incoming_address">
                             <t t-set="show_partner" t-value="False" />
                             <div name="customer_address" t-if="o.delivery_id.picking_type_id.code=='outgoing' and partner and partner != partner.commercial_partner_id">
@@ -48,7 +48,7 @@
                     </div>
 
                 </div>
-                <div class="page" style="font-family: Merriweather;">
+                <div class="page" style="font-family: Pt sans;">
                     <div class="oe_structure"></div>
                     <div class="row mt32 mb32">
                         <div t-if="o.delivery_id.origin" class="col-auto" name="div_origin">
