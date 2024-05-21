@@ -18,7 +18,7 @@
 
         </xpath>
         <xpath expr="//table[1]" position="replace">
-            <div style="font-family: Pt sans;border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-size:10pt">
+            <div style="font-family: Pt sans;border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-size:11pt">
                 <table class="table table-sm o_main_table table-borderless">
                 <!-- In case we want to repeat the header, remove "display: table-row-group" -->
                 <thead style="display: table-row-group">
@@ -112,16 +112,16 @@
             <div style="padding-bottom: 5px; border-bottom:1px solid black;font-family: Pt sans;">
                 <table class="invoice-table">
                     <tr>
-                        <td style="width:48%; font-size:7pt">
+                        <td style="width:48%; font-size:8pt">
                             <span>Vendeur:</span>
                         </td>
                         <td style="width:4%"></td>
-                        <td style="width:48%; font-size:7pt">
+                        <td style="width:48%; font-size:8pt">
                      <span>Acheteur:</span>
                         </td>
                     </tr>
                     <tr>
-                            <td style="width:48%;height: 100px !important;font-size:9pt !important">
+                            <td style="width:40%;height: 70px !important;font-size:10pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
@@ -144,7 +144,7 @@
                                 </div>
                             </td>
                             <td></td>
-                            <td style="width:48%; font-size:9pt !important">
+                            <td style="width:48%; font-size:10pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
@@ -168,20 +168,20 @@
                 </table>
 
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black;font-family: Pt sans;">
+            <div style="padding-bottom: 7px; border-bottom:1px solid black;font-family: Pt sans;">
                 <table class="invoice-table" style="margin-top: 10px; margin-top: 8px;">
-                    <tr style="font-size:8pt !important">
+                    <tr style="font-size:10pt !important">
                         <td id="invoice_table_td" >
                             <t t-if="is_pro_forma">
                                 <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
-                                <span style="font-size:10pt !important">
+                                <span style="font-size:11pt !important">
                                     Compte bancaire: <br/>
                                 </span>
                                 <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
                                 <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                 <t t-if="len(doc.company_id.partner_id.bank_ids) > 1">
                                     <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[1]"/>
-                                    <span style="font-size:10pt !important">
+                                    <span style="font-size:11pt !important">
                                     Compte bancaire: <br/>
                                 </span>
                                     <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
@@ -217,7 +217,7 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:10px;margin-bottom:10px; margin-left:70px; font-family: Pt sans;font-size:8pt">
+            <div class="text-end" t-if="doc.date_order" name="invoice_date" style="margin-top:10px;margin-bottom:10px; margin-left:70px; font-family: Pt sans;font-size:10pt">
                 <strong t-if="doc.state in ['draft', 'sent']">Quotation Date: </strong>
                 <strong t-else="">Order Date: </strong>
                 <span t-field="doc.date_order" t-options='{"widget": "date"}'>2023-09-12</span>

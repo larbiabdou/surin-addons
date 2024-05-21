@@ -18,7 +18,7 @@ msgstr ""
 #. module: sale_fixed_discount
 #: model_terms:ir.ui.view,arch_db:sale_fixed_discount.report_saleorder_document
 msgid "<span>Disc. %</span>"
-msgstr ""
+msgstr "Remise %"
 
 #. module: sale_fixed_discount
 #: model_terms:ir.ui.view,arch_db:sale_fixed_discount.sale_order_portal_content

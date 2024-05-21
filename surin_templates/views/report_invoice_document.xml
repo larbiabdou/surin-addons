@@ -122,18 +122,18 @@
             <div style="padding-bottom: 5px; border-bottom:1px solid black; font-family: Pt sans;">
                 <table class="invoice-table">
                     <tr>
-                        <td style="width:48%; font-size:7pt">
+                        <td style="width:48%; font-size:8pt">
                             <span t-if="o.move_type == 'out_invoice'">Vendeur:</span>
                     <span t-elif="o.move_type == 'in_invoice'">Acheteur:</span>
                         </td>
                         <td style="width:4%"></td>
-                        <td style="width:48%; font-size:7pt">
+                        <td style="width:48%; font-size:8pt">
                             <span t-if="o.move_type == 'in_invoice'">Vendeur:</span>
                     <span t-elif="o.move_type == 'out_invoice'">Acheteur:</span>
                         </td>
                     </tr>
                     <tr>
-                            <td style="width:48%;height: 100px !important;font-size:9pt !important">
+                            <td style="width:48%;height: 100px !important;font-size:10pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
@@ -174,7 +174,7 @@
                                 <!---->
                             </td>
                             <td></td>
-                            <td style="width:48%;height: 100px !important; font-size:9pt !important">
+                            <td style="width:48%;height: 100px !important; font-size:10pt !important">
                                 <div class="square-table">
                                   <div class="corner top-left"></div>
                                   <div class="corner top-right"></div>
@@ -182,14 +182,14 @@
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
                                       <t t-if="o.partner_id.name"><span style="font-size:12pt" t-field="o.partner_id.legal_status"/> <span style="font-size:12pt !important" t-field="o.partner_id.name"/></t> <br/>
-                                      <div style="font-size:9pt">
+                                      <div style="font-size:10pt">
                                           <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></t> <br/>
                                         <t t-if="o.partner_id.city"><span t-field="o.partner_id.city">, </span></t>
                                         <t t-if="o.partner_id.state_id.name"><span t-field="o.partner_id.state_id.name">, </span></t>
                                         <t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"></span></t>
                                         <t t-if="o.partner_id.country_id.name"><span t-field="o.partner_id.country_id.name"/></t><br/>
                                         <t t-if="o.partner_id.industry_id" style="font-size:8pt !important">Secteur d'activité: <span t-field="o.partner_id.industry_id.name"/></t> <br/>
-                                        <t t-if="o.partner_id.rc"> <span style="font-weight: 800;" >RC: <span t-field="o.partner_id.rc"/></span></t>
+                                        <t t-if="o.partner_id.rc"> <span style="font-weight: 800;" >RC: <span style="font-weight: 900;" t-field="o.partner_id.rc"/></span></t>
                                           <t t-if="o.partner_id.nif"><span style="font-weight: 800;" >NIF: <span style="font-weight: 900;" t-field="o.partner_id.nif"/></span></t> <br/>
                                           <t t-if="o.partner_id.nis"><span style="font-weight: 800;" >NIS: <span style="font-weight: 900;" t-field="o.partner_id.nis"/></span></t>
                                           <t t-if="o.partner_id.ai"><span style="font-weight: 800;" >AI: <span style="font-weight: 900;" t-field="o.partner_id.ai"/></span></t> <br/>
@@ -201,13 +201,13 @@
                 </table>
 
             </div>
-            <div style="padding-bottom: 10px; border-bottom:1px solid black; font-family: Pt sans;">
+            <div style="padding-bottom: 8px; border-bottom:1px solid black; font-family: Pt sans;">
                 <table class="invoice-table" style="margin-top: 8px;">
                     <tr>
-                        <td id="invoice_table_td" style="font-size:8pt !important">
+                        <td id="invoice_table_td" style="font-size:10pt !important">
                             <t t-if="o.company_id.partner_id.bank_ids and o.is_fictitious == True">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
-                                <span style="font-size:10pt !important">
+                                <span style="font-size:11pt !important">
                                     Compte bancaire: <br/>
                                 </span>
 
@@ -215,7 +215,7 @@
                                 <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
                                 <t t-if="len(o.company_id.partner_id.bank_ids) > 1">
                                     <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[1]"/>
-                                    <span style="font-size:10pt !important">
+                                    <span style="font-size:11pt !important">
                                         Compte bancaire: <br/>
                                     </span>
                                     <t t-if="bank.bank_id">Banque: <span t-field="bank.bank_id.name"/></t> <br/>
@@ -224,7 +224,7 @@
                             </t>
 
                         </td>
-                        <td style="border-left: 1px solid black !important;padding: 5px; width:50%; font-size:8pt !important">
+                        <td style="border-left: 1px solid black !important;padding: 5px; width:50%; font-size:10pt !important">
                             <t t-if="o.is_fictitious == True">
                                 <t t-set="payments_vals" t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
                                 <t t-foreach="payments_vals" t-as="payment_vals">
@@ -252,7 +252,7 @@
 
         </xpath>
         <xpath expr="//div[@id='informations']" position="replace">
-            <div class="text-end" t-if="o.invoice_date" name="invoice_date" style="margin-top:-35px;margin-bottom:10px; margin-left:70px; font-family: Pt sans; font-size:8pt">
+            <div class="text-end" t-if="o.invoice_date" name="invoice_date" style="margin-top:-35px;margin-bottom:10px; margin-left:70px; font-family: Pt sans; font-size:10pt">
                 <t t-if="o.move_type == 'out_invoice'"><strong>Invoice Date:</strong></t>
                 <t t-elif="o.move_type == 'out_refund'"><strong>Credit Note Date:</strong></t>
                 <t t-elif="o.move_type == 'out_receipt'"><strong>Receipt Date:</strong></t>
