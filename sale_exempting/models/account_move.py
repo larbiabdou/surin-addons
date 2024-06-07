@@ -18,7 +18,7 @@ class AccountMove(models.Model):
 
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
-        compute="compute_invoice_types",
+        #compute="compute_invoice_types",
         relation="account_invoice_invoice_type_rel",
         store=True,
         string='Types de facture')
@@ -311,7 +311,7 @@ class AccountMoveLine(models.Model):
 
     invoice_types = fields.Many2many(
         comodel_name='account.move.type',
-        compute="compute_invoice_types",
+        #compute="compute_invoice_types",
         store=True,
         string='Invoice types')
 
