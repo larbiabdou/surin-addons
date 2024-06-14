@@ -88,6 +88,9 @@
         <xpath expr="//t/tr/t[2]/td" position="replace">
             <td style="font-family: Pt sans;font-size:10pt"><strong>TVA</strong></td>
         </xpath>
+        <xpath expr="//t/tr" position="attributes">
+            <attribute name="style">font-family: Pt sans;font-size:10pt</attribute>
+        </xpath>
     </template>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath expr="//t[@t-if='print_with_payments']" position="replace">
