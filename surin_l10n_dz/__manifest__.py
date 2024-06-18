@@ -7,6 +7,9 @@
     'author': 'Abdelhak',
     'depends': ['l10n_dz'],
     'data': [
+        'security/ir.model.access.csv',
+        'data/product_product_data.xml',
+        'data/invoice_type_data.xml',
         'views/res_company_views.xml',
         'views/res_bank_views.xml',
         'views/res_partner_views.xml',

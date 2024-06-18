@@ -34,7 +34,7 @@ class SaleOrder(models.Model):
             and not line.display_type
             and not line._get_downpayment_state()
         )
-        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
         def show_line(line):
             if line.product_id.id == product_stamp.id or line.price_unit < 0:
                 return False
@@ -56,7 +56,7 @@ class SaleOrder(models.Model):
 
     @api.depends('order_line.price_subtotal', 'order_line.price_tax', 'order_line.price_total', 'is_stamp_tax')
     def compute_tax_stamp(self):
-        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
         for order in self:
             if order.is_stamp_tax and order.amount_total > 0:
                 amount_subtotal = 0
@@ -122,7 +122,7 @@ class SaleOrderDiscount(models.TransientModel):
     _inherit = 'sale.order.discount'
 
     def action_apply_discount(self):
-        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
         self.ensure_one()
         self = self.with_company(self.company_id)
         if self.discount_type == 'sol_discount':
@@ -136,7 +136,7 @@ class SaleOrderDiscount(models.TransientModel):
         self.ensure_one()
 
         discount_product = self.company_id.sale_discount_product_id
-        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
         if not discount_product:
             self.company_id.sale_discount_product_id = self.env['product.product'].create(
                 self._prepare_discount_product_values()

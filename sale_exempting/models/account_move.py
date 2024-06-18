@@ -93,8 +93,8 @@ class AccountMove(models.Model):
 
     @api.depends('is_real', 'is_fictitious')
     def compute_invoice_types(self):
-        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
-        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+        real = self.env.ref('surin_l10n_dz.invoice_type_real', raise_if_not_found=False)
+        declared = self.env.ref('surin_l10n_dz.invoice_type_declared', raise_if_not_found=False)
         for record in self:
             record.invoice_types = False
             if record.is_real:
@@ -338,8 +338,8 @@ class AccountMoveLine(models.Model):
 
     @api.depends('is_real', 'is_fictitious')
     def compute_invoice_types(self):
-        real = self.env.ref('sale_exempting.invoice_type_real', raise_if_not_found=False)
-        declared = self.env.ref('sale_exempting.invoice_type_declared', raise_if_not_found=False)
+        real = self.env.ref('surin_l10n_dz.invoice_type_real', raise_if_not_found=False)
+        declared = self.env.ref('surin_l10n_dz.invoice_type_declared', raise_if_not_found=False)
         for record in self:
             record.invoice_types = False
             if record.is_real:
@@ -359,12 +359,5 @@ class AccountMoveLine(models.Model):
                     record.remaining_qty_not_declared = record.quantity - sum(line.quantity for line in fictitious_invoice_lines)
                 else:
                     record.remaining_qty_not_declared = record.quantity
-
-
-class InvoiceType(models.Model):
-    _name = 'account.move.type'
-    _description = 'Invoice Type'
-
-    name = fields.Char(string="Name")
 
 

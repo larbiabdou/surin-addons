@@ -44,7 +44,7 @@ class AccountMove(models.Model):
 
     @api.depends('is_stamp_tax', 'invoice_line_ids')
     def compute_tax_stamp(self):
-        product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+        product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
         for move in self:
             if move.is_stamp_tax and move.amount_total > 0:
                 amount_subtotal = 0
@@ -73,7 +73,7 @@ class AccountMove(models.Model):
 
     def delete_stamp(self):
         for move in self:
-            product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+            product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
             move.tax_stamp_amount = 0
             if any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
                 lines = move.invoice_line_ids.filtered(lambda l: l.product_id.id == product_stamp.id)
@@ -137,7 +137,7 @@ class AccountMove(models.Model):
     #         total_tax, total_tax_currency = 0.0, 0.0
     #         total_residual, total_residual_currency = 0.0, 0.0
     #         total, total_currency = 0.0, 0.0
-    #         product_stamp = self.env.ref('l10n_dz_stamp.product_product_service_stamp', raise_if_not_found=False)
+    #         product_stamp = self.env.ref('surin_l10n_dz.product_product_service_stamp', raise_if_not_found=False)
     #         for line in move.line_ids:
     #             if move.is_invoice(True):
     #                 # === Invoices ===

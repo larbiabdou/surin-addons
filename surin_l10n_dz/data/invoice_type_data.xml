@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_type_real" model="account.move.type">
+            <field name="name">Réel</field>
+        </record>
+        <record id="invoice_type_declared" model="account.move.type">
+            <field name="name">Déclaré</field>
+        </record>
+    </data>
+</odoo>
