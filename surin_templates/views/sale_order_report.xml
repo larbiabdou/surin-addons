@@ -128,7 +128,8 @@
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                      <t t-if="doc.company_id.partner_id.name"><span style="font-size:12pt" t-field="doc.company_id.partner_id.legal_status"/> <span style="font-size:12pt" t-field="doc.company_id.partner_id.name"/></t> <br/>
+                                      <t t-if="doc.company_id.partner_id.name"><span style="font-size:12pt;font-weight: 800 !important;" t-field="doc.company_id.partner_id.legal_status"/> <span style="font-size:12pt"
+                                                                                                                                                                                                  t-field="doc.company_id.partner_id.name"/></t> <br/>
                                         <t t-if="doc.company_id.partner_id.street"><span t-field="doc.company_id.partner_id.street"/></t> <br/>
                                         <t t-if="doc.company_id.partner_id.city"><span t-field="doc.company_id.partner_id.city">, </span></t>
                                         <t t-if="doc.company_id.partner_id.state_id.name"><span t-field="doc.company_id.partner_id.state_id.name">, </span></t>
@@ -151,7 +152,7 @@
                                   <div class="corner bottom-left"></div>
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
-                                <t t-if="doc.partner_id.name" style="font-size:12pt !important"><span style="font-size:12pt !important" t-field="doc.partner_id.legal_status"/>
+                                <t t-if="doc.partner_id.name" style="font-size:12pt !important; font-weight: 800 !important;"><span style="font-size:12pt !important" t-field="doc.partner_id.legal_status"/>
                                     <span style="font-size:12pt !important" t-field="doc.partner_id.name"/></t> <br/>
                                         <t t-if="doc.partner_id.street"><span t-field="doc.partner_id.street"/></t> <br/>
                                         <t t-if="doc.partner_id.city"><span t-field="doc.partner_id.city">, </span></t>
