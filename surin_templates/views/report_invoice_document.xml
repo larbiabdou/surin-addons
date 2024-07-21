@@ -301,7 +301,7 @@
                             <tbody class="invoice_tbody">
                                 <t t-set="current_subtotal" t-value="0"/>
                                 <t t-set="current_total" t-value="0"/>
-                                <t t-set="product_stamp" t-value="o.env.ref('l10n_dz_stamp.product_product_service_stamp')"/>
+                                <t t-set="product_stamp" t-value="o.env.ref('surin_l10n_dz.product_product_service_stamp')"/>
                                 <t t-set="lines" t-value="o.invoice_line_ids.filtered(lambda p: p.product_id.id != product_stamp.id and p.price_unit > 0).sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
 
                                 <t t-foreach="lines" t-as="line">
