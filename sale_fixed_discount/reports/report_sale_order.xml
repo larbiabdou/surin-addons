@@ -16,7 +16,7 @@
         </xpath>
         <xpath expr="//th[@name='th_discount']/span" position="replace">
             <t t-if="display_discount_fixed">
-                <span>Discount Amount</span>
+                <span>Remise</span>
             </t>
             <t t-else="">
                 <span>Disc. %</span>
