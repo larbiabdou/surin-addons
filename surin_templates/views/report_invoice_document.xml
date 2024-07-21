@@ -144,6 +144,7 @@
                                   <div class="corner bottom-right"></div>
                                   <div class="content">
                                       <t t-if="o.is_fictitious == False">
+                                          <span style="font-size:12pt;font-weight: 800 !important;" t-field="doc.company_id.partner_id.legal_status"/>
                                         <t t-if="o.company_id.name"><span style="font-size:12pt;font-weight: 800 !important;" t-field="o.company_id.name"/></t>
                                     </t>
                                     <t t-if="o.is_fictitious == True and o.sale_type == 'type_1'">
