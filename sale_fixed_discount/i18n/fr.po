@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 14:16+0000\n"
-"PO-Revision-Date: 2024-05-10 14:16+0000\n"
+"POT-Creation-Date: 2024-07-21 11:13+0000\n"
+"PO-Revision-Date: 2024-07-21 11:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,18 +28,18 @@ msgstr "<span>Remise en montant fixe</span>"
 #. module: sale_fixed_discount
 #: model_terms:ir.ui.view,arch_db:sale_fixed_discount.report_saleorder_document
 msgid "<span>Discount Amount</span>"
-msgstr "Montant de la remise"
+msgstr "<span>Remise</span>"
 
 #. module: sale_fixed_discount
 #: model:ir.model.fields,field_description:sale_fixed_discount.field_sale_order_line__discount_fixed
 msgid "Discount (Fixed)"
-msgstr "Remise (fixe)"
+msgstr "Remise fixe"
 
 #. module: sale_fixed_discount
 #: model:ir.model.fields,field_description:sale_fixed_discount.field_sale_order__discount_amount
 #: model:ir.model.fields,field_description:sale_fixed_discount.field_sale_order_line__discount_amount
 msgid "Discount Amount"
-msgstr "Montant de la remise"
+msgstr "Remise"
 
 #. module: sale_fixed_discount
 #: model:ir.model.fields,help:sale_fixed_discount.field_sale_order_line__discount_fixed
@@ -65,11 +65,11 @@ msgid ""
 "The fixed discount %(fixed)s does not match the calculateddiscount "
 "%(discount)s %%.Please correct one of the discounts."
 msgstr ""
-"La remise fixe %(fixed)s ne correspond pas à la remise calculée"
-"%(remise)s %%.Veuillez corriger l'une des remises."
+"La remise fixe %(fixed)s ne correspond pas à la remise calculée%(remise)s "
+"%%.Veuillez corriger l'une des remises."
 
 #. module: sale_fixed_discount
 #: model:ir.model.fields,field_description:sale_fixed_discount.field_sale_order__total_without_discount
 #: model:ir.model.fields,field_description:sale_fixed_discount.field_sale_order_line__total_without_discount
 msgid "Total without discount"
-msgstr "total sans remise"
+msgstr "Total sans remise"

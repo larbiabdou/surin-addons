@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 14:13+0000\n"
-"PO-Revision-Date: 2024-05-10 14:13+0000\n"
+"POT-Creation-Date: 2024-07-21 11:07+0000\n"
+"PO-Revision-Date: 2024-07-21 11:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,21 @@ msgid "Country"
 msgstr "Pays"
 
 #. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__create_uid
+msgid "Created by"
+msgstr "Créer par"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__create_date
+msgid "Created on"
+msgstr "Créer le"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__display_name
+msgid "Display Name"
+msgstr "Afficher le nom"
+
+#. module: surin_l10n_dz
 #: model:ir.model.fields.selection,name:surin_l10n_dz.selection__res_partner__legal_status__ets
 msgid "ETS"
 msgstr ""
@@ -105,6 +120,11 @@ msgid "Fed. State"
 msgstr ""
 
 #. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__id
+msgid "ID"
+msgstr ""
+
+#. module: surin_l10n_dz
 #: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form
 msgid "Informations fiscales produits fabrication"
 msgstr ""
@@ -115,9 +135,24 @@ msgid "Informations fiscales produits négoce"
 msgstr ""
 
 #. module: surin_l10n_dz
+#: model:ir.model,name:surin_l10n_dz.model_account_move_type
+msgid "Invoice Type"
+msgstr "Type de facture"
+
+#. module: surin_l10n_dz
 #: model:ir.model,name:surin_l10n_dz.model_account_move
 msgid "Journal Entry"
 msgstr "Pièce comptable"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__write_uid
+msgid "Last Updated by"
+msgstr "Dernière modification par"
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__write_date
+msgid "Last Updated on"
+msgstr "Dernière modification le"
 
 #. module: surin_l10n_dz
 #: model:ir.model.fields,field_description:surin_l10n_dz.field_res_partner__legal_status
@@ -142,6 +177,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:surin_l10n_dz.field_res_users__nis
 msgid "NIS"
 msgstr ""
+
+#. module: surin_l10n_dz
+#: model:ir.model.fields,field_description:surin_l10n_dz.field_account_move_type__name
+msgid "Name"
+msgstr "Nom"
 
 #. module: surin_l10n_dz
 #: model:ir.model.fields,field_description:surin_l10n_dz.field_res_company__company_name_type_1
@@ -195,6 +235,11 @@ msgstr ""
 #: model:ir.model,name:surin_l10n_dz.model_sale_order
 msgid "Sales Order"
 msgstr "Bon de commande"
+
+#. module: surin_l10n_dz
+#: model:product.template,name:surin_l10n_dz.product_product_service_stamp_product_template
+msgid "Stamp Tax"
+msgstr "Timbre fiscal"
 
 #. module: surin_l10n_dz
 #: model_terms:ir.ui.view,arch_db:surin_l10n_dz.view_company_form

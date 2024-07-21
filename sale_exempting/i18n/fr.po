@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-10 14:08+0000\n"
-"PO-Revision-Date: 2024-05-10 14:08+0000\n"
+"POT-Creation-Date: 2024-07-21 11:00+0000\n"
+"PO-Revision-Date: 2024-07-21 11:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -64,7 +64,7 @@ msgstr "<strong>Livré</strong>"
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.report_delivery_fictitious_document
 msgid "<strong>Order:</strong>"
-msgstr "<strong>Order: </strong>"
+msgstr "<strong>Commande: </strong>"
 
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.report_delivery_fictitious_document
@@ -182,7 +182,6 @@ msgid ""
 msgstr ""
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__create_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__create_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__create_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__create_uid
@@ -190,7 +189,6 @@ msgid "Created by"
 msgstr "Créer par"
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__create_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__create_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__create_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__create_date
@@ -279,7 +277,6 @@ msgid "Demand"
 msgstr ""
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__display_name
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__display_name
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__display_name
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__display_name
@@ -327,7 +324,6 @@ msgid "Has_group"
 msgstr ""
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__id
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__id
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__id
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__id
@@ -343,11 +339,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_exempting.view_invoice_tree_declared
 msgid "Invoice Date"
 msgstr "Date de facturation"
-
-#. module: sale_exempting
-#: model:ir.model,name:sale_exempting.model_account_move_type
-msgid "Invoice Type"
-msgstr "Type de facture"
 
 #. module: sale_exempting
 #: model:ir.model.fields,field_description:sale_exempting.field_account_move_line__invoice_types
@@ -419,7 +410,6 @@ msgid "Journal Item"
 msgstr "Écriture comptable"
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__write_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__write_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__write_uid
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__write_uid
@@ -427,7 +417,6 @@ msgid "Last Updated by"
 msgstr "Dernière modification par"
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__write_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_fictitious__write_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_move_line_fictitious__write_date
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__write_date
@@ -455,7 +444,6 @@ msgid "Move_id"
 msgstr ""
 
 #. module: sale_exempting
-#: model:ir.model.fields,field_description:sale_exempting.field_account_move_type__name
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__name
 msgid "Name"
 msgstr "Nom"
@@ -643,7 +631,7 @@ msgstr "Bon de commande"
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.view_invoice_tree_declared
 msgid "Salesperson"
-msgstr ""
+msgstr "Vendeur"
 
 #. module: sale_exempting
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__scheduled_date
@@ -690,7 +678,7 @@ msgstr ""
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.view_invoice_tree_declared
 msgid "Tax"
-msgstr "Taxe"
+msgstr "TVA"
 
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.view_invoice_tree_declared
@@ -739,7 +727,7 @@ msgstr ""
 #. module: sale_exempting
 #: model_terms:ir.ui.view,arch_db:sale_exempting.view_invoice_tree_declared
 msgid "Vendor"
-msgstr ""
+msgstr "Vendeur"
 
 #. module: sale_exempting
 #: model:ir.model.fields.selection,name:sale_exempting.selection__sale_order__is_real__no
