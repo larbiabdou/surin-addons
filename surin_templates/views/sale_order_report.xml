@@ -135,10 +135,10 @@
                                         <t t-if="doc.company_id.partner_id.state_id.name"><span t-field="doc.company_id.partner_id.state_id.name">, </span></t>
                                         <t t-if="doc.company_id.partner_id.zip"><span t-field="doc.company_id.partner_id.zip"></span></t>
                                         <t t-if="doc.company_id.partner_id.country_id.name"><span t-field="doc.company_id.partner_id.country_id.name"/></t><br/>
-                                      <t t-if="doc.company_id.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.company_id.partner_id.rc"/></span></t>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                      <t t-if="doc.company_id.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.company_id.partner_id.rc"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
                                       <t t-if="doc.company_id.partner_id.nif"><span style="font-weight: 800;" > NIF: <span
                                               t-field="doc.company_id.partner_id.nif"/></span></t><br/>
-                                      <t t-if="doc.company_id.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.company_id.partner_id.nis"/></span></t>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                      <t t-if="doc.company_id.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.company_id.partner_id.nis"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
                                       <t t-if="doc.company_id.partner_id.ai"><span style="font-weight: 800;" >AI: <span t-field="doc.company_id.partner_id.ai"/></span></t>
                                  <br/>
                                   </div>
@@ -159,9 +159,9 @@
                                         <t t-if="doc.partner_id.state_id.name"><span t-field="doc.partner_id.state_id.name">, </span></t>
                                         <t t-if="doc.partner_id.zip"><span t-field="doc.partner_id.zip"></span></t>
                                         <t t-if="doc.partner_id.country_id.name"><span t-field="doc.partner_id.country_id.name"/></t><br/>
-                                      <t t-if="doc.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.partner_id.rc"/></span></t>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                      <t t-if="doc.partner_id.rc"><span style="font-weight: 800;" >RC: <span t-field="doc.partner_id.rc"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
                                       <t t-if="doc.partner_id.nif"><span style="font-weight: 800;" >NIF: <span t-field="doc.partner_id.nif"/></span></t> <br/>
-                                      <t t-if="doc.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.partner_id.nis"/></span></t>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                                      <t t-if="doc.partner_id.nis"><span style="font-weight: 800;" >NIS: <span t-field="doc.partner_id.nis"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
                                       <t t-if="doc.partner_id.ai"><span style="font-weight: 800;" >AI: <span t-field="doc.partner_id.ai"/></span></t> <br/>
                                   </div></div>
                             </td>
