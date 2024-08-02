@@ -49,6 +49,9 @@
                 <field name="is_real" readonly="state in ('cancel', 'posted')" invisible="is_invisible or not has_group or partner_type != 'customer'"/>
                 <field name="is_fictitious" readonly="state in ('cancel', 'posted')" invisible="is_invisible or not has_group or partner_type != 'customer'"/>
             </xpath>
+            <xpath expr="//field[@name='journal_id']" position="after">
+                <field name="check_number"/>
+            </xpath>
 
         </field>
     </record>
@@ -61,6 +64,7 @@
             <xpath expr="//field[@name='partner_bank_id']" position="after">
                 <field name="is_real" invisible="1"/>
                 <field name="is_fictitious" invisible="1"/>
+                <field name="check_number"/>
             </xpath>
         </field>
     </record>

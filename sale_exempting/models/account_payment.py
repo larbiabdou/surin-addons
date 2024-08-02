@@ -30,6 +30,8 @@ class AccountPayment(models.Model):
         compute="compute_has_group",
         required=False)
 
+    check_number = fields.Char(string='Numéro de chèque')
+
     def compute_has_group(self):
         for record in self:
             if self.env.user.has_group('sale_exempting.can_view_fictitious_invoices'):
