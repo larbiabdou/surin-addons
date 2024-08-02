@@ -188,18 +188,18 @@
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
 
                             <t t-if="doc.payment_term_id.name">
-                                <span style="font-weight:800">Condition du paiement: </span>
+                                <span style="font-weight:800 !important">Condition du paiement: </span>
                                 <span t-field="doc.payment_term_id.name"/>
                             </t>
                             <br/>
                             <div name="expiration_date">
                                 <t t-if="doc.validity_date and doc.state in ['draft', 'sent']">
-                                <span style="font-weight:800">Expiration:</span>
+                                <span style="font-weight:800 !important">Expiration:</span>
                                 <span t-field="doc.validity_date">2023-12-31</span>
                             </t> <br/>
                             </div>
                             <t t-if="doc.user_id.name">
-                                <span style="font-weight:800">Salesperson:</span>
+                                <span style="font-weight:800 !important">Salesperson:</span>
                                 <span t-field="doc.user_id">Mitchell Admin</span>
                             </t>
                         </td>
