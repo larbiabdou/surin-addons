@@ -138,7 +138,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "<span>Amount</span>"
-msgstr "<span>Montant</span>"
+msgstr "<span>Montant HT</span>"
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
@@ -275,7 +275,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_tax_totals_template_inherit
 msgid "<strong>Total TTC Net</strong>"
-msgstr "<strong>Net à payer</strong>"
+msgstr ""
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.document_sale_tax_totals_template_inherit
@@ -415,7 +415,7 @@ msgstr ""
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Order"
-msgstr "Commande"
+msgstr "Commande No."
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
@@ -445,7 +445,7 @@ msgstr "Quantité"
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document
 msgid "Quotation"
-msgstr "Vente"
+msgstr "Vente No."
 
 #. module: surin_templates
 #: model_terms:ir.ui.view,arch_db:surin_templates.report_saleorder_document

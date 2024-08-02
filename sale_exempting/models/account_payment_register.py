@@ -19,6 +19,8 @@ class AccountPaymentRegister(models.TransientModel):
         store=True,
         required=False)
 
+    check_number = fields.Char(string='Numéro de chèque')
+
     @api.depends('line_ids')
     def compute_payment_type(self):
         ''' Load initial values from the account.moves passed through the context. '''
@@ -35,4 +37,5 @@ class AccountPaymentRegister(models.TransientModel):
         payment_vals['is_real'] = self.is_real
         payment_vals['is_fictitious'] = self.is_fictitious
         payment_vals['is_invisible'] = True
+        payment_vals['check_number'] = self.check_number
         return payment_vals
