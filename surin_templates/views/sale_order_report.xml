@@ -173,7 +173,7 @@
                 <table class="invoice-table" style="margin-top: 10px; margin-top: 8px;">
                     <tr style="font-size:10pt !important;">
                         <td style="font-size:11pt; font-weight:800" id="invoice_table_td" >
-                            <t t-if="is_pro_forma">
+                            <t>
                                 <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
                                 <t t-if="bank.bank_id"><span t-field="bank.bank_id.name"/></t> <br/>
                                 <t t-if="bank.bank_id">NIB: <span t-field="bank.acc_number"/></t> <br/>
@@ -188,7 +188,7 @@
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%">
 
                             <t t-if="doc.payment_term_id.name">
-                                <span style="font-weight:800 !important">Condition du paiement: </span>
+                                <span style="font-weight:800 !important">Délai de paiement: </span>
                                 <span t-field="doc.payment_term_id.name"/>
                             </t>
                             <br/>
@@ -199,7 +199,7 @@
                             </t> <br/>
                             </div>
                             <t t-if="doc.user_id.name">
-                                <span style="font-weight:800 !important">Salesperson:</span>
+                                <span style="font-weight:800 !important">Vendeur:</span>
                                 <span t-field="doc.user_id">Mitchell Admin</span>
                             </t>
                         </td>

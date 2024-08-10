@@ -19,7 +19,7 @@
 
                 <div class="row zero_min_height" style="border-bottom: 1px solid black; margin-bottom: 10px; font-family: Pt sans;font-size:14pt">
                     <div class="col-6">
-                        Bon de livraison
+                        Bon de livraison No.
                     </div>
                     <div class="col-6 text-end">
                         <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>

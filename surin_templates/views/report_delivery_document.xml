@@ -47,7 +47,7 @@
 
                     <div class="col-6">
                         <t t-if="o.picking_type_id.code=='incoming'">Bon de reception</t>
-                        <t t-else="">Bon de livraison</t>
+                        <t t-else="">Bon de livraison No.</t>
                     </div>
                     <div class="col-6 text-end">
                         <span t-if="o.name != '/'" t-field="o.name">INV/2023/0001</span>

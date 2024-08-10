@@ -214,7 +214,7 @@
             <div style="padding-bottom: 8px; border-bottom:1px solid black; font-family: Pt sans;">
                 <table class="invoice-table" style="margin-top: 8px;">
                     <tr>
-                        <td id="invoice_table_td" style="font-size:11pt !important; font-weight:800">
+                        <td id="invoice_table_td" style="font-size:14px !important; font-weight:800">
                             <t t-if="o.company_id.partner_id.bank_ids and o.is_fictitious == True">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
 
@@ -236,7 +236,7 @@
 
                                     <span style="font-weight:800">Référence: </span> <span t-esc="payment.name"/> <br/>
                                     <t t-if="o.payment_mode"><span style="font-weight:800">Mode de paiement: </span><span t-field="o.payment_mode"/> <![CDATA[&nbsp;]]> Du <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></t>
-                                    <t t-else=""><span style="font-weight:800">Date du paiement: </span><span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></t>
+                                    <t t-else=""><span style="font-weight:800">Date de paiement: </span><span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></t>
                                     <br/>
                                     <span style="font-weight:800">Montant: </span><span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                     <t t-if="payment.check_number"><span style="font-weight:800">Numéro de chèque: </span> <span t-esc="payment.check_number"/></t><br/>
@@ -281,7 +281,7 @@
 
         </xpath>
         <xpath expr="//table[@name='invoice_line_table']" position="replace">
-            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-family: Pt sans; font-size:10pt">
+            <div style="border-bottom:1px solid black; border-top:1px solid black; margin-bottom:30px;padding-bottom: 20px; padding-top: 10px; font-family: Pt sans; font-size:11pt">
                 <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                             <thead>
                                 <tr>

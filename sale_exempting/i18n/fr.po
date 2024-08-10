@@ -255,7 +255,7 @@ msgstr "BLs déclarés"
 #. module: sale_exempting
 #: model:ir.actions.report,name:sale_exempting.action_report_delivery_fictitious
 msgid "Delivery Slip"
-msgstr ""
+msgstr "Bon de livraison"
 
 #. module: sale_exempting
 #: model:ir.model.fields,field_description:sale_exempting.field_stock_picking_fictitious__partner_id
