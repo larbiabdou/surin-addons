@@ -65,8 +65,16 @@ class SaleOrder(models.Model):
                         continue
 
                     amount_subtotal += line.price_total if line.product_id != product_stamp else 0
-
-                order.tax_stamp_amount = max(order.company_id.stamp_amount_min, min(amount_subtotal * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max))
+                amount = amount_subtotal
+                if amount <= 300:
+                    tax_stamp_amount = 0
+                elif amount <= 30000:
+                    tax_stamp_amount = amount * 0.01  # 1%
+                elif amount <= 100000:
+                    tax_stamp_amount = amount * 0.015  # 1.5%
+                else:
+                    tax_stamp_amount = amount * 0.02
+                order.tax_stamp_amount = tax_stamp_amount
                 order.total_ttc_without_stamp = order.amount_total - order.tax_stamp_amount
                 if not any(line.product_id.id == product_stamp.id for line in order.order_line):
                     vals = {
@@ -74,13 +82,13 @@ class SaleOrder(models.Model):
                         'product_id': product_stamp.id,
                         'sequence': 999,
                         'tax_id': False,
-                        'price_unit': max(order.company_id.stamp_amount_min, min(amount_subtotal * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max)),
+                        'price_unit': tax_stamp_amount
                     }
                     self.env['sale.order.line'].create(vals)
                 else:
                     lines = order.order_line.filtered(lambda l: l.product_id.id == product_stamp.id)
                     lines.update({
-                        'price_unit': max(order.company_id.stamp_amount_min, min(amount_subtotal * order.company_id.stamp_percentage / 100, order.company_id.stamp_amount_max)),
+                        'price_unit': tax_stamp_amount
                     })
 
             elif not order.is_stamp_tax:

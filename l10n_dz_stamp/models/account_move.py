@@ -53,8 +53,16 @@ class AccountMove(models.Model):
                         continue
 
                     amount_subtotal += line.price_total if line.product_id != product_stamp else 0
-
-                move.tax_stamp_amount = max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max))
+                amount = amount_subtotal
+                if amount <= 300:
+                    tax_stamp_amount = 0
+                elif amount <= 30000:
+                    tax_stamp_amount = amount * 0.01  # 1%
+                elif amount <= 100000:
+                    tax_stamp_amount = amount * 0.015  # 1.5%
+                else:
+                    tax_stamp_amount = amount * 0.02
+                move.tax_stamp_amount = tax_stamp_amount
                 move.total_ttc_without_stamp = move.amount_total - move.tax_stamp_amount
                 if not any(line.product_id.id == product_stamp.id for line in move.invoice_line_ids):
                     vals = {
@@ -62,13 +70,13 @@ class AccountMove(models.Model):
                         'product_id': product_stamp.id,
                         'sequence': 999,
                         'tax_ids': False,
-                        'price_unit': max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max)),
+                        'price_unit': tax_stamp_amount,
                     }
                     self.env['account.move.line'].create(vals)
                 else:
                     lines = move.invoice_line_ids.filtered(lambda l: l.product_id.id == product_stamp.id)
                     lines.update({
-                        'price_unit': max(move.company_id.stamp_amount_min, min(amount_subtotal * move.company_id.stamp_percentage / 100, move.company_id.stamp_amount_max)),
+                        'price_unit': tax_stamp_amount,
                     })
 
     def delete_stamp(self):
