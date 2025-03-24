@@ -246,7 +246,7 @@
                     <tr style="font-size:10pt !important;">
                         <td style="font-size:14px; font-weight:800" id="invoice_table_td">
                             <t>
-                                <t t-if="doc.company_id.partner_id.bank_ids != []">
+                                <t t-if="len(doc.company_id.partner_id.bank_ids) > 0">
                                     <t t-set="bank" t-value="doc.company_id.partner_id.bank_ids[0]"/>
 
                                     <t t-if="bank.bank_id">
