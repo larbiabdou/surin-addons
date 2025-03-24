@@ -215,7 +215,7 @@
                 <table class="invoice-table" style="margin-top: 8px;">
                     <tr>
                         <td id="invoice_table_td" style="font-size:14px !important; font-weight:800">
-                            <t t-if="o.company_id.partner_id.bank_ids and o.is_fictitious == True">
+                            <t t-if="len(o.company_id.partner_id.bank_ids) > 0 and o.is_fictitious == True">
                                 <t t-set="bank" t-value="o.company_id.partner_id.bank_ids[0]"/>
 
                                 <t t-if="bank.bank_id"><span t-field="bank.bank_id.name"/></t> <br/>
