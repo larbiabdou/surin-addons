@@ -4,6 +4,8 @@ from odoo import api, fields, models
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
+    name = fields.Char(readonly=False)
+
     def button_validate(self):
         super(StockPicking, self).button_validate()
 
