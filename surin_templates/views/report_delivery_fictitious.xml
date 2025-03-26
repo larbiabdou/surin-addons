@@ -4,8 +4,8 @@
             <field name="name">Delivery Slip</field>
             <field name="model">stock.picking.fictitious</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">sale_exempting.report_delivery_fictitious_document</field>
-            <field name="report_file">sale_exempting.report_delivery_fictitious_document</field>
+            <field name="report_name">surin_templates.report_delivery_fictitious_document</field>
+            <field name="report_file">surin_templates.report_delivery_fictitious_document</field>
             <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
             <field name="binding_model_id" ref="sale_exempting.model_stock_picking_fictitious"/>
             <field name="paperformat_id" ref="surin_templates.paperformat_a4_custom"/>

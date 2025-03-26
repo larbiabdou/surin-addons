@@ -23,7 +23,6 @@
         'views/account_journal_views.xml',
         'views/product_view.xml',
         'views/stock_picking_type_views.xml',
-        'report/report_delivery_fictitious.xml',
     ],
     'installable': True,
     'auto_install': False
