@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="sh_weight_group_manage" model="res.groups">
+            <field name="name">Show Weight</field>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]" />
+        </record>
+
+    </data>
+</odoo>
