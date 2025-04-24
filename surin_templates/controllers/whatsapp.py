@@ -6,7 +6,7 @@ class WhatsAppWebhook(Controller):
     def whatsapp_webhook(self, **kwargs):
         if request.httprequest.method == 'GET':
             mode = kwargs.get('hub.mode')
-            token = kwargs.get('hub.webhook_verify_token')
+            token = kwargs.get('hub.verify_token')
             challenge = kwargs.get('hub.challenge')
 
             # Jeton que TU as défini dans Meta
