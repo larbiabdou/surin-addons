@@ -12,6 +12,7 @@
         'views/sale_order_report.xml',
         'views/report_delivery_document.xml',
         'views/report_delivery_fictitious.xml',
+        'views/privacy_policy_view.xml',
     ],
     'assets': {
         'web.report_assets_common': [

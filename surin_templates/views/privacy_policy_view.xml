@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="privacy_policy_template" name="Politique de Confidentialité">
+        <t t-call="website.layout">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Politique de Confidentialité</h1>
+                        <p>Nous respectons la vie privée de nos utilisateurs. Toutes les données échangées via WhatsApp sont utilisées uniquement pour fournir des services via notre système ERP (Odoo) et ne sont ni revendues ni partagées.</p>
+                        <p>Pour toute question, veuillez nous contacter à marketing@surin-dz.com.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
