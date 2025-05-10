@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="maintenance_equipment_usage_form_view" model="ir.ui.view">
+        <field name="name">maintenance.equipment.usage.form</field>
+        <field name="model">maintenance.equipment.usage</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="name != '/'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="equipment_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="duration"/>
+                            <field name="uom_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vue tree pour maintenance.equipment.usage -->
+    <record id="maintenance_equipment_usage_tree_view" model="ir.ui.view">
+        <field name="name">maintenance.equipment.usage.tree</field>
+        <field name="model">maintenance.equipment.usage</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="date"/>
+                <field name="duration"/>
+                <field name="uom_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action pour maintenance.equipment.usage -->
+    <record id="action_maintenance_equipment_usage" model="ir.actions.act_window">
+        <field name="name">Equipment Usage</field>
+        <field name="res_model">maintenance.equipment.usage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu pour maintenance.equipment.usage -->
+    <menuitem id="menu_maintenance_equipment_usage"
+              name="Equipment Usage"
+              parent="maintenance.menu_maintenance_configuration"
+              action="action_maintenance_equipment_usage"
+              sequence="20"/>
+</odoo>

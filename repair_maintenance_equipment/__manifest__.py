@@ -1,0 +1,19 @@
+{
+    'name': 'Repair maintenance equipment',
+    'version': '17.0',
+    'summary': 'Repair maintenance equipment',
+    'description': 'Repair maintenance equipment',
+    'depends': ['maintenance', 'repair'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/ir_sequence_data.xml',
+        'data/ir_cron_data.xml',
+        'views/maintenance_request_views.xml',
+        'views/repair_order_views.xml',
+        'views/maintenance_equipment_views.xml',
+        'views/repair_spart_part_report_views.xml',
+        'views/maintenance_plan_views.xml',
+    ],
+    'installable': True,
+    'auto_install': False,
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vue recherche -->
+    <record id="view_repair_spare_part_report_search" model="ir.ui.view">
+        <field name="name">repair.spare.part.report.search</field>
+        <field name="model">repair.spare.part.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="repair_id"/>
+                <field name="equipment_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="partner_id"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmed" name="confirmed" domain="[('state','=','confirmed')]"/>
+                <filter string="Under Repair" name="under_repair" domain="[('state','=','under_repair')]"/>
+                <filter string="Repaired" name="done" domain="[('state','=','done')]"/>
+                <separator/>
+                <filter string="This Month" name="this_month" domain="[('date','&gt;=', context_today().replace(day=1))]"/>
+                <filter string="This Year" name="this_year" domain="[('date','&gt;=',context_today().replace(month=1,day=1))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Repair" name="repair" context="{'group_by':'repair_id'}"/>
+                    <filter string="Equipment" name="equipment" context="{'group_by':'equipment_id'}"/>
+                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
+                    <filter string="Product Category" name="category" context="{'group_by':'categ_id'}"/>
+                    <filter string="Lot/Serial" name="lot" context="{'group_by':'lot_id'}"/>
+                    <filter string="Customer" name="customer" context="{'group_by':'partner_id'}"/>
+                    <filter string="Status" name="status" context="{'group_by':'state'}"/>
+                    <filter string="Company" name="company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    <separator/>
+                    <filter string="Day" name="day" context="{'group_by':'date:day'}"/>
+                    <filter string="Week" name="week" context="{'group_by':'date:week'}"/>
+                    <filter string="Month" name="month" context="{'group_by':'date:month'}"/>
+                    <filter string="Year" name="year" context="{'group_by':'date:year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vue liste -->
+    <record id="view_repair_spare_part_report_tree" model="ir.ui.view">
+        <field name="name">repair.spare.part.report.tree</field>
+        <field name="model">repair.spare.part.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="repair_id"/>
+                <field name="equipment_id"/>
+                <field name="product_id"/>
+                <field name="lot_id"/>
+                <field name="qty_done" sum="Total Quantity"/>
+                <field name="unit_cost" sum="Total Unit Cost"/>
+                <field name="total_cost" sum="Total Cost"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vue graphique -->
+    <record id="view_repair_spare_part_report_graph" model="ir.ui.view">
+        <field name="name">repair.spare.part.report.graph</field>
+        <field name="model">repair.spare.part.report</field>
+        <field name="arch" type="xml">
+            <graph string="Spare Part Analysis" sample="1">
+                <field name="product_id"/>
+                <field name="total_cost" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Vue pivot -->
+    <record id="view_repair_spare_part_report_pivot" model="ir.ui.view">
+        <field name="name">repair.spare.part.report.pivot</field>
+        <field name="model">repair.spare.part.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Spare Part Analysis" sample="1">
+                <field name="product_id" type="row"/>
+                <field name="date" type="col" interval="month"/>
+                <field name="total_cost" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_repair_spare_part_report" model="ir.actions.act_window">
+        <field name="name">Spare Part Analysis</field>
+        <field name="res_model">repair.spare.part.report</field>
+        <field name="view_mode">tree,graph,pivot</field>
+        <field name="search_view_id" ref="view_repair_spare_part_report_search"/>
+        <field name="help">This report performs analysis on the spare parts used in repair orders.</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_repair_spare_part_report"
+              name="Spare Part Analysis"
+              parent="repair.repair_menu_reporting"
+              action="action_repair_spare_part_report"
+              sequence="20"/>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_equipment_view_form_inherited" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.inherited</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Ajout du champ last_maintenance_hours -->
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="last_maintenance_hours"/>
+                <field name="duration_of_use"/>
+            </xpath>
+
+            <!-- Ajout du bouton pour les journaux d'utilisation -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+
+                <button name="action_view_usage_logs"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-list"
+                        string="Usage Logs">
+                    <field name="usage_log_count" widget="statinfo"/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

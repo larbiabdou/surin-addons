@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_maintenance_plan_tree" model="ir.ui.view">
+        <field name="name">maintenance.plan.tree</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <tree string="Maintenance Plans">
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="maintenance_type"/>
+                <field name="plan_type"/>
+                <field name="last_triggered_date"/>
+                <field name="total_cost" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_maintenance_plan_form" model="ir.ui.view">
+        <field name="name">maintenance.plan.form</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Plan">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="equipment_id" required="1"/>
+                            <field name="maintenance_type"/>
+                            <field name="plan_type" widget="radio"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="last_triggered_date" invisible="plan_type != 'periodic'"/>
+                            <field name="last_triggered_hours" invisible="plan_type != 'usage'"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Necessary Parts">
+                            <field name="necessary_part_ids">
+                                <tree string="Parts" editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="product_uom_category_id" column_invisible="1"/>
+                                    <field name="uom_id"/>
+                                    <field name="cost" readonly="1"/>
+                                    <field name="total" readonly="1" sum="Subtotal"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                        </page>
+                        <page string="Plan Configuration">
+                            <group>
+                                <group name="periodic_config" invisible="plan_type != 'periodic'">
+                                    <field name="interval_value"/>
+                                    <field name="interval_unit"/>
+                                </group>
+                                <group name="usage_config" invisible="plan_type != 'usage'">
+                                    <field name="usage_threshold"/>
+                                    <field name="anticipation_hours"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_maintenance_plan_search" model="ir.ui.view">
+        <field name="name">maintenance.plan.search</field>
+        <field name="model">maintenance.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <filter string="Periodic" name="filter_periodic" domain="[('plan_type', '=', 'periodic')]"/>
+                <filter string="Usage" name="filter_usage" domain="[('plan_type', '=', 'usage')]"/>
+                <filter string="Preventive" name="filter_preventive" domain="[('maintenance_type', '=', 'preventive')]"/>
+                <filter string="Corrective" name="filter_corrective" domain="[('maintenance_type', '=', 'corrective')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Equipment" name="group_by_equipment" context="{'group_by': 'equipment_id'}"/>
+                    <filter string="Plan Type" name="group_by_plan_type" context="{'group_by': 'plan_type'}"/>
+                    <filter string="Maintenance Type" name="group_by_maintenance_type" context="{'group_by': 'maintenance_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_maintenance_plan" model="ir.actions.act_window">
+        <field name="name">Maintenance Plans</field>
+        <field name="res_model">maintenance.plan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_maintenance_plan_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first maintenance plan
+            </p>
+            <p>
+                Maintenance plans allow you to schedule maintenance automatically.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_maintenance_plan"
+              name="Maintenance Plans"
+              parent="maintenance.menu_maintenance_configuration"
+              action="action_maintenance_plan"
+              sequence="15"/>
+
+</odoo>
