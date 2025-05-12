@@ -39,12 +39,25 @@ class MaintenanceEquipment(models.Model):
         }
     @api.depends('usage_log_ids', 'usage_log_ids.date', 'usage_log_ids.duration')
     def _compute_duration_of_use(self):
-        """Calculer la dernière durée d'utilisation enregistrée"""
+        """Calculer la dernière durée d'utilisation enregistrée avec la plus grande durée"""
         for equipment in self:
-            last_usage = self.env['maintenance.equipment.usage'].search(
+            # Récupérer les enregistrements du jour le plus récent
+            last_date_usage = self.env['maintenance.equipment.usage'].search(
                 [('equipment_id', '=', equipment.id)],
                 order='date desc', limit=1)
-            equipment.duration_of_use = last_usage.duration if last_usage else 0.0
+
+            if not last_date_usage:
+                equipment.duration_of_use = 0.0
+                continue
+
+            last_date = last_date_usage.date
+
+            # Trouver l'enregistrement avec la plus grande durée à cette date
+            max_duration_usage = self.env['maintenance.equipment.usage'].search(
+                [('equipment_id', '=', equipment.id), ('date', '=', last_date)],
+                order='duration desc', limit=1)
+
+            equipment.duration_of_use = max_duration_usage.duration if max_duration_usage else 0.0
 
     @api.depends('usage_log_ids')
     def _compute_usage_log_count(self):
