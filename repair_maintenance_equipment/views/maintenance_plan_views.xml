@@ -50,7 +50,7 @@
                                     <field name="product_uom_category_id" column_invisible="1"/>
                                     <field name="uom_id"/>
                                     <field name="cost" readonly="1"/>
-                                    <field name="total" readonly="1" sum="Subtotal"/>
+                                    <field name="total" readonly="1"/>
                                 </tree>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
