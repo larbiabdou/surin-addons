@@ -37,7 +37,7 @@ class MaintenanceEquipment(models.Model):
                 'default_equipment_id': self.id,
             },
         }
-    @api.depends('usage_log_ids')
+    @api.depends('usage_log_ids', 'usage_log_ids.date', 'usage_log_ids.duration')
     def _compute_duration_of_use(self):
         """Calculer la dernière durée d'utilisation enregistrée"""
         for equipment in self:

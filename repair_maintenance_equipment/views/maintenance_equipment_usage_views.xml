@@ -36,8 +36,8 @@
         <field name="name">maintenance.equipment.usage.tree</field>
         <field name="model">maintenance.equipment.usage</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
+            <tree editable="bottom">
+                <field name="name" readonly="1"/>
                 <field name="equipment_id"/>
                 <field name="date"/>
                 <field name="duration"/>
