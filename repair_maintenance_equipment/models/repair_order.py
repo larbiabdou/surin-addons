@@ -27,3 +27,19 @@ class RepairOrder(models.Model):
             self.equipment_id.last_maintenance_hours = self.last_threshold_hours
 
         return res
+
+    def action_validate(self):
+        # Appel à la méthode originale
+        res = super(RepairOrder, self).action_validate()
+
+        # Création de l'enregistrement d'usage d'équipement
+        for repair in self:
+            if repair.equipment_id and repair.last_threshold_hours:
+                self.env['maintenance.equipment.usage'].create({
+                    'equipment_id': repair.equipment_id.id,
+                    'date': fields.Date.today(),
+                    'duration': repair.last_threshold_hours,
+                    'notes': _("Created from repair order: %s") % repair.name,
+                })
+
+        return res

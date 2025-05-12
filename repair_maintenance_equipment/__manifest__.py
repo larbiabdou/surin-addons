@@ -13,6 +13,7 @@
         'views/maintenance_equipment_views.xml',
         'views/repair_spart_part_report_views.xml',
         'views/maintenance_plan_views.xml',
+        'views/maintenance_equipment_usage_views.xml',
     ],
     'installable': True,
     'auto_install': False,

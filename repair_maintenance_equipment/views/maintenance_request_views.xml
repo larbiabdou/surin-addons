@@ -22,7 +22,7 @@
                 <button name="action_create_repair"
                         type="object"
                         class="oe_highlight"
-                        invisible="equipment_id == False"
+                        invisible="equipment_id == False or done"
                         string="Create Repair"/>
 
             </xpath>

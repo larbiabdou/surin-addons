@@ -19,8 +19,15 @@
                         class="oe_stat_button"
                         icon="fa-list"
                         string="Usage Logs">
-                    <field name="usage_log_count" widget="statinfo"/>
+                    <field name="usage_log_count" widget="statinfo" string="Usages"/>
                 </button>
+                <button name="action_view_repairs"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-list"
+                            string="Repairs">
+                        <field name="repair_count" string="Repairs" widget="statinfo"/>
+                    </button>
             </xpath>
 
         </field>

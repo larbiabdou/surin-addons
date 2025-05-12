@@ -13,6 +13,30 @@ class MaintenanceEquipment(models.Model):
     usage_log_ids = fields.One2many('maintenance.equipment.usage', 'equipment_id', string='Usage Logs')
     usage_log_count = fields.Integer(compute='_compute_usage_log_count', string='Usage Count')
 
+    repair_order_ids = fields.One2many('repair.order', 'equipment_id',
+                                       string='Repair Orders')
+    repair_count = fields.Integer(compute='_compute_repair_count', string='Repair Count')
+
+    @api.depends('repair_order_ids')
+    def _compute_repair_count(self):
+        """Calculer le nombre de réparations liées"""
+        for request in self:
+            request.repair_count = len(request.repair_order_ids)
+
+    def action_view_repairs(self):
+        """Action pour afficher les réparations liées"""
+        self.ensure_one()
+
+        return {
+            'name': _('Repair Orders'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'repair.order',
+            'view_mode': 'tree,form',
+            'domain': [('equipment_id', '=', self.id)],
+            'context': {
+                'default_equipment_id': self.id,
+            },
+        }
     @api.depends('usage_log_ids')
     def _compute_duration_of_use(self):
         """Calculer la dernière durée d'utilisation enregistrée"""
