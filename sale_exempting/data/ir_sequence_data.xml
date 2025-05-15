@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="sequence_real_invoice" model="ir.sequence">
             <field name="name">Séquence Facture Réel</field>
             <field name="code">real.invoice</field>
