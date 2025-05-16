@@ -23,6 +23,7 @@
         'views/account_journal_views.xml',
         'views/product_view.xml',
         'views/stock_picking_type_views.xml',
+        'wizard/account_move_reversal_views.xml',
     ],
     'installable': True,
     'auto_install': False
