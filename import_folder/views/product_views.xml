@@ -7,9 +7,9 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='categ_id']" position="after">
-                <field name="is_animal"/>
+                <field name="is_animal" invisible="1"/>
                 <field name="gender" invisible="not is_animal"/>
-                <field name="is_eggs"/>
+                <field name="is_eggs" invisible="1"/>
             </xpath>
         </field>
     </record>
