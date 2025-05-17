@@ -26,8 +26,8 @@
                 <strong>Weight</strong>
             </th>
         </xpath>
-        <xpath expr="//table[@name='stock_move_table']//tbody//tr//td[3]"
-            position="after">
+        <xpath expr="//table[@name='stock_move_table']//tbody//tr"
+            position="inside">
             <td class="text-center" groups="sh_picking_weight.sh_weight_group_manage">
                 <span t-field="move.sh_weight" />
             </td>
@@ -51,7 +51,7 @@
     </template>
     <template id="sh_stock_report_delivery_aggregated_move_lines_inherit"
         inherit_id="stock.stock_report_delivery_aggregated_move_lines">
-        <xpath expr="//tr//td[3]" position="after">
+        <xpath expr="//tr//td[@name='move_line_aggregated_quantity']" position="after">
             <td class="text-center" groups="sh_picking_weight.sh_weight_group_manage">
                 <span t-esc="aggregated_lines[line]['sh_weight']" />
             </td>
