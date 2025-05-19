@@ -173,7 +173,7 @@
                                         <t t-if="o.company_id.state_id_2.name"><span t-field="o.company_id.state_id_2.name">, </span></t>
                                         <t t-if="o.company_id.zip_2"><span t-field="o.company_id.zip_2"></span></t>
                                         <t t-if="o.company_id.country_id_2.name"><span t-field="o.company_id.country_id_2.name"/></t><br/>
-                                        <t t-if="o.company_id.partner_id.industry_id" style="font-size:8pt !important">Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/></t> <br/><br/>
+                                        <t t-if="o.company_id.partner_id.industry_id" style="font-size:8pt !important">Secteur d'activité: <span t-field="o.company_id.partner_id.industry_id.name"/></t> <br/>
                                         <t t-if="o.company_id.rc_2"><span style="font-weight: 800;" >RC: <span style="font-weight: 900;" t-field="o.company_id.rc_2"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
                                         <t t-if="o.company_id.nif_2"><span style="font-weight: 800;" >NIF: <span style="font-weight: 900;" t-field="o.company_id.nif_2"/></span></t> <br/>
                                         <t t-if="o.company_id.nis_2"><span style="font-weight: 800;" >NIS: <span style="font-weight: 900;" t-field="o.company_id.nis_2"/></span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</t>
