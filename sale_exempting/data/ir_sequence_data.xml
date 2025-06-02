@@ -8,6 +8,23 @@
             <field name="padding">4</field>
             <field name="company_id" eval="False"/>
         </record>
+
+        <record id="sequence_fictitious_invoice_type_1" model="ir.sequence">
+            <field name="name">Séquence Facture Déclaré type 1</field>
+            <field name="code">real.invoice.fictitious.type1</field>
+            <field name="prefix">FN-</field>
+            <field name="suffix">/%(year)s</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="sequence_fictitious_invoice_type_2" model="ir.sequence">
+            <field name="name">Séquence Facture Déclaré Type 2</field>
+            <field name="code">real.invoice.fictitious.type2</field>
+            <field name="prefix">FP-</field>
+            <field name="padding">4</field>
+            <field name="suffix">/%(year)s</field>
+            <field name="company_id" eval="False"/>
+        </record>
         <record id="sequence_declared_transfer" model="ir.sequence">
             <field name="name">Séquence Transferts déclarés type_1</field>
             <field name="code">declared.transfer.type_1</field>

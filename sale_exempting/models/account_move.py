@@ -266,6 +266,10 @@ class AccountMove(models.Model):
                 delivery = self.env['stock.picking.fictitious'].search([('invoice_id', '=', self.id)])
                 if not delivery:
                     self.create_fictitious_delivery()
+                if self.invoice_id.sale_type == 'type_1':
+                    self.name = self.env['ir.sequence'].next_by_code('real.invoice.fictitious.type1') or _('New')
+                else:
+                    self.name = self.env['ir.sequence'].next_by_code('real.invoice.fictitious.type2') or _('New')
             if self.is_real and self.delivery_id and not self.is_fictitious:
                 list = self.delivery_id.name.rsplit('/')
                 sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
