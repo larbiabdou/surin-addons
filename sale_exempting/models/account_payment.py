@@ -15,6 +15,16 @@ class AccountPayment(models.Model):
         string='Is real',
         default="True",
         required=False)
+    payment_mode = fields.Selection(
+        string='Payment mode',
+        selection=[('check', 'Par chèque'),
+                   ('virement', 'Virement bancaire'),
+                   ('cash', 'Espèce'),
+                   ('bank', 'Versement bancaire'),
+                   ],
+        required=False)
+    virement_number = fields.Char(string='Numéro de virement')
+    versement_number = fields.Char(string='Numéro de versement')
 
     is_fictitious = fields.Boolean(
         string='Is fictitious',
