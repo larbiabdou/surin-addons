@@ -13,4 +13,18 @@
 
         </field>
     </record>
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">view_picking_form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="inside">
+                <field name="show_split_button" invisible="1"/>
+                <button name="action_split_picking" type="object" string="Séparer" invisible="not show_split_button"/>
+            </xpath>
+
+        </field>
+    </record>
 </odoo>

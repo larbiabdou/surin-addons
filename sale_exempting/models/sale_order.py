@@ -23,6 +23,19 @@ class SaleOrder(models.Model):
         string='Delivery_id',
         required=False)
 
+    def check_sale_types(self):
+        """Vérifie si la vente contient un seul ou plusieurs types de vente"""
+        sale_types = set()
+        for line in self.order_line:
+            if line.product_id and line.product_id.sale_type:
+                sale_types.add(line.product_id.sale_type)
+
+        return {
+            'count': len(sale_types),
+            'types': list(sale_types),
+            'has_multiple_types': len(sale_types) > 1
+        }
+
     @api.onchange('partner_id')
     def onchange_customer_id(self):
         for record in self:
@@ -49,16 +62,3 @@ class SaleOrder(models.Model):
         invoice_vals['is_fictitious'] = True if self.is_real == 'no' else False
         invoice_vals['delivery_id'] = self.delivery_id.id
         return invoice_vals
-
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     for vals in vals_list:
-    #         if vals.get('name', _("New")) == _("New"):
-    #             seq_date = fields.Datetime.context_timestamp(
-    #                 self, fields.Datetime.to_datetime(vals['date_order'])
-    #             ) if 'date_order' in vals else None
-    #             if 'is_real' in vals and vals['is_real'] == 'yes':
-    #                 vals['name'] = self.env['ir.sequence'].next_by_code(
-    #                     'sale.order.exempt', sequence_date=seq_date) or _("New")
-    #
-    #     return super().create(vals_list)
