@@ -139,10 +139,9 @@ class AccountMove(models.Model):
                     else:
                         sale_type = line.product_id.sale_type
 
-    @api.depends('is_real')
     def compute_customers_domain(self):
         for record in self:
-            record.customers_domain = False
+            record.customers_domain = self.env['res.partner'].search([])
             if record.move_type == 'out_invoice':
                 if record.is_real:
                     record.customers_domain = self.env['res.partner'].search([('is_real', '=', True)])
@@ -249,7 +248,7 @@ class AccountMove(models.Model):
                     {
                         'move_type': self.move_type,
                         'partner_id': False,
-                        'invoice_date': self.invoice_date,
+                        'invoice_date': fields.Date.today(),
                         'journal_id': journal_id.id,
                         'real_invoice_id': self.id,
                         'is_fictitious': True,
