@@ -410,50 +410,64 @@
 
                         </td>
                         <td style="border-left: 1px solid black !important;padding: 5px; width:50%; font-size:10pt !important">
+
                             <t t-if="o.is_fictitious == True">
                                 <t t-set="payments_vals"
                                    t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
-                                <t t-foreach="payments_vals" t-as="payment_vals">
-                                    <t t-set="payment"
-                                       t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
 
-                                    <span style="font-weight:800">Référence:</span>
-                                    <span t-esc="payment.name"/>
-                                    <br/>
+                                <t t-if="payment_vals">
+                                    <t t-foreach="payments_vals" t-as="payment_vals">
+                                        <t t-set="payment"
+                                           t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
+
+                                        <span style="font-weight:800">Référence:</span>
+                                        <span t-esc="payment.name"/>
+                                        <br/>
+                                        <t t-if="o.payment_mode">
+                                            <span style="font-weight:800">Mode de paiement &#160;:&#160;</span>
+                                            <span t-field="o.payment_mode"/>
+                                            <![CDATA[&nbsp;]]> Du
+                                            <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
+                                        </t>
+                                        <t t-else="">
+                                            <span style="font-weight:800">Date de paiement&#160;:</span>
+                                            <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
+                                        </t>
+                                        <br/>
+                                        <span style="font-weight:800">Montant&#160;:</span>
+                                        <span t-esc="payment_vals['amount']"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+
+                                        <!-- Affichage conditionnel des numéros selon le mode de paiement -->
+                                        <t t-if="payment.payment_mode == 'check' and payment.check_number">
+                                            <span style="font-weight:800">Numéro de chèque&#160;:</span>
+                                            <span t-esc="payment.check_number"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="payment.payment_mode == 'virement' and payment.virement_number">
+                                            <span style="font-weight:800">Numéro de virement&#160;:</span>
+                                            <span t-esc="payment.virement_number"/>
+                                            <br/>
+                                        </t>
+                                        <t t-if="payment.payment_mode == 'bank' and payment.versement_number">
+                                            <span style="font-weight:800">Numéro de versement&#160;:</span>
+                                            <span t-esc="payment.versement_number"/>
+                                            <br/>
+                                        </t>
+                                    </t>
+                                </t>
+                                <t t-else="">
                                     <t t-if="o.payment_mode">
                                         <span style="font-weight:800">Mode de paiement &#160;:&#160;</span>
                                         <span t-field="o.payment_mode"/>
-                                        <![CDATA[&nbsp;]]> Du
-                                        <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
-                                    </t>
-                                    <t t-else="">
-                                        <span style="font-weight:800">Date de paiement&#160;:</span>
-                                        <span t-esc="payment_vals['date']" t-options='{"widget": "date"}'/>
-                                    </t>
-                                    <br/>
-                                    <span style="font-weight:800">Montant&#160;:</span>
-                                    <span t-esc="payment_vals['amount']"
-                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-
-                                    <!-- Affichage conditionnel des numéros selon le mode de paiement -->
-                                    <t t-if="payment.payment_mode == 'check' and payment.check_number">
-                                        <span style="font-weight:800">Numéro de chèque&#160;:</span>
-                                        <span t-esc="payment.check_number"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="payment.payment_mode == 'virement' and payment.virement_number">
-                                        <span style="font-weight:800">Numéro de virement&#160;:</span>
-                                        <span t-esc="payment.virement_number"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="payment.payment_mode == 'bank' and payment.versement_number">
-                                        <span style="font-weight:800">Numéro de versement&#160;:</span>
-                                        <span t-esc="payment.versement_number"/>
-                                        <br/>
                                     </t>
                                 </t>
                             </t>
                             <t t-else="">
+                                <t t-if="o.payment_mode">
+                                    <span style="font-weight:800">Mode de paiement &#160;:&#160;</span>
+                                    <span t-field="o.payment_mode"/> <br/>
+                                </t>
                                 <strong>Due Date:</strong>
                                 <span t-field="o.invoice_date_due">2023-10-31</span>
                                 <br/>
