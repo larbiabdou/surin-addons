@@ -357,7 +357,8 @@ class AccountMoveLine(models.Model):
             else:
                 fictitious_invoice_lines = self.env['account.move.line'].search([('move_id.real_invoice_id', '=', record.move_id.id),
                                                                                  ('product_id', '=', record.product_id.id),
-                                                                                 ('product_id.detailed_type', '=', 'product')])
+                                                                                 ('product_id.detailed_type', '=', 'product'),
+                                                                                 ('move_id.state', '=', 'posted')])
                 if fictitious_invoice_lines:
                     record.remaining_qty_not_declared = record.quantity - sum(line.quantity for line in fictitious_invoice_lines)
                 else:
