@@ -245,23 +245,24 @@ class ImportFolder(models.Model):
             data = []
             for landed_cost in record.landed_costs_ids:
                 products = landed_cost.valuation_adjustment_lines.mapped('product_id')
-                for product in products:
-                    lines = landed_cost.valuation_adjustment_lines.filtered(lambda l: l.product_id == product)
-                    purchase_line = record.purchase_order_ids.order_line.filtered(lambda l: l.product_id == product)
+                purchase_lines = record.purchase_order_ids.order_line
+                i = 1
+                for line in purchase_lines:
+                    lines = landed_cost.valuation_adjustment_lines.filtered(lambda l: l.product_id == line.product_id and l.quantity == line.product_qty)
                     data.append([0, 0, {
-                        'product_name': product.name,
+                        'product_name': str(i) + ') ' + line.product_id.name,
                         'value': lines[0].quantity,
                         'title': _('Quantity')
                     }])
-                    if purchase_line:
-                        unit_price = purchase_line[0].price_unit
+                    if line:
+                        unit_price = line.price_unit
                         data.append([0, 0, {
-                            'product_name': product.name,
+                            'product_name': str(i) + ') ' + line.product_id.name,
                             'value': unit_price,
-                            'title': _('Purchase price in %s' % purchase_line[0].currency_id.name)
+                            'title': _('Purchase price in %s' % line.currency_id.name)
                         }])
                     data.append([0, 0, {
-                        'product_name': product.name,
+                        'product_name': str(i) + ') ' + line.product_id.name,
                         'value': lines[0].former_cost / lines[0].quantity,
                         'title': _('Converted price in %s' % lines[0].currency_id.name)
                     }])
@@ -269,16 +270,17 @@ class ImportFolder(models.Model):
                     for line in lines:
                         total_cost += (line.additional_landed_cost / lines[0].quantity)
                     data.append([0, 0, {
-                        'product_name': product.name,
+                        'product_name': str(i) + ') ' + line.product_id.name,
                         'value': total_cost,
                         'title': _('Total Cost in %s' % line[0].currency_id.name)
                     }])
                     final_cost = (lines[0].former_cost / lines[0].quantity) + total_cost
                     data.append([0, 0, {
-                        'product_name': product.name,
+                        'product_name': str(i) + ') ' + line.product_id.name,
                         'value': final_cost,
                         'title': _('Final cost in %s' % line[0].currency_id.name)
                     }])
+                    i += 1
             record.matrix_ids = data
 
 class LandedCostMatrix(models.Model):
@@ -291,6 +293,7 @@ class LandedCostMatrix(models.Model):
 
     value = fields.Float(
         string='Value',
+        digits=(16, 4),
         required=False)
 
     title = fields.Char(
