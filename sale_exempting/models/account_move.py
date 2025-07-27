@@ -77,6 +77,26 @@ class AccountMove(models.Model):
         compute="compute_remaining_qty",
         required=False, )
 
+    @api.depends('payment_state')
+    def _compute_payment_reference(self):
+        """Compute payment reference from linked payments"""
+        for move in self:
+            if move.move_type in ('out_invoice', 'in_invoice', 'out_refund', 'in_refund'):
+                # Récupérer SEULEMENT les paiements de CETTE facture
+                payments = self.env['account.payment'].search([
+                ]).filtered(lambda l: move.id in l.reconciled_invoice_ids.ids)
+
+                if payments:
+                    payment_names = payments.mapped('name')
+                    move.payment_reference = ', '.join(payment_names)
+                else:
+                    move.payment_reference = False
+            else:
+                move.payment_reference = False
+
+    def _inverse_payment_reference(self):
+        """Allow manual modification"""
+        pass
 
     def compute_has_group(self):
         for record in self:
