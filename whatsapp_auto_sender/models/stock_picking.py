@@ -9,13 +9,11 @@ class StockPicking(models.Model):
 
     def button_validate(self):
         """Override pour envoyer WhatsApp automatiquement lors de la confirmation"""
-        super(StockPicking, self).button_validate()
-
-        # Envoyer WhatsApp pour les factures clients uniquement
+        res = super(StockPicking, self).button_validate()
         for picking in self:
-                # Appeler la fonction générique d'envoi
             if picking.picking_type_id.code == 'outgoing':
                 self.env['whatsapp.auto.sender'].send_whatsapp_for_record(
                     model_name='stock.picking',
                     record_id=picking.id
                 )
+        return res

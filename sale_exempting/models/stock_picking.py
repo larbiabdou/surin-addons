@@ -1,3 +1,5 @@
+from pycparser.ply.yacc import resultlimit
+
 from odoo import api, fields, models
 
 
@@ -77,6 +79,7 @@ class StockPicking(models.Model):
         }
     def button_validate(self):
         # NOUVEAU: Vérification avant validation - séparer automatiquement si nécessaire
+
         if self.sale_id and self.sale_id.is_real == 'no':
             # Vérifier s'il y a plusieurs types dans ce picking
             sale_types = set()
@@ -89,13 +92,19 @@ class StockPicking(models.Model):
                 self.action_split_picking()
                 # Après séparation, valider seulement ce picking
                 # Les autres seront validés séparément
+        result = super(StockPicking, self).button_validate()
 
-        super(StockPicking, self).button_validate()
+        # ÉTAPE 3: Si la validation a réussi (pas de wizard de relicat), créer la facture
+        if result is True and self.state == 'done' and self.sale_id and not self.return_id:
+            self._create_invoice_after_validation()
 
+        # Si result n'est pas True, c'est un wizard (relicat, etc.) - le retourner tel quel
+        return result
+
+    def _create_invoice_after_validation(self):
         if self.sale_id:
             # Affecter ce picking comme delivery_id pour la facture
             self.sale_id.delivery_id = self.id
-
             # Créer une facture pour chaque transfert validé
             payment = self.env['sale.advance.payment.inv'].with_context({
                 'active_model': 'sale.order',
