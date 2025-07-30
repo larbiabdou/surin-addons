@@ -23,7 +23,7 @@
                         <button name="button_confirm" class="oe_highlight" type="object" string="Confirm" invisible="state != 'draft'"/>
                     <button name="action_close" class="oe_highlight" type="object" string="Close" invisible="state != 'in_progress'"/>
                     <button name="action_reopen" class="oe_highlight" type="object" string="Reopen" invisible="state != 'closed'"/>
-                        <button name="compute_landed_cost_matrix" type="object" string="ObjectButton"/>
+
                     <field name="landed_costs_visible" invisible="1"/>
 
                     <field name="state" widget="statusbar"/>

@@ -8,6 +8,18 @@
             <xpath expr="//button[@name='button_validate']" position="after">
                 <button name="button_reset_to_draft" type="object" string="Reset to draft" invisible="state != 'done'"/>
             </xpath>
+            <field name="date" position="after">
+                <field name="selective_cost_application"/>
+            </field>
+            <xpath expr="//field[@name='cost_lines']/tree/field[@name='account_id']" position="after">
+                <field name="product_ids"
+                       widget="many2many_tags"
+                       column_invisible="not parent.selective_cost_application"
+                       domain="[('id', 'in', available_products_domain)]"
+                       options="{'no_create': True}"/>
+                <field name="available_products_domain" column_invisible="1"/>
+            </xpath>
+
         </field>
     </record>
 </odoo>
