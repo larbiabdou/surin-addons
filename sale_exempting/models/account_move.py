@@ -280,6 +280,11 @@ class AccountMove(models.Model):
                         'invoice_line_ids': [(0, 0, line) for line in new_move_lines],
                     })
 
+    should_generate_new = fields.Boolean(
+        string=' should_generate_new',
+        default=True,
+        required=False)
+
     def action_post(self):
         super(AccountMove, self).action_post()
         if self.move_type == 'out_invoice':
@@ -288,36 +293,28 @@ class AccountMove(models.Model):
                 if not delivery:
                     self.create_fictitious_delivery()
 
-                # Vérifier si le name est déjà correctement formaté
-                should_generate_new = False
-
                 if self.sale_type == 'type_1':
                     # Récupérer le préfixe de la séquence type1
                     sequence_type1 = self.env['ir.sequence'].search(
                         [('code', '=', 'real.invoice.fictitious.type1')], limit=1)
                     prefix_type1 = sequence_type1.prefix if sequence_type1 else 'TYPE1/'
 
-                    # Vérifier si le name commence par le bon préfixe
-                    if not self.name or self.name == _('New') or not self.name.startswith(prefix_type1):
-                        should_generate_new = True
-
-                    if should_generate_new:
+                    if self.should_generate_new:
                         self.name = self.env['ir.sequence'].next_by_code('real.invoice.fictitious.type1') or _(
                             'New')
+                        self.should_generate_new = False
                 else:
                     # Récupérer le préfixe de la séquence type2
                     sequence_type2 = self.env['ir.sequence'].search(
                         [('code', '=', 'real.invoice.fictitious.type2')], limit=1)
                     prefix_type2 = sequence_type2.prefix if sequence_type2 else 'TYPE2/'
 
-                    # Vérifier si le name commence par le bon préfixe
-                    if not self.name or self.name == _('New') or not self.name.startswith(prefix_type2):
-                        should_generate_new = True
-
-                    if should_generate_new:
+                    if self.should_generate_new:
                         self.name = self.env['ir.sequence'].next_by_code('real.invoice.fictitious.type2') or _(
                             'New')
-            if self.is_real and self.delivery_id and not self.is_fictitious:
+                        self.should_generate_new = False
+
+            elif self.is_real and self.delivery_id and not self.is_fictitious:
                 list = self.delivery_id.name.rsplit('/')
                 sequence = self.env['ir.sequence'].search([('code', '=', 'real.invoice')], limit=1)
                 prefix = sequence[0]._get_prefix_suffix()[0]
