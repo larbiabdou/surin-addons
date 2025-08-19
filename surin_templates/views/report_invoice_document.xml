@@ -415,7 +415,7 @@
                                 <t t-set="payments_vals"
                                    t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
 
-                                <t t-if="payment_vals">
+                                <t t-if="payment_vals != []">
                                     <t t-foreach="payments_vals" t-as="payment_vals">
                                         <t t-set="payment"
                                            t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
@@ -466,7 +466,8 @@
                             <t t-else="">
                                 <t t-if="o.payment_mode">
                                     <span style="font-weight:800">Mode de paiement &#160;:&#160;</span>
-                                    <span t-field="o.payment_mode"/> <br/>
+                                    <span t-field="o.payment_mode"/>
+                                    <br/>
                                 </t>
                                 <strong>Due Date:</strong>
                                 <span t-field="o.invoice_date_due">2023-10-31</span>
