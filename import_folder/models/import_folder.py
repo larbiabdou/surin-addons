@@ -248,40 +248,39 @@ class ImportFolder(models.Model):
                 purchase_lines = record.purchase_order_ids.order_line
                 i = 1
                 for line in purchase_lines:
-                    lines = landed_cost.valuation_adjustment_lines.filtered(lambda l: l.product_id == line.product_id and l.quantity == line.product_qty)
-                    if lines:
+                    lines = landed_cost.valuation_adjustment_lines.filtered(lambda l: l.product_id == line.product_id and l.quantity == line.product_qty and l.product_id.detailed_type == 'product')
+                    data.append([0, 0, {
+                        'product_name': str(i) + ') ' + line.product_id.name,
+                        'value': lines[0].quantity,
+                        'title': _('Quantity')
+                    }])
+                    if line:
+                        unit_price = line.price_unit
                         data.append([0, 0, {
                             'product_name': str(i) + ') ' + line.product_id.name,
-                            'value': lines[0].quantity,
-                            'title': _('Quantity')
+                            'value': unit_price,
+                            'title': _('Purchase price in %s' % line.currency_id.name)
                         }])
-                        if line:
-                            unit_price = line.price_unit
-                            data.append([0, 0, {
-                                'product_name': str(i) + ') ' + line.product_id.name,
-                                'value': unit_price,
-                                'title': _('Purchase price in %s' % line.currency_id.name)
-                            }])
-                        data.append([0, 0, {
-                            'product_name': str(i) + ') ' + line.product_id.name,
-                            'value': lines[0].former_cost / lines[0].quantity,
-                            'title': _('Converted price in %s' % lines[0].currency_id.name)
-                        }])
-                        total_cost = 0
-                        for line in lines:
-                            total_cost += (line.additional_landed_cost / lines[0].quantity)
-                        data.append([0, 0, {
-                            'product_name': str(i) + ') ' + line.product_id.name,
-                            'value': total_cost,
-                            'title': _('Total Cost in %s' % line[0].currency_id.name)
-                        }])
-                        final_cost = (lines[0].former_cost / lines[0].quantity) + total_cost
-                        data.append([0, 0, {
-                            'product_name': str(i) + ') ' + line.product_id.name,
-                            'value': final_cost,
-                            'title': _('Final cost in %s' % line[0].currency_id.name)
-                        }])
-                        i += 1
+                    data.append([0, 0, {
+                        'product_name': str(i) + ') ' + line.product_id.name,
+                        'value': lines[0].former_cost / lines[0].quantity,
+                        'title': _('Converted price in %s' % lines[0].currency_id.name)
+                    }])
+                    total_cost = 0
+                    for line in lines:
+                        total_cost += (line.additional_landed_cost / lines[0].quantity)
+                    data.append([0, 0, {
+                        'product_name': str(i) + ') ' + line.product_id.name,
+                        'value': total_cost,
+                        'title': _('Total Cost in %s' % line[0].currency_id.name)
+                    }])
+                    final_cost = (lines[0].former_cost / lines[0].quantity) + total_cost
+                    data.append([0, 0, {
+                        'product_name': str(i) + ') ' + line.product_id.name,
+                        'value': final_cost,
+                        'title': _('Final cost in %s' % line[0].currency_id.name)
+                    }])
+                    i += 1
             record.matrix_ids = data
 
 class LandedCostMatrix(models.Model):
