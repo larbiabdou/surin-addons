@@ -245,7 +245,7 @@ class ImportFolder(models.Model):
             data = []
             for landed_cost in record.landed_costs_ids:
                 products = landed_cost.valuation_adjustment_lines.mapped('product_id')
-                purchase_lines = record.purchase_order_ids.order_line
+                purchase_lines = record.purchase_order_ids.order_line.filtered(lambda l: l.product_id.detailed_type == 'product')
                 i = 1
                 for line in purchase_lines:
                     lines = landed_cost.valuation_adjustment_lines.filtered(lambda l: l.product_id == line.product_id and l.quantity == line.product_qty and l.product_id.detailed_type == 'product')
