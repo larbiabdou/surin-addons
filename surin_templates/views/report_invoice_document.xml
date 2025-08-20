@@ -415,7 +415,7 @@
                                 <t t-set="payments_vals"
                                    t-value="o.sudo().invoice_payments_widget and o.sudo().invoice_payments_widget['content'] or []"/>
 
-                                <t t-if="payment_vals != []">
+                                <t t-if="len(payments_vals) > 0">
                                     <t t-foreach="payments_vals" t-as="payment_vals">
                                         <t t-set="payment"
                                            t-value="o.sudo().env['account.payment'].search([('id', '=', payment_vals['account_payment_id'])])"/>
