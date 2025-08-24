@@ -54,7 +54,6 @@ class AccountMove(models.Model):
 
     customers_domain = fields.Many2many(
         comodel_name='res.partner',
-        store=True,
         compute="compute_customers_domain")
 
     sale_type = fields.Selection(
@@ -160,7 +159,6 @@ class AccountMove(models.Model):
                     else:
                         sale_type = line.product_id.sale_type
 
-    @api.depends('is_real', 'move_type')
     def compute_customers_domain(self):
         for record in self:
             record.customers_domain = self.env['res.partner'].search([])
